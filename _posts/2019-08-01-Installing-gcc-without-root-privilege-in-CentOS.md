@@ -7,7 +7,7 @@ tags:
 published: true
 ---
 
-Sometimes one may find the version of the default gcc on CentOS might be out of date. Sometimes if your software need the support of a higher C++ standard you might receive error during your installation. However, without root privelige, the installation of the gcc will be painful.
+Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.
 
 <!-- more -->
 
