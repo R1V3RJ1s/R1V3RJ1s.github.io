@@ -43,7 +43,7 @@ $ ../configure --prefix=$HOME/software/gcc-7.4.0 --enable-languages=c,c++,fortra
 #   This command identifies which languages to build. 
 #   You may modify this command to remove undesired language
 #
-# Use the parameter -j[2-60] to allow multiprocessing
+# Use the parameter -j[n] to allow multiprocessing
 $ make -j60
 $ make install
 ```
