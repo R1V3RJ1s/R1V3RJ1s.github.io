@@ -3,7 +3,7 @@ layout: post
 title: Installing gcc without root privilege in CentOS
 category: linux
 tags: 
-  - configuration
+  - Configuration
 published: true
 ---
 
@@ -35,14 +35,14 @@ $ unset LIBRARY_PATH LD_LIBRARY_PATH
 # Change the prefix option accordingly if you want to install it somewhere else
 $ ../configure --prefix=$HOME/software/gcc-7.4.0 --enable-languages=c,c++,fortran,go --disable-multilib
 
-#   Notes on the parameters
-#   --disable-multilib: 
-#       This parameter will disable building 32-bit support on 64-bit systems.
-#   
-#   --enable-languages=c,c++,fortran,go,objc,obj-c++: 
-#       This command identifies which languages to build. You may modify this
-#       command to remove undesired language
-
+# Notes on the parameters
+# --disable-multilib: 
+#   This parameter will disable building 32-bit support on 64-bit systems.
+#
+# --enable-languages=c,c++,fortran,go,objc,obj-c++: 
+#   This command identifies which languages to build. 
+#   You may modify this command to remove undesired language
+#
 # Use the parameter -j[2-60] to allow multiprocessing
 $ make -j60
 $ make install
