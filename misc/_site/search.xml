@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+    <entry>
+      <title><![CDATA[Installing gcc without root privilege in CentOS]]></title>
+      <url>/linux/2019/08/01/Installing-gcc-without-root-privilege-in-CentOS/</url>
+      <content type="text"><![CDATA[Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.First, you need to download the source from a gcc mirror. For instance, you can go here and choose a gcc version whatever you like. I would recommend gcc-7.4.0 (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your ~/software directory. If you want it installed somewhere else, change the prefix option accordingly.  The make command could take around 3 hours, but you can use the parameter -j[n] to allow multiprocessing. With -j60 it will take less than half hour.$ cd $HOME# You can create a directory for managing installed softwares$ mkdir software# Replace all instances of gcc-7.4.0 with your own gcc version$ wget http://www.netgull.com/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz$ tar -xzf gcc-7.4.0.tar.gz$ cd gcc-7.4.0# Download and install all the prerequisites packages and libraries$ ./contrib/download_prerequisites $ cd ../software# Create the install directory$ mkdir gcc-7.4.0$ cd ../gcc-7.4.0# Create a directory to store temporary files created in configuration$ mkdir gcctemp$ cd gcctemp# Have to unset library path temporarily to install new gcc$ unset LIBRARY_PATH LD_LIBRARY_PATH# Change the prefix option accordingly if you want to install it somewhere else$ ../configure --prefix=$HOME/software/gcc-7.4.0 --enable-languages=c,c++,fortran,go --disable-multilib# Notes on the parameters# --disable-multilib: #   This parameter will disable building 32-bit support on 64-bit systems.## --enable-languages=c,c++,fortran,go,objc,obj-c++: #   This command identifies which languages to build. #   You may modify this command to remove undesired language## Use the parameter -j[n] to allow multiprocessing$ make -j60$ make installOptionally you can create a direcrtory to store the resource file.$ cd $HOME$ mkdir resource$ mv gcc-7.4.0 ~/resource/After make and make install you need to set the enviornment in your ~/.bashrc file.$ vi ~/.bashrcAdd following lines into your .bashrc file with the insert mode of your vim editor:$ export PATH=~/software/gcc-7.4.0/bin:$PATH$ export LD_LIBRARY_PATH=~/software/gcc-7.4.0/lib:$LD_LIBRARY_PATH$ export LD_LIBRARY_PATH=~/software/gcc-7.4.0/lib64:$LD_LIBRARY_PATHSave and exit your .bashrc file. Do following commands to check if your gcc is successfully installed.$ source ~/.bashrc$ g++ --versionIf it is successfully installed it should print following message:g++ (GCC) 7.4.0Copyright (C) 2017 Free Software Foundation, Inc.This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.Now gcc and g++ are successfully installed on your own server.]]></content>
+      <categories>
+        
+          <category> linux </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> Configuration </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
+      <title><![CDATA[MathJax with Jekyll]]></title>
+      <url>/opinion/2014/02/16/Mathjax-with-jekyll/</url>
+      <content type="text"><![CDATA[One of the rewards of switching my website to Jekyll is theability to support MathJax, which means I can write LaTeX-like equations that getnicely displayed in a web browser, like this one \( \sqrt{\frac{n!}{k!(n-k)!}} \) orthis one \( x^2 + y^2 = r^2 \).What’s MathJax?If you check MathJax website (www.mathjax.org) you’ll seethat it is an open source JavaScript display engine for mathematics that works in allbrowsers.How to implement MathJax with JekyllI followed the instructions described by Dason Kurkiewicz forusing Jekyll and Mathjax.Here are some important details. I had to modify the Ruby library for Markdown inmy _config.yml file. Now I’m using redcarpet so the corresponding line in theconfiguration file is: markdown: redcarpetTo load the MathJax javascript, I added the following lines in my layout post.html(located in my folder _layouts)&lt;script type="text/javascript"    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;Of course you can choose a different file location in your jekyll layouts.Note that by default, the tex2jax preprocessor defines theLaTeX math delimiters, which are \\(...\\) for in-line math, and \\[...\\] fordisplayed equations. It also defines the TeX delimiters $$...$$ for displayedequations, but it does not define $...$ as in-line math delimiters. To enable in-line math delimiter with $...$, please use the following configuration:&lt;script type="text/x-mathjax-config"&gt;MathJax.Hub.Config({  tex2jax: {    inlineMath: [['$','$'], ['\\(','\\)']],    processEscapes: true  }});&lt;/script&gt;&lt;script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"&gt;&lt;/script&gt;A Couple of ExamplesHere’s a short list of examples. To know more about the details behind MathJax, you canalways checked the provided documentation available athttp://docs.mathjax.org/en/latest/Let’s try a first example. Here’s a dummy equation:How do you write such expression? Very simple: using double dollar signs$$a^2 + b^2 = c^2$$To display inline math use \\( ... \\) like this \\( sin(x^2) \\) which getsrendered as \( sin(x^2) \)Here’s another example using type \mathsf$$ \mathsf{Data = PCs} \times \mathsf{Loadings} $$which gets displayed asOr even better:\\[ \mathbf{X} = \mathbf{Z} \mathbf{P^\mathsf{T}} \\]is displayed as\[ \mathbf{X} = \mathbf{Z} \mathbf{P^\mathsf{T}} \]If you want to use subscripts like this \( \mathbf{X}_{n,p} \) you need to scape theunderscores with a backslash like so \mathbf{X}\_{n,p}:$$ \mathbf{X}\_{n,p} = \mathbf{A}\_{n,k} \mathbf{B}\_{k,p} $$will be displayed as\[ \mathbf{X}_{n,p} = \mathbf{A}_{n,k} \mathbf{B}_{k,p} \]]]></content>
+      <categories>
+        
+          <category> opinion </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> resources </tag>
+        
+          <tag> jekyll </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+</search>
