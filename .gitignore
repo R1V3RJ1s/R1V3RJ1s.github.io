@@ -3,3 +3,4 @@
 *.log
 public/
 db.json
+node_modules/
