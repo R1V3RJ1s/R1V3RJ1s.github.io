@@ -1,17 +1,13 @@
 language: node_js
 node_js: stable
 
-# Travis-CI Caching
-cache:
-  directories:
-    - node_modules
-
 before_install:
 - npm install -g hexo-cli
+- npm install hexo --save
+- npm install hexo-deployer-git --save
 
 # S: Build Lifecycle
 install:
-  - npm install hexo-deployer-git --save
   - npm install
 
 before_script:

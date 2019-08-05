@@ -2,3 +2,4 @@
 .deploy*/
 *.log
 public/
+db.json
