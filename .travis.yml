@@ -6,10 +6,13 @@ cache:
   directories:
     - node_modules
 
+before_install:
+- npm install -g hexo-cli
 
 # S: Build Lifecycle
 install:
   - npm install hexo-deployer-git --save
+  - npm install
 
 before_script:
   - hexo clean 
