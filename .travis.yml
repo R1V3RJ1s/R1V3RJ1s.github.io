@@ -15,7 +15,7 @@ before_script:
   - hexo clean 
   - git config --global user.name "r1v3rj1s"
   - git config --global user.email "djieastgo@yahoo.com"
-  - sed -i "" "s#${GH_REF}#${GH_TOKEN}@${GH_REF}#g" _config.yml
+  - sed -i "s#${GH_REF}#${GH_TOKEN}@${GH_REF}#g" _config.yml
 
 script:
   - hexo g 
