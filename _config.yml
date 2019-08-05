@@ -81,3 +81,4 @@ deploy:
   type: git
   repo: https://github.com/R1V3RJ1s/r1v3rj1s.github.io.git
   branch: master
+  message: 'Excited!'
