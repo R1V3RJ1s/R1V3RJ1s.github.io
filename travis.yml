@@ -9,9 +9,10 @@ cache:
 
 # S: Build Lifecycle
 install:
-  - npm install hexo-deployer-git --save
+  - npm install
 
 before_script:
+  - npm install hexo-deployer-git --save
   - hexo clean 
 
 script:
