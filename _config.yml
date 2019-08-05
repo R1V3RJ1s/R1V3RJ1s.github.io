@@ -79,6 +79,6 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/R1V3RJ1s/r1v3rj1s.github.io.git
+  repo: https://github.com/R1V3RJ1s/r1v3rj1s.github.io
   branch: master
   message: 'Excited!'
