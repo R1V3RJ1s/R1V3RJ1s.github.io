@@ -39,6 +39,7 @@ $ ../configure --prefix=$HOME/software/gcc-7.4.0 --enable-languages=c,c++,fortra
 # Notes on the parameters
 # --prefix:
 #   This parameter specifies the installation path.
+#
 # --disable-multilib: 
 #   This parameter will disable building 32-bit support on 64-bit systems.
 #
