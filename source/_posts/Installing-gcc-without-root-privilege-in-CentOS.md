@@ -33,10 +33,12 @@ $ mkdir gcctemp
 $ cd gcctemp
 # Have to unset library path temporarily to install new gcc
 $ unset LIBRARY_PATH LD_LIBRARY_PATH
-# Change the prefix option accordingly if you want to install it somewhere else
+# Configuration
 $ ../configure --prefix=$HOME/software/gcc-7.4.0 --enable-languages=c,c++,fortran,go --disable-multilib
 
 # Notes on the parameters
+# --prefix:
+#   This parameter specifies the installation path.
 # --disable-multilib: 
 #   This parameter will disable building 32-bit support on 64-bit systems.
 #
@@ -67,7 +69,9 @@ Add following lines into your .bashrc file with the insert mode of your vim edit
 
 ```sh
 $ export PATH=~/software/gcc-7.4.0/bin:$PATH
-$ export LD_LIBRARY_PATH=~/software/gcc-7.4.0/lib:$LD_LIBRARY_PATH
+# If your server has a 32-bit system or 
+# you do not add the --disable-multilib parameter in the previous step 
+# you might need to adjust the $LD_LIBRARY_PATH to $GCC_PATH/lib instead of $GCC_PATH/lib64
 $ export LD_LIBRARY_PATH=~/software/gcc-7.4.0/lib64:$LD_LIBRARY_PATH
 ```
 Save and exit your .bashrc file. Do following commands to check if your gcc is successfully installed.  
