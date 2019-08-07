@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Installing gcc without root privilege in CentOS
-category: linux
+category:
+  - linux
 date: 2019-08-03 15:19:53
 tags: 
   - Configuration

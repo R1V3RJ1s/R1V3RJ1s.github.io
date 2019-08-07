@@ -1,8 +1,10 @@
 ---
 title: MathJax
 date: 2019-08-03 15:25:34
-categories: opinion
-tags: [resources, jekyll]
+categories:
+- opinion
+tags: 
+- [resources, jekyll]
 image: http://gastonsanategories:chez.com/images/blog/mathjax_logo.png
 published: true
 mathjax: true
