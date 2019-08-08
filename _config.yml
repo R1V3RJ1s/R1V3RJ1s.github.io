@@ -72,13 +72,22 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
+leancloud_counter_security:
+  enable_sync: true
+  app_id: 4355721232
+  app_key: 4358940072
+  username: 140071616237808
+  password: 140071616237936
 ## Themes: https://hexo.io/themes/
 theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
+-
   type: git
   repo: https://github.com/R1V3RJ1s/r1v3rj1s.github.io
   branch: master
   message: 'Excited!'
+-
+  type: leancloud_counter_security_sync
