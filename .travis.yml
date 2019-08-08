@@ -25,7 +25,3 @@ script:
 branches:
   only:
     - second-institute
-env:
- global:
-   - GH_REF: github.com/R1V3RJ1s/r1v3rj1s.github.io
-   - secure: "DWlIMfki1nPPStO2CxnRiKoU7heO28i7t6tPVTAoLHtVCpprrflt2UVDAj4s8uZJqlggf2I2P7Gmjctam9d/eTaFS6WiH5zH98pmAIc8NAl5DXOsgx1N8gLw92235VN33JUlNJK3RZ6GeMdZ/ougb4eazTpY0r4Wm55K9fJqo+yOPOvuinGainprPgMaH+4oLpmCiplA7wjb6yVAh/PKZhdkq5KS9cKXG51FhUBix0nleODbyZLtOO2WbtMFcxBzhpXQ9TzcUSmSCuxleatVFY1C8IrzirIeECG+Ky2gs0pAWAvgfTsihub2mr7IqrXiEqyaFbbcGi2DzUuzaV9H6FGy+V+JLIcLWhpB/6Ow5K56TJXeaYXRvot8ZqpuZc7ixQhvLk30ACbW/OJv+lTZD/4KyQNpw72n+5V2pMIxScXfgArCQO9r/YtS6WHojupuEZt1SkCHeuPfNAtaIN8lEqBsI90E3S7aZBt+wjOW4dulVJO8IJmEPix4y0WjqU9kGVKvM/wnomGfxqV2k72YF8B2RYlatQEHqnQwptP/PXP2RfeXNWkvzYevHZu+Ar9J+pkDIcUt/m/Pi9Ku8eKOu2GMmmWolxj9MUomaDoxdQvWY8uNpQG74MAs9mIm1LP1hqtQOZkNRzAI+f4qwZMyg9JZYVoQDbd9pvmXGJXlyIo="
