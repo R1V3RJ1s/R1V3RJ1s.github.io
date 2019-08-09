@@ -2,22 +2,22 @@ language: node_js
 node_js: stable
 
 before_install:
-- sed -i "s#${LC_CRITIQUE_TMP_ID}#${LC_CRITIQUE_ID}#g" themes/next/_config.yml
-- sed -i "s#${LC_CRITIQUE_TMP_KEY}#${LC_CRITIQUE_KEY}#g" themes/next/_config.yml
-- sed -i "s#${LC_VISITOR_TMP_ID}#${LC_VISITOR_ID}#g" themes/next/_config.yml
-- sed -i "s#${LC_VISITOR_TMP_KEY}#${LC_VISITOR_KEY}#g" themes/next/_config.yml
-- sed -i "s#${LC_VISITOR_TMP_ID}#${LC_VISITOR_ID}#g" _config.yml
-- sed -i "s#${LC_VISITOR_TMP_KEY}#${LC_VISITOR_KEY}#g" _config.yml
-- sed -i "s#${USER_TMP_ID}#${USER_ID}#g" _config.yml
-- sed -i "s#${LC_COUNTERSECURE_TMP_TOKEN}#${LC_COUNTERSECURE_TOKEN}#g" _config.yml
-- npm install babel-runtime@6
-- npm install -g hexo-cli
-- npm install hexo --save
-- npm install hexo-deployer-git --save
-- npm install hexo-leancloud-counter-security --save
+  - sed -i "s#${LC_CRITIQUE_TMP_ID}#${LC_CRITIQUE_ID}#g" themes/next/_config.yml
+  - sed -i "s#${LC_CRITIQUE_TMP_KEY}#${LC_CRITIQUE_KEY}#g" themes/next/_config.yml
+  - sed -i "s#${LC_VISITOR_TMP_ID}#${LC_VISITOR_ID}#g" themes/next/_config.yml
+  - sed -i "s#${LC_VISITOR_TMP_KEY}#${LC_VISITOR_KEY}#g" themes/next/_config.yml
+  - sed -i "s#${LC_VISITOR_TMP_ID}#${LC_VISITOR_ID}#g" _config.yml
+  - sed -i "s#${LC_VISITOR_TMP_KEY}#${LC_VISITOR_KEY}#g" _config.yml
+  - sed -i "s#${USER_TMP_ID}#${USER_ID}#g" _config.yml
+  - sed -i "s#${LC_COUNTERSECURE_TMP_TOKEN}#${LC_COUNTERSECURE_TOKEN}#g" _config.yml
 
 # S: Build Lifecycle
 install:
+  - npm install babel-runtime@6
+  - npm install -g hexo-cli
+  - npm install hexo --save
+  - npm install hexo-deployer-git --save
+  - npm install hexo-leancloud-counter-security --save
   - npm install
 
 before_script:
