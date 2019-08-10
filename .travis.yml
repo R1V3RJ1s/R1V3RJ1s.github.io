@@ -18,7 +18,6 @@ install:
   - npm install hexo --save
   - npm install hexo-deployer-git --save
   - npm install hexo-leancloud-counter-security --save
-  - npm install applicationinsights --save
   - npm install
 
 before_script:

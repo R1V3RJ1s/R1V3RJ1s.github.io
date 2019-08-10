@@ -752,7 +752,7 @@ cnzz_siteid:
 
 # Application Insights
 # See: https://azure.microsoft.com/en-us/services/application-insights
-application_insights: 98a4032c-6183-45a2-9b5f-8aaaa2747734
+application_insights: 
 
 # Post widgets & FB/VK comments settings.
 # ---------------------------------------------------------------
