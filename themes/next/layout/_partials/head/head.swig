@@ -4,19 +4,6 @@
 <meta name="theme-color" content="{{ theme.android_chrome_color }}">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-{%- if theme.google_analytics.tracking_id %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ theme.google_analytics.tracking_id }}"></script>
-  <script{{ pjax }}>
-    var host = window.location.hostname;
-    if (host !== "localhost" || !{{theme.google_analytics.localhost_ignored}}) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ theme.google_analytics.tracking_id }}');
-    }
-  </script>
-{%- endif %}
-
 {%- if theme.favicon.apple_touch_icon %}
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for(theme.favicon.apple_touch_icon) }}?v={{ version }}">
 {%- endif %}
@@ -137,4 +124,18 @@
       copy_failure: '{{__("post.copy_failure")}}'
     }
   };
+
+{%- if theme.google_analytics.tracking_id %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ theme.google_analytics.tracking_id }}"></script>
+  <script{{ pjax }}>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !{{theme.google_analytics.localhost_ignored}}) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ theme.google_analytics.tracking_id }}');
+    }
+  </script>
+{%- endif %}
+
 </script>
