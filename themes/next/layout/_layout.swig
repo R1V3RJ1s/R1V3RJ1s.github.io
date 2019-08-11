@@ -26,18 +26,7 @@
     {{ partial(inject_item.layout, inject_item.locals, inject_item.options) }}
   {%- endfor %}
   <title>{% block title %}{% endblock %}</title>
-    {%- if theme.google_analytics.tracking_id %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ theme.google_analytics.tracking_id }}"></script>
-  <script{{ pjax }}>
-    var host = window.location.hostname;
-    if (host !== "localhost" || !{{theme.google_analytics.localhost_ignored}}) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ theme.google_analytics.tracking_id }}');
-    }
-  </script>
-{%- endif %}
+  {% include '_third-party/analytics/index.swig' %}
   {{ partial('_scripts/noscript.swig', {}, {cache: theme.cache.enable}) }}
 </head>
 
