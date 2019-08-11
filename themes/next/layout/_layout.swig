@@ -26,7 +26,6 @@
     {{ partial(inject_item.layout, inject_item.locals, inject_item.options) }}
   {%- endfor %}
   <title>{% block title %}{% endblock %}</title>
-  {% include '_third-party/analytics/index.swig' %}
   {{ partial('_scripts/noscript.swig', {}, {cache: theme.cache.enable}) }}
 </head>
 
