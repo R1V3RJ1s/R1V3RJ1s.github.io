@@ -1,5 +1,4 @@
 {%- if theme.google_analytics.tracking_id %}
-  <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ theme.google_analytics.tracking_id }}"></script>
   <script{{ pjax }}>
     var host = window.location.hostname;
@@ -7,7 +6,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', '{{ theme.google_analytics.tracking_id }}');
     }
   </script>
