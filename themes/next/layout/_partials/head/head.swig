@@ -124,6 +124,7 @@
       copy_failure: '{{__("post.copy_failure")}}'
     }
   };
+</script>
 
 {%- if theme.google_analytics.tracking_id %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ theme.google_analytics.tracking_id }}"></script>
@@ -137,5 +138,3 @@
     }
   </script>
 {%- endif %}
-
-</script>
