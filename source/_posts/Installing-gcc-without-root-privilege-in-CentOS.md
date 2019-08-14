@@ -7,6 +7,7 @@ date: 2019-08-03 15:19:53
 tags: 
   - Configuration
 published: true
+copyright: true
 ---
 
 Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.
