@@ -8,6 +8,6 @@ Errors should never pass silently.
 1. Added Google Analytics tag.
 
 ## 1.0.2
-1. Added Copyright Info.
+1. Enabled Copyright footer.
 2. Enabled deploy history on GitHub.
 3. Fixed the update date display problem for the posts.
