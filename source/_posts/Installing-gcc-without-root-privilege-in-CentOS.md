@@ -94,6 +94,7 @@ This is free software; see the source for copying conditions. There is NO warran
 Now gcc and g++ are successfully installed on your own server.
 
 ## Troubleshooting
+
 1. Sometimes if you do `make` or `make install` in gcc download directory directly may cause error, so a better way is to create a new folder called `gcctemp` and do the congfiguration, building and installation step in this temporary folder.
 2. Remember to unset `LIBRARY_PATH` and `LD_LIBRARY_PATH` before configuration, or it will raise `LIBRARY_PATH shouldn't contain the current directory when building gcc` ERROR.
 3. In the configuration step, if you want to refer your `root` path in `--prefix` parameter you should use `$HOME` instead of `~`, or it will cause error.
