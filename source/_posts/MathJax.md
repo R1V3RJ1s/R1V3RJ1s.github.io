@@ -6,7 +6,7 @@ categories:
 tags: 
 - [resources, jekyll]
 image: http://gastonsanategories:chez.com/images/blog/mathjax_logo.png
-published: true
+published: false
 mathjax: true
 ---
 

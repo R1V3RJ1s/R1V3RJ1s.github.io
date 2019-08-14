@@ -18,7 +18,7 @@ Sometimes one may find the version of the default gcc on CentOS might be out of 
 
 First, you need to download the source from a gcc mirror. For instance, you can go [here](http://www.netgull.com/gcc/releases/) and choose a gcc version whatever you like. I would recommend [gcc-7.4.0](http://www.netgull.com/gcc/releases/gcc-7.4.0/) (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your `~/software` directory. If you want it installed somewhere else, change the prefix option accordingly. The whole step may take around 4 hours but you can allow multiprocessing in the building steps to shorten the duration.
 
-```sh
+{% codeblock lang:sh %}
 $ cd $HOME # pwd: ~
 # You can create a directory for managing installed softwares
 $ mkdir software
@@ -26,17 +26,17 @@ $ mkdir software
 $ wget http://www.netgull.com/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz
 $ tar -xzf gcc-7.4.0.tar.gz
 $ cd gcc-7.4.0 # pwd: ~/gcc-7.4.0
-```
+{% endcodeblock %}
 
 If you do not have all the prerequisites packages and libraries on your system or you are not sure about it, GCC can help you download and install them through `download_prerequisites`.
 
-```sh
+{% codeblock lang:sh %}
 $ ./contrib/download_prerequisites 
-```
+{% endcodeblock %}
 
 After download all the prerequisites we can head to the configuration step.
 
-```sh
+{% codeblock lang:sh %}
 $ cd ../software # pwd: ~/software
 # Create the install directory
 $ mkdir gcc7
@@ -48,53 +48,56 @@ $ cd gcctemp # pwd: ~/software/gcc7/gcctemp
 $ unset LIBRARY_PATH LD_LIBRARY_PATH
 # Configuration
 $ ../configure --prefix=$HOME/software/gcc-7.4.0 --enable-languages=c,c++,fortran,go --disable-multilib
-```
+{% endcodeblock %}
 
 The `--prefix` parameters specifies the installation path. The `--disable-multilib` parameter will disable building 32-bit support on 64-bit systems. The `--enable-languages` parameter identifies which languages to build. You can modify this command to remove undesired language. Potential languages you can choose to build or to remove are `c`, `c++`, `fortran`, `go`, `objc`(Objective-C) and `obj-c++`(Objective-C++). Usually we only need `c,c++,fortran,go` these four.
 
 Once the configuration is complete we can go to the building and installing step. The `make` command could take around 3 hours, but you can use the parameter `-j[n]` to allow multiprocessing. With `-j60` it will take less than half hour. 
 
-```sh
+{% codeblock lang:sh %}
 # Use the parameter -j[n] to allow multiprocessing
 $ make -j60
 $ make install
-```
+{% endcodeblock %}
 
 Optionally you can create a direcrtory to store the resource file.
 
-```sh
+{% codeblock lang:sh %}
 $ cd $HOME # pwd: ~
 $ mkdir resource
 $ mv gcc-7.4.0 ~/resource/
-```
+{% endcodeblock %}
 
 After make and make install you need to set the enviornment in your `.bashrc` file. 
 
-```sh
+{% codeblock lang:sh %}
 $ vi ~/.bashrc
-```
+{% endcodeblock %}
 
 Add following lines into your `.bashrc` file with the insert mode of your vim editor:
 
-```sh
+{% codeblock lang:sh %}
 $ export PATH=$HOME/software/gcc-7.4.0/bin:$PATH
 # If your server has a 32-bit system or 
 # you do not add the --disable-multilib parameter in the previous step 
 # you might need to adjust the $LD_LIBRARY_PATH to $GCC_PATH/lib instead of $GCC_PATH/lib64
 $ export LD_LIBRARY_PATH=$HOME/software/gcc-7.4.0/lib64:$LD_LIBRARY_PATH
-```
+{% endcodeblock %}
+
 Save and exit your `.bashrc` file. Do following commands to check if your gcc is successfully installed.  
-```sh
+
+{% codeblock lang:sh %}
 $ source ~/.bashrc
 $ g++ --version
-```
+{% endcodeblock %}
 
 If it is successfully installed it should print following message:
-```sh
+
+{% codeblock lang:sh %}
 g++ (GCC) 7.4.0
 Copyright (C) 2017 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-```
+{% endcodeblock %}
 
 Now gcc and g++ are successfully installed on your own server.
 
