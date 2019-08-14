@@ -2,10 +2,11 @@
 layout: post
 title: Installing gcc without root privilege in CentOS
 category:
-  - linux
+  - Server
 date: 2019-08-03 15:19:53
 tags: 
-  - Configuration
+  - CentOS
+  - Bash
 published: true
 copyright: true
 ---
@@ -13,9 +14,9 @@ copyright: true
 Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.
 
 <!-- more -->
-### Download, Configure, Build and Install
+### Main Steps
 
-First, you need to download the source from a gcc mirror. For instance, you can go [here](http://www.netgull.com/gcc/releases/) and choose a gcc version whatever you like. I would recommend [gcc-7.4.0](http://www.netgull.com/gcc/releases/gcc-7.4.0/) (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your ~/software directory. If you want it installed somewhere else, change the prefix option accordingly.  The make command could take around 3 hours, but you can use the parameter -j[n] to allow multiprocessing. With -j60 it will take less than half hour. 
+First, you need to download the source from a gcc mirror. For instance, you can go [here](http://www.netgull.com/gcc/releases/) and choose a gcc version whatever you like. I would recommend [gcc-7.4.0](http://www.netgull.com/gcc/releases/gcc-7.4.0/) (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your `~/software` directory. If you want it installed somewhere else, change the prefix option accordingly. The whole step may take around 4 hours but you can allow multiprocessing in the building steps to shorten the duration.
 
 ```sh
 $ cd $HOME # pwd: ~
@@ -25,8 +26,17 @@ $ mkdir software
 $ wget http://www.netgull.com/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz
 $ tar -xzf gcc-7.4.0.tar.gz
 $ cd gcc-7.4.0 # pwd: ~/gcc-7.4.0
-# Download and install all the prerequisites packages and libraries
+```
+
+If you do not have all the prerequisites packages and libraries on your system or you are not sure about it, GCC can help you download and install them through `download_prerequisites`.
+
+```sh
 $ ./contrib/download_prerequisites 
+```
+
+After download all the prerequisites we can head to the configuration step.
+
+```sh
 $ cd ../software # pwd: ~/software
 # Create the install directory
 $ mkdir gcc7
@@ -38,18 +48,13 @@ $ cd gcctemp # pwd: ~/software/gcc7/gcctemp
 $ unset LIBRARY_PATH LD_LIBRARY_PATH
 # Configuration
 $ ../configure --prefix=$HOME/software/gcc-7.4.0 --enable-languages=c,c++,fortran,go --disable-multilib
+```
 
-# Notes on the parameters
-# --prefix:
-#   This parameter specifies the installation path.
-#
-# --disable-multilib: 
-#   This parameter will disable building 32-bit support on 64-bit systems.
-#
-# --enable-languages=c,c++,fortran,go,objc,obj-c++: 
-#   This command identifies which languages to build. 
-#   You may modify this command to remove undesired language
-#
+The `--prefix` parameters specifies the installation path. The `--disable-multilib` parameter will disable building 32-bit support on 64-bit systems. The `--enable-languages` parameter identifies which languages to build. You can modify this command to remove undesired language. Potential languages you can choose to build or to remove are `c`, `c++`, `fortran`, `go`, `objc`(Objective-C) and `obj-c++`(Objective-C++). Usually we only need `c,c++,fortran,go` these four.
+
+Once the configuration is complete we can go to the building and installing step. The `make` command could take around 3 hours, but you can use the parameter `-j[n]` to allow multiprocessing. With `-j60` it will take less than half hour. 
+
+```sh
 # Use the parameter -j[n] to allow multiprocessing
 $ make -j60
 $ make install
@@ -63,13 +68,13 @@ $ mkdir resource
 $ mv gcc-7.4.0 ~/resource/
 ```
 
-After make and make install you need to set the enviornment in your ~/.bashrc file. 
+After make and make install you need to set the enviornment in your `.bashrc` file. 
 
 ```sh
 $ vi ~/.bashrc
 ```
 
-Add following lines into your .bashrc file with the insert mode of your vim editor:
+Add following lines into your `.bashrc` file with the insert mode of your vim editor:
 
 ```sh
 $ export PATH=$HOME/software/gcc-7.4.0/bin:$PATH
@@ -78,7 +83,7 @@ $ export PATH=$HOME/software/gcc-7.4.0/bin:$PATH
 # you might need to adjust the $LD_LIBRARY_PATH to $GCC_PATH/lib instead of $GCC_PATH/lib64
 $ export LD_LIBRARY_PATH=$HOME/software/gcc-7.4.0/lib64:$LD_LIBRARY_PATH
 ```
-Save and exit your .bashrc file. Do following commands to check if your gcc is successfully installed.  
+Save and exit your `.bashrc` file. Do following commands to check if your gcc is successfully installed.  
 ```sh
 $ source ~/.bashrc
 $ g++ --version
@@ -95,7 +100,7 @@ Now gcc and g++ are successfully installed on your own server.
 
 ### Troubleshooting
 
-1. Sometimes if you do `make` or `make install` in gcc download directory directly may cause error, so a better way is to create a new folder called `gcctemp` and do the congfiguration, building and installation step in this temporary folder.
+1. Sometimes if you do `make` or `make install` in gcc download directory directly may cause error, so a better way is to create a new folder called `gcctemp`, and do the congfiguration, building and installation step in this temporary folder.
 2. Remember to unset `LIBRARY_PATH` and `LD_LIBRARY_PATH` before configuration, or it will raise `LIBRARY_PATH shouldn't contain the current directory when building gcc` ERROR.
 3. In the configuration step, if you want to refer your `root` path in `--prefix` parameter you should use `$HOME` instead of `~`, or it will cause error.
 4. If you are installing gcc on a 64-bit system remember to add --disable-multilib flag, or it will cause error.
