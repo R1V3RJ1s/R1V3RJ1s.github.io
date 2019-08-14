@@ -56,14 +56,14 @@
 </script>
 
   <meta name="description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
-<meta name="keywords" content="Configuration">
+<meta name="keywords" content="CentOS,Bash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Installing gcc without root privilege in CentOS">
 <meta property="og:url" content="https://r1v3rj1s.github.io/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/index.html">
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-14T21:07:53.000Z">
+<meta property="og:updated_time" content="2019-08-14T21:39:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Installing gcc without root privilege in CentOS">
 <meta name="twitter:description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
@@ -275,7 +275,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-14 21:07:53" itemprop="dateModified" datetime="2019-08-14T21:07:53+00:00">2019-08-14</time>
+                <time title="修改时间：2019-08-14 21:39:06" itemprop="dateModified" datetime="2019-08-14T21:39:06+00:00">2019-08-14</time>
               </span>
             
           
@@ -287,7 +287,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Server/" itemprop="url" rel="index"><span itemprop="name">Server</span></a></span>
 
                 
                 
@@ -336,19 +336,29 @@
       
         <p>Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.</p>
 <a id="more"></a>
-<h3 id="Download-Configure-Build-and-Install"><a href="#Download-Configure-Build-and-Install" class="headerlink" title="Download, Configure, Build and Install"></a>Download, Configure, Build and Install</h3><p>First, you need to download the source from a gcc mirror. For instance, you can go <a href="http://www.netgull.com/gcc/releases/" target="_blank" rel="noopener">here</a> and choose a gcc version whatever you like. I would recommend <a href="http://www.netgull.com/gcc/releases/gcc-7.4.0/" target="_blank" rel="noopener">gcc-7.4.0</a> (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your ~/software directory. If you want it installed somewhere else, change the prefix option accordingly.  The make command could take around 3 hours, but you can use the parameter -j[n] to allow multiprocessing. With -j60 it will take less than half hour. </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span> <span class="comment"># pwd: ~</span></span><br><span class="line"><span class="comment"># You can create a directory for managing installed softwares</span></span><br><span class="line">$ mkdir software</span><br><span class="line"><span class="comment"># Replace all instances of gcc-7.4.0 with your own gcc version</span></span><br><span class="line">$ wget http://www.netgull.com/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz</span><br><span class="line">$ tar -xzf gcc-7.4.0.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> gcc-7.4.0 <span class="comment"># pwd: ~/gcc-7.4.0</span></span><br><span class="line"><span class="comment"># Download and install all the prerequisites packages and libraries</span></span><br><span class="line">$ ./contrib/download_prerequisites </span><br><span class="line">$ <span class="built_in">cd</span> ../software <span class="comment"># pwd: ~/software</span></span><br><span class="line"><span class="comment"># Create the install directory</span></span><br><span class="line">$ mkdir gcc7</span><br><span class="line">$ <span class="built_in">cd</span> ../gcc7 <span class="comment"># pwd: ~/software/gcc7</span></span><br><span class="line"><span class="comment"># Create a directory to store temporary files created in configuration</span></span><br><span class="line">$ mkdir gcctemp</span><br><span class="line">$ <span class="built_in">cd</span> gcctemp <span class="comment"># pwd: ~/software/gcc7/gcctemp</span></span><br><span class="line"><span class="comment"># Have to unset library path temporarily to install new gcc</span></span><br><span class="line">$ <span class="built_in">unset</span> LIBRARY_PATH LD_LIBRARY_PATH</span><br><span class="line"><span class="comment"># Configuration</span></span><br><span class="line">$ ../configure --prefix=<span class="variable">$HOME</span>/software/gcc-7.4.0 --<span class="built_in">enable</span>-languages=c,c++,fortran,go --<span class="built_in">disable</span>-multilib</span><br><span class="line"></span><br><span class="line"><span class="comment"># Notes on the parameters</span></span><br><span class="line"><span class="comment"># --prefix:</span></span><br><span class="line"><span class="comment">#   This parameter specifies the installation path.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># --disable-multilib: </span></span><br><span class="line"><span class="comment">#   This parameter will disable building 32-bit support on 64-bit systems.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># --enable-languages=c,c++,fortran,go,objc,obj-c++: </span></span><br><span class="line"><span class="comment">#   This command identifies which languages to build. </span></span><br><span class="line"><span class="comment">#   You may modify this command to remove undesired language</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Use the parameter -j[n] to allow multiprocessing</span></span><br><span class="line">$ make -j60</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
+<h3 id="Main-Steps"><a href="#Main-Steps" class="headerlink" title="Main Steps"></a>Main Steps</h3><p>First, you need to download the source from a gcc mirror. For instance, you can go <a href="http://www.netgull.com/gcc/releases/" target="_blank" rel="noopener">here</a> and choose a gcc version whatever you like. I would recommend <a href="http://www.netgull.com/gcc/releases/gcc-7.4.0/" target="_blank" rel="noopener">gcc-7.4.0</a> (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your <code>~/software</code> directory. If you want it installed somewhere else, change the prefix option accordingly. The whole step may take around 4 hours but you can allow multiprocessing in the building steps to shorten the duration.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span> <span class="comment"># pwd: ~</span></span><br><span class="line"><span class="comment"># You can create a directory for managing installed softwares</span></span><br><span class="line">$ mkdir software</span><br><span class="line"><span class="comment"># Replace all instances of gcc-7.4.0 with your own gcc version</span></span><br><span class="line">$ wget http://www.netgull.com/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz</span><br><span class="line">$ tar -xzf gcc-7.4.0.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> gcc-7.4.0 <span class="comment"># pwd: ~/gcc-7.4.0</span></span><br></pre></td></tr></table></figure>
+
+<p>If you do not have all the prerequisites packages and libraries on your system or you are not sure about it, GCC can help you download and install them through <code>download_prerequisites</code>.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./contrib/download_prerequisites</span><br></pre></td></tr></table></figure>
+
+<p>After download all the prerequisites we can head to the configuration step.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ../software <span class="comment"># pwd: ~/software</span></span><br><span class="line"><span class="comment"># Create the install directory</span></span><br><span class="line">$ mkdir gcc7</span><br><span class="line">$ <span class="built_in">cd</span> ../gcc7 <span class="comment"># pwd: ~/software/gcc7</span></span><br><span class="line"><span class="comment"># Create a directory to store temporary files created in configuration</span></span><br><span class="line">$ mkdir gcctemp</span><br><span class="line">$ <span class="built_in">cd</span> gcctemp <span class="comment"># pwd: ~/software/gcc7/gcctemp</span></span><br><span class="line"><span class="comment"># Have to unset library path temporarily to install new gcc</span></span><br><span class="line">$ <span class="built_in">unset</span> LIBRARY_PATH LD_LIBRARY_PATH</span><br><span class="line"><span class="comment"># Configuration</span></span><br><span class="line">$ ../configure --prefix=<span class="variable">$HOME</span>/software/gcc-7.4.0 --<span class="built_in">enable</span>-languages=c,c++,fortran,go --<span class="built_in">disable</span>-multilib</span><br></pre></td></tr></table></figure>
+
+<p>The <code>--prefix</code> parameters specifies the installation path. The <code>--disable-multilib</code> parameter will disable building 32-bit support on 64-bit systems. The <code>--enable-languages</code> parameter identifies which languages to build. You can modify this command to remove undesired language. Potential languages you can choose to build or to remove are <code>c</code>, <code>c++</code>, <code>fortran</code>, <code>go</code>, <code>objc</code>(Objective-C) and <code>obj-c++</code>(Objective-C++). Usually we only need <code>c,c++,fortran,go</code> these four.</p>
+<p>Once the configuration is complete we can go to the building and installing step. The <code>make</code> command could take around 3 hours, but you can use the parameter <code>-j[n]</code> to allow multiprocessing. With <code>-j60</code> it will take less than half hour. </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use the parameter -j[n] to allow multiprocessing</span></span><br><span class="line">$ make -j60</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
 
 <p>Optionally you can create a direcrtory to store the resource file.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span> <span class="comment"># pwd: ~</span></span><br><span class="line">$ mkdir resource</span><br><span class="line">$ mv gcc-7.4.0 ~/resource/</span><br></pre></td></tr></table></figure>
 
-<p>After make and make install you need to set the enviornment in your ~/.bashrc file. </p>
+<p>After make and make install you need to set the enviornment in your <code>.bashrc</code> file. </p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.bashrc</span><br></pre></td></tr></table></figure>
 
-<p>Add following lines into your .bashrc file with the insert mode of your vim editor:</p>
+<p>Add following lines into your <code>.bashrc</code> file with the insert mode of your vim editor:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> PATH=<span class="variable">$HOME</span>/software/gcc-7.4.0/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment"># If your server has a 32-bit system or </span></span><br><span class="line"><span class="comment"># you do not add the --disable-multilib parameter in the previous step </span></span><br><span class="line"><span class="comment"># you might need to adjust the $LD_LIBRARY_PATH to $GCC_PATH/lib instead of $GCC_PATH/lib64</span></span><br><span class="line">$ <span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$HOME</span>/software/gcc-7.4.0/lib64:<span class="variable">$LD_LIBRARY_PATH</span></span><br></pre></td></tr></table></figure>
 
-<p>Save and exit your .bashrc file. Do following commands to check if your gcc is successfully installed.  </p>
+<p>Save and exit your <code>.bashrc</code> file. Do following commands to check if your gcc is successfully installed.  </p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> ~/.bashrc</span><br><span class="line">$ g++ --version</span><br></pre></td></tr></table></figure>
 
 <p>If it is successfully installed it should print following message:</p>
@@ -356,7 +366,7 @@
 
 <p>Now gcc and g++ are successfully installed on your own server.</p>
 <h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><ol>
-<li>Sometimes if you do <code>make</code> or <code>make install</code> in gcc download directory directly may cause error, so a better way is to create a new folder called <code>gcctemp</code> and do the congfiguration, building and installation step in this temporary folder.</li>
+<li>Sometimes if you do <code>make</code> or <code>make install</code> in gcc download directory directly may cause error, so a better way is to create a new folder called <code>gcctemp</code>, and do the congfiguration, building and installation step in this temporary folder.</li>
 <li>Remember to unset <code>LIBRARY_PATH</code> and <code>LD_LIBRARY_PATH</code> before configuration, or it will raise <code>LIBRARY_PATH shouldn&#39;t contain the current directory when building gcc</code> ERROR.</li>
 <li>In the configuration step, if you want to refer your <code>root</code> path in <code>--prefix</code> parameter you should use <code>$HOME</code> instead of <code>~</code>, or it will cause error.</li>
 <li>If you are installing gcc on a 64-bit system remember to add –disable-multilib flag, or it will cause error.</li>
@@ -389,7 +399,9 @@
           
         
         <div class="post-tags">
-            <a href="/tags/Configuration/" rel="tag"># Configuration</a>
+            <a href="/tags/CentOS/" rel="tag"># CentOS</a>
+          
+            <a href="/tags/Bash/" rel="tag"># Bash</a>
           
         </div>
         <div class="post-nav">
@@ -498,7 +510,9 @@
         
           
         
-        <span class="site-state-item-count">2</span>
+          
+        
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -543,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Download-Configure-Build-and-Install"><span class="nav-number">1.</span> <span class="nav-text">Download, Configure, Build and Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Troubleshooting"><span class="nav-number">2.</span> <span class="nav-text">Troubleshooting</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-Steps"><span class="nav-number">1.</span> <span class="nav-text">Main Steps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Troubleshooting"><span class="nav-number">2.</span> <span class="nav-text">Troubleshooting</span></a></li></ol></div>
             
 
           </div>
