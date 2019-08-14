@@ -9,5 +9,5 @@ Errors should never pass silently.
 
 ## 1.0.2
 1. Added Copyright Info.
-2. Enabled deploy history on github.
-3. Fixed the post update time display problem.
+2. Enabled deploy history on GitHub.
+3. Fixed the update date display problem for the posts.
