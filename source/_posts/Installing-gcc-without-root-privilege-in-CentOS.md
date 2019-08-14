@@ -13,7 +13,7 @@ copyright: true
 Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.
 
 <!-- more -->
-## Download, Configure, Build and Install
+### Download, Configure, Build and Install
 
 First, you need to download the source from a gcc mirror. For instance, you can go [here](http://www.netgull.com/gcc/releases/) and choose a gcc version whatever you like. I would recommend [gcc-7.4.0](http://www.netgull.com/gcc/releases/gcc-7.4.0/) (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your ~/software directory. If you want it installed somewhere else, change the prefix option accordingly.  The make command could take around 3 hours, but you can use the parameter -j[n] to allow multiprocessing. With -j60 it will take less than half hour. 
 
@@ -93,7 +93,7 @@ This is free software; see the source for copying conditions. There is NO warran
 
 Now gcc and g++ are successfully installed on your own server.
 
-## Troubleshooting
+### Troubleshooting
 
 1. Sometimes if you do `make` or `make install` in gcc download directory directly may cause error, so a better way is to create a new folder called `gcctemp` and do the congfiguration, building and installation step in this temporary folder.
 2. Remember to unset `LIBRARY_PATH` and `LD_LIBRARY_PATH` before configuration, or it will raise `LIBRARY_PATH shouldn't contain the current directory when building gcc` ERROR.
