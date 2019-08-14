@@ -20,7 +20,7 @@ before_install:
   - "git ls-files -z | while read -d '' path; do touch -d \"$(git log -1 --format=\"@%ct\" \"$path\")\" \"$path\"; done"
 
   # Deploy history
-  - git clone --branch=master --single-branch https://github.com/${GH_REF}.git .deploy_git
+  - git clone --branch=master --single-branch https://${GH_REF}.git .deploy_git
 
 
 install:
