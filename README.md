@@ -4,10 +4,13 @@
 
 Errors should never pass silently.
 
-## 1.0.1
+## 1.0.0 08/09/2019 12:45
+1. Deployed on GitHub Pages through master branch formally.
+
+## 1.0.1 08/11/2019 21:28
 1. Added Google Analytics tag.
 
-## 1.0.2
+## 1.0.2 08/14/2019 00:44
 1. Enabled Copyright footer.
 2. Enabled deploy history on GitHub.
 3. Fixed the update date display problem for the posts.
