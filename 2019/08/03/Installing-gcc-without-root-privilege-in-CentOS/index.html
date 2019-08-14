@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-14T21:39:06.000Z">
+<meta property="og:updated_time" content="2019-08-14T21:46:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Installing gcc without root privilege in CentOS">
 <meta name="twitter:description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
@@ -275,7 +275,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-14 21:39:06" itemprop="dateModified" datetime="2019-08-14T21:39:06+00:00">2019-08-14</time>
+                <time title="修改时间：2019-08-14 21:46:47" itemprop="dateModified" datetime="2019-08-14T21:46:47+00:00">2019-08-14</time>
               </span>
             
           
@@ -340,7 +340,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span> <span class="comment"># pwd: ~</span></span><br><span class="line"><span class="comment"># You can create a directory for managing installed softwares</span></span><br><span class="line">$ mkdir software</span><br><span class="line"><span class="comment"># Replace all instances of gcc-7.4.0 with your own gcc version</span></span><br><span class="line">$ wget http://www.netgull.com/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz</span><br><span class="line">$ tar -xzf gcc-7.4.0.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> gcc-7.4.0 <span class="comment"># pwd: ~/gcc-7.4.0</span></span><br></pre></td></tr></table></figure>
 
 <p>If you do not have all the prerequisites packages and libraries on your system or you are not sure about it, GCC can help you download and install them through <code>download_prerequisites</code>.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./contrib/download_prerequisites</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./contrib/download_prerequisites </span><br></pre></td></tr></table></figure>
 
 <p>After download all the prerequisites we can head to the configuration step.</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ../software <span class="comment"># pwd: ~/software</span></span><br><span class="line"><span class="comment"># Create the install directory</span></span><br><span class="line">$ mkdir gcc7</span><br><span class="line">$ <span class="built_in">cd</span> ../gcc7 <span class="comment"># pwd: ~/software/gcc7</span></span><br><span class="line"><span class="comment"># Create a directory to store temporary files created in configuration</span></span><br><span class="line">$ mkdir gcctemp</span><br><span class="line">$ <span class="built_in">cd</span> gcctemp <span class="comment"># pwd: ~/software/gcc7/gcctemp</span></span><br><span class="line"><span class="comment"># Have to unset library path temporarily to install new gcc</span></span><br><span class="line">$ <span class="built_in">unset</span> LIBRARY_PATH LD_LIBRARY_PATH</span><br><span class="line"><span class="comment"># Configuration</span></span><br><span class="line">$ ../configure --prefix=<span class="variable">$HOME</span>/software/gcc-7.4.0 --<span class="built_in">enable</span>-languages=c,c++,fortran,go --<span class="built_in">disable</span>-multilib</span><br></pre></td></tr></table></figure>
@@ -411,8 +411,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2019/08/03/MathJax/" rel="prev" title="MathJax">
-                MathJax <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/13/Deploying-a-Hexo-NexT-Blog/" rel="prev" title="Deploying a Hexo NexT Blog">
+                Deploying a Hexo NexT Blog <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -472,7 +472,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -491,7 +491,7 @@
         
           
         
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -512,7 +512,7 @@
         
           
         
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
