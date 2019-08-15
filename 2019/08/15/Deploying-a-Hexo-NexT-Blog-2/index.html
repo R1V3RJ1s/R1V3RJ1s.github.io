@@ -55,18 +55,18 @@
   };
 </script>
 
-  <meta name="description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的基本配置。">
+  <meta name="description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。">
 <meta name="keywords" content="Git,Hexo,NexT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用Hexo在GitHub Pages上搭建个人Blog（二）: 基本配置">
+<meta property="og:title" content="用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置">
 <meta property="og:url" content="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/index.html">
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
-<meta property="og:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的基本配置。">
+<meta property="og:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-15T19:21:37.000Z">
+<meta property="og:updated_time" content="2019-08-15T23:37:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用Hexo在GitHub Pages上搭建个人Blog（二）: 基本配置">
-<meta name="twitter:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的基本配置。">
+<meta name="twitter:title" content="用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置">
+<meta name="twitter:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。">
   <link rel="canonical" href="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/">
 
 
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>用Hexo在GitHub Pages上搭建个人Blog（二）: 基本配置 | R1V3RJ's Blog</title>
+  <title>用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置 | R1V3RJ's Blog</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145419250-2"></script>
   <script>
@@ -242,7 +242,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">用Hexo在GitHub Pages上搭建个人Blog（二）: 基本配置
+          <h1 class="post-title" itemprop="name headline">用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置
 
               
             
@@ -262,7 +262,7 @@
                 
               
 
-              <time title="创建时间：2019-08-15 12:17:21 / 修改时间：19:21:37" itemprop="dateCreated datePublished" datetime="2019-08-15T12:17:21+00:00">2019-08-15</time>
+              <time title="创建时间：2019-08-15 12:17:21 / 修改时间：23:37:12" itemprop="dateCreated datePublished" datetime="2019-08-15T12:17:21+00:00">2019-08-15</time>
             </span>
           
             
@@ -286,7 +286,7 @@
           
 
           
-            <span id="/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/" class="post-meta-item leancloud_visitors" data-flag-title="用Hexo在GitHub Pages上搭建个人Blog（二）: 基本配置">
+            <span id="/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/" class="post-meta-item leancloud_visitors" data-flag-title="用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -324,8 +324,53 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的基本配置。</p>
+        <p>本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。</p>
 <a id="more"></a>
+
+<h4 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h4><p>此处我以最基本的HTTPS操作为例，想要追求更高安全性的朋友可以采取SSH操作模式，相关教程很多，此不赘述。</p>
+<ol>
+<li>注册一个GitHub账号</li>
+<li>点选GitHub网站右上角的<code>+</code>号选项卡里的<code>New Repository</code>选项，创建一个名为<code>本人GitHub用户名.github.io</code>的新仓库，此名即为你的GitHub Pages的链接地址。注意该仓库一定要选择为公开(<code>Public</code>)，不然个人页面会显示404错误。<code>Initialize this repository with a README</code>选项打钩，<code>Add .gitignore</code>和<code>Add a license</code>用默认的<code>None</code>即可。举例：我的GitHub用户名是R1V3RJ1S,我的仓库名即为<code>R1V3RJ1S.github.io</code></li>
+<li>在本地终端中设置你的git个人信息<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意双引号是必须的</span></span><br><span class="line">$ git config --global user.name <span class="string">"GitHub用户名"</span></span><br><span class="line">$ git config --global user.email <span class="string">"GitHub注册邮箱"</span></span><br></pre></td></tr></table></figure></li>
+<li>由于Hexo存在将源文件额外渲染成HTML网页文件的步骤，而GitHub Pages在使用默认地址的情况下只接受来自部署在master分支上的页面，因此此处有三个解决方案可选：<ul>
+<li>GitHub上的个人主页仓库只保留一个master分支用于存储渲染后的网页文件，Hexo生成的源文件，NexT主题文件，以及博客原稿等另存在本地。此方案优点在于配置简单，分支管理容易，而缺点在于源文件缺乏版本控制系统的管理，而由于修改的又主要都各式源文件，一旦出错，在缺乏版本控制系统帮助的情况下撤销原操作会是一个很麻烦的问题。而且这个方案做不到利用持续集成/持续部署（CI/CD）工具进行自动部署。</li>
+<li>GitHub上创建两个仓库，个人主页仓库用于存储渲染后的网页文件，个人主页源码仓库用于存储各式源文件，两个仓库都只存有master分支。这样本地仓库文件夹分别存网页文件和源文件。此方案优点同样在于配置简单，而且分支管理容易，还可以做到利用CI/CD工具进行自动部署。此方案的缺点在于要多创建一个仓库，两个仓库都要管理，不仅麻烦，还容易混淆。</li>
+<li>GitHub上的个人主页仓库创建两个分支：master分支用于存储渲染后的网页文件，pg-source分支用于同步存储各式源文件。本地仓库文件夹中储存且只储存Hexo生成的源文件，NexT主题文件，以及博客原稿等，不存储渲染后的网页文件。此方案优点在于只存在一个仓库，虽然有两个分支，但是实际操作上如果配置得当，基本只用在pg-source分支上进行操作，从而将混淆分支，造成源码丢失或者污染的的可能性降至最低。并且这个方案也可以做到利用CI/CD工具进行自动部署。而此方案缺点在于一旦分支混淆造成源码丢失，整个代码提交改动历史都有可能丢失（此问题会在后续文章提到，并提出解决方案），造成操作回撤困难。本人最后选择了这个方案，因为在利用CI/CD工具进行自动部署的情况下，此方案是最高效的。因此接下来我会用<strong>此方案</strong>作为例子。</li>
+</ul>
+</li>
+<li>点选个人主页仓库页面仓库内文件信息右上<code>Clone or download</code>选项，复制内含链接后在本地终端运行<code>git clone</code>命令将仓库内容复制到本地，此时本地会得到一个以个人网站地址为名的文件夹。进入此文件夹，创建，进入并上传pg-source分支。<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此链接格式应为https://github.com/本人GitHub用户名/GitHub个人博客地址.git</span></span><br><span class="line">$ git <span class="built_in">clone</span> 刚复制的链接</span><br><span class="line">$ <span class="built_in">cd</span> 个人主页仓库文件夹 <span class="comment"># 进入刚才下载的文件夹</span></span><br><span class="line">$ git checkout -b pg-source <span class="comment"># 创建并进入pg-source分支</span></span><br><span class="line">$ git branch <span class="comment"># 确认我们现在在pg-source分支，如果运行正确你会看到两行信息，分别是master和pg-source，其中pg-source前有星号（* pg-source），代表我们现在处在pg-source分支</span></span><br><span class="line">$ git push --<span class="built_in">set</span>-upstream origin pg-source <span class="comment"># 确认并上传pg-source分支</span></span><br></pre></td></tr></table></figure>
+刷新你的GitHub个人主页仓库页面，在仓库内文件信息左上Branch选项卡内应该此时能看到多了一个pg-source分支。</li>
+</ol>
+<h4 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h4><ol>
+<li>本地安装<code>Node.js</code>，去<code>Node.js</code>的<a href="https://nodejs.org" target="_blank" rel="noopener">官方网站</a>下载安装即可，但如果你喜欢的话，用<code>Homebrew</code>安装也行。</li>
+<li>终端中运行<code>node -v</code>和<code>npm -v</code>以测试Node.js和npm都已经成功安装<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node -v <span class="comment"># v10.16.1</span></span><br><span class="line">$ npm -v <span class="comment"># 6.10.3</span></span><br></pre></td></tr></table></figure></li>
+<li>安装Hexo命令行，创建Hexo框架源文件包，并将源文件移至本地个人主页仓库文件夹<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g <span class="comment"># 安装Hexo命令行</span></span><br><span class="line">$ hexo init blog_source <span class="comment"># 创建Hexo框架源文件包</span></span><br><span class="line">$ mv blog_source/* 个人主页仓库文件夹 <span class="comment"># 将源文件移至本地个人主页仓库文件夹</span></span><br><span class="line">$ rm -rf blog_source </span><br></pre></td></tr></table></figure></li>
+<li>在本地以调试模式尝试运行Hexo，如果成功的话在浏览器内输入<code>http://localhost:4000</code>应该会出现Hexo Landscape主题的博客页面<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> 个人主页仓库文件夹</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo server --debug <span class="comment"># 如果成功出现页面，即可按ctrl+C退出</span></span><br><span class="line">$ hexo clean <span class="comment"># 删除临时信息</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="初始化NexT"><a href="#初始化NexT" class="headerlink" title="初始化NexT"></a>初始化NexT</h4><ol>
+<li>下载NexT主题文件至主题文件夹内<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></li>
+<li>由于我们相当于是在一个Git仓库中又拉取了一个Git仓库，因此如果此时上传我们的本地文件到远程仓库服务器会提醒你要不要把NexT主题文件夹作为submodule上传进行管理，但由于submodule本身管理比较麻烦，外加到时候做自动部署的时候还需要额外步骤，增加部署失败概率，所以我直接将NexT文件夹里所有的Git信息都删除了。这样做的优点就是可以将其和我们自己的个人网站作为一个整体进行管理，减轻负担，但缺点是到时候NexT升级的时候需要重新下载和覆盖。不过好在NexT才更了一个大版本，所以这个应该暂时不会成为一个问题。<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/next</span><br><span class="line">$ rm -rf .git* <span class="comment"># 移除Git相关信息</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="初始配置文件"><a href="#初始配置文件" class="headerlink" title="初始配置文件"></a>初始配置文件</h4><p>现在我们基本的前置软件都已经安装好了。下一步便是变更初始配置以使得我们的Hexo博客可以用NexT主题，并将之部署在我们的GitHub Pages上。如同上一篇文章所提到，我们的网站存在两类配置文件，<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>。这两个文件都以<code>_config.yml</code>为名。其中，<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>在站点根目录下（<code>个人主页仓库文件夹/_config.yml</code>），<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>则在相应主题根目录下(比如NexT的<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>地址应该是<code>个人主页仓库文件夹/themes/next/_config.yml</code>)。因此我们需要如下操作：</p>
+<ol>
+<li>更改<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>将默认的主题文件指向NexT。<br> 1.1. 打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>。<br> 1.2. 找到<code>Extensions</code>类里的<code>Themes</code>子类，将底下的<code>theme: 默认主题</code> 改为<code>theme: next</code>，保存并退出。<br> 1.3. 如果成功的话，此时在终端输入<code>hexo server --debug</code>进入调试模式并打开<code>http://localhost:4000</code>应该已经能显示NexT主题的博客页面了。</li>
+<li>在<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>内添加部署信息，让hexo能部署在我们的GitHub Pages上<br> 2.1. 打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>。<br> 2.2. 找到<code>Deployment</code>类的，在<code>deploy:</code>底下添加如下信息： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">-</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/本人GitHub用户名/GitHub个人博客地址.git</span><br><span class="line">  branch: master</span><br><span class="line">  message: <span class="string">"一些信息"</span></span><br></pre></td></tr></table></figure></li>
+<li>尝试将网页部署至GitHub Pages服务器端<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 你的终端此时位置需要在个人主页仓库文件夹中</span></span><br><span class="line">$ npm install hexo-deployer-git --save</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo g </span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+如果成功的话，此时进入你的GitHub个人博客地址，应该就能看到和调试模式打开时候一样的页面了。</li>
+<li>创建.gitignore文件，将源码提交至GitHub服务器<br>如果一切顺利，那么恭喜，你的博客已经初步成型了，下一步是创建一个.gitignore文件，这个文件会告诉git命令哪些文件在提交代码和上传文件时是可以直接忽略的。<br> 4.1. 在个人主页仓库文件夹中创建.gitignore文件 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件内复制如下内容</span></span><br><span class="line">.DS_Store</span><br><span class="line">.deploy*/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">public/</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br></pre></td></tr></table></figure>
+ 4.2. 提交代码并上传文件 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">'一些信息'</span></span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h4><ul>
+<li>如果在任何含<code>npm install</code>的步骤出现问题，尤其报错<code>Permission Denied</code>时可以尝试改成管理员模式(sudo)下运行该命令。</li>
+<li>如果部署之后GitHub个人博客也一直报404错误，可以看看是否将<code>https</code>打成了<code>http</code>，又或者是否没有将仓库设置成公开</li>
+</ul>
+
     </div>
 
     
@@ -339,7 +384,7 @@
     <strong>本文作者： </strong>Runyang Jiang</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/" title="用Hexo在GitHub Pages上搭建个人Blog（二）: 基本配置">https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/</a>
+    <a href="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/" title="用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置">https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -401,8 +446,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -500,6 +554,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Git"><span class="nav-number">1.</span> <span class="nav-text">配置Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化Hexo"><span class="nav-number">2.</span> <span class="nav-text">初始化Hexo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化NexT"><span class="nav-number">3.</span> <span class="nav-text">初始化NexT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始配置文件"><span class="nav-number">4.</span> <span class="nav-text">初始配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可能遇到的问题"><span class="nav-number">5.</span> <span class="nav-text">可能遇到的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
