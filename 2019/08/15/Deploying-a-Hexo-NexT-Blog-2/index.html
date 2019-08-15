@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-15T23:37:12.000Z">
+<meta property="og:updated_time" content="2019-08-15T23:43:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置">
 <meta name="twitter:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。">
@@ -262,7 +262,7 @@
                 
               
 
-              <time title="创建时间：2019-08-15 12:17:21 / 修改时间：23:37:12" itemprop="dateCreated datePublished" datetime="2019-08-15T12:17:21+00:00">2019-08-15</time>
+              <time title="创建时间：2019-08-15 12:17:21 / 修改时间：23:43:55" itemprop="dateCreated datePublished" datetime="2019-08-15T12:17:21+00:00">2019-08-15</time>
             </span>
           
             
@@ -361,13 +361,13 @@
 <li>在<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>内添加部署信息，让hexo能部署在我们的GitHub Pages上<br> 2.1. 打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>。<br> 2.2. 找到<code>Deployment</code>类的，在<code>deploy:</code>底下添加如下信息： <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">-</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/本人GitHub用户名/GitHub个人博客地址.git</span><br><span class="line">  branch: master</span><br><span class="line">  message: <span class="string">"一些信息"</span></span><br></pre></td></tr></table></figure></li>
 <li>尝试将网页部署至GitHub Pages服务器端<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 你的终端此时位置需要在个人主页仓库文件夹中</span></span><br><span class="line">$ npm install hexo-deployer-git --save</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo g </span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
 如果成功的话，此时进入你的GitHub个人博客地址，应该就能看到和调试模式打开时候一样的页面了。</li>
-<li>创建.gitignore文件，将源码提交至GitHub服务器<br>如果一切顺利，那么恭喜，你的博客已经初步成型了，下一步是创建一个.gitignore文件，这个文件会告诉git命令哪些文件在提交代码和上传文件时是可以直接忽略的。<br> 4.1. 在个人主页仓库文件夹中创建.gitignore文件 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在文件内复制如下内容</span></span><br><span class="line">.DS_Store</span><br><span class="line">.deploy*/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">public/</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br></pre></td></tr></table></figure>
+<li>创建.gitignore文件，将源码提交至GitHub服务器<br>如果一切顺利，那么恭喜，你的博客已经初步成型了，下一步是创建一个<code>.gitignore</code>文件，这个文件会告诉git命令哪些文件在提交代码和上传文件时是可以直接忽略的。<br> 4.1. 在个人主页仓库文件夹中创建<code>.gitignore</code>文件 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在.gitignore文件内复制如下内容</span></span><br><span class="line">.DS_Store</span><br><span class="line">.deploy*/</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">public/</span><br><span class="line">db.json</span><br><span class="line">node_modules/</span><br></pre></td></tr></table></figure>
  4.2. 提交代码并上传文件 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">'一些信息'</span></span><br><span class="line">$ git push</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
 <h4 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h4><ul>
-<li>如果在任何含<code>npm install</code>的步骤出现问题，尤其报错<code>Permission Denied</code>时可以尝试改成管理员模式(sudo)下运行该命令。</li>
+<li>如果在任何含<code>npm install</code>的步骤出现问题，尤其报错<code>Permission Denied</code>时可以尝试改成在管理员模式(sudo)下运行该命令。</li>
 <li>如果部署之后GitHub个人博客也一直报404错误，可以看看是否将<code>https</code>打成了<code>http</code>，又或者是否没有将仓库设置成公开</li>
 </ul>
 
