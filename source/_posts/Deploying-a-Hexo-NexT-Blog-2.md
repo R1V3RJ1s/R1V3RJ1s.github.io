@@ -104,10 +104,10 @@ $ hexo d
 {% endcodeblock %}
 如果成功的话，此时进入你的GitHub个人博客地址，应该就能看到和调试模式打开时候一样的页面了。
 4. 创建.gitignore文件，将源码提交至GitHub服务器
-如果一切顺利，那么恭喜，你的博客已经初步成型了，下一步是创建一个.gitignore文件，这个文件会告诉git命令哪些文件在提交代码和上传文件时是可以直接忽略的。
-    4.1. 在个人主页仓库文件夹中创建.gitignore文件
+如果一切顺利，那么恭喜，你的博客已经初步成型了，下一步是创建一个`.gitignore`文件，这个文件会告诉git命令哪些文件在提交代码和上传文件时是可以直接忽略的。
+    4.1. 在个人主页仓库文件夹中创建`.gitignore`文件
     {% codeblock lang:sh %}
-    # 在文件内复制如下内容
+    # 在.gitignore文件内复制如下内容
     .DS_Store
     .deploy*/
     *.log
@@ -123,5 +123,5 @@ $ hexo d
     {% endcodeblock %}
 
 #### 可能遇到的问题
-* 如果在任何含`npm install`的步骤出现问题，尤其报错`Permission Denied`时可以尝试改成管理员模式(sudo)下运行该命令。
+* 如果在任何含`npm install`的步骤出现问题，尤其报错`Permission Denied`时可以尝试改成在管理员模式(sudo)下运行该命令。
 * 如果部署之后GitHub个人博客也一直报404错误，可以看看是否将`https`打成了`http`，又或者是否没有将仓库设置成公开
