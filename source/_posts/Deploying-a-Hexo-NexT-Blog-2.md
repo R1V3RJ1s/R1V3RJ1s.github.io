@@ -70,10 +70,10 @@ $ hexo clean # 删除临时信息
 {% codeblock lang:sh %}
 $ git clone https://github.com/theme-next/hexo-theme-next themes/next
 {% endcodeblock %}
-2. 由于我们相当于是在一个git仓库中又拉取了一个git仓库，因此如果此时上传我们的本地文件到远程仓库服务器会提醒你要不要把NexT主题文件夹作为submodule上传进行管理，但由于submodule本身管理比较麻烦，外加到时候做自动部署的时候还需要额外步骤，增加部署失败概率，所以我直接将NexT文件夹里所有的git信息都删除了。这样做的优点就是可以将其和我们自己的个人网站作为一个整体进行管理，减轻负担，但缺点是到时候NexT升级的时候需要重新下载和覆盖。不过好在NexT才更了一个大版本，所以这个应该暂时不会成为一个问题。
+2. 由于我们相当于是在一个Git仓库中又拉取了一个Git仓库，因此如果此时上传我们的本地文件到远程仓库服务器会提醒你要不要把NexT主题文件夹作为submodule上传进行管理，但由于submodule本身管理比较麻烦，外加到时候做自动部署的时候还需要额外步骤，增加部署失败概率，所以我直接将NexT文件夹里所有的Git信息都删除了。这样做的优点就是可以将其和我们自己的个人网站作为一个整体进行管理，减轻负担，但缺点是到时候NexT升级的时候需要重新下载和覆盖。不过好在NexT才更了一个大版本，所以这个应该暂时不会成为一个问题。
 {% codeblock lang:sh %}
 $ cd themes/next
-$ rm -rf .git* # 移除git相关信息
+$ rm -rf .git* # 移除Git相关信息
 {% endcodeblock %}
 
 #### 初始配置文件
