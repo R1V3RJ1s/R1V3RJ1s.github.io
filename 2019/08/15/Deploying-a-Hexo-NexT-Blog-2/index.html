@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-16T04:10:45.000Z">
+<meta property="og:updated_time" content="2019-08-16T05:02:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置">
 <meta name="twitter:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第二篇，主要内容是介绍本博客的前置要求和初始化配置。">
@@ -275,7 +275,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-16 04:10:45" itemprop="dateModified" datetime="2019-08-16T04:10:45+00:00">2019-08-16</time>
+                <time title="修改时间：2019-08-16 05:02:15" itemprop="dateModified" datetime="2019-08-16T05:02:15+00:00">2019-08-16</time>
               </span>
             
           
@@ -341,7 +341,7 @@
 <ol>
 <li>注册一个GitHub账号</li>
 <li>点选GitHub网站右上角的<code>+</code>号选项卡里的<code>New Repository</code>选项，创建一个名为<code>本人GitHub用户名.github.io</code>的新仓库，此名即为你的GitHub Pages的链接地址。注意该仓库一定要选择为公开(<code>Public</code>)，不然个人页面会显示404错误。<code>Initialize this repository with a README</code>选项打钩，<code>Add .gitignore</code>和<code>Add a license</code>用默认的<code>None</code>即可。举例：我的GitHub用户名是R1V3RJ1S,我的仓库名即为<code>R1V3RJ1S.github.io</code></li>
-<li>在本地终端中设置你的git个人信息<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意双引号是必须的</span></span><br><span class="line">$ git config --global user.name <span class="string">"GitHub用户名"</span></span><br><span class="line">$ git config --global user.email <span class="string">"GitHub注册邮箱"</span></span><br><span class="line"><span class="comment"># 可以通过 git config --get 来验证我们的个人新设置是否正确,注意此处返回值则无双引号</span></span><br><span class="line">$ git config --get user.name <span class="comment"># GitHub用户名</span></span><br><span class="line">$ git config --get user.email <span class="comment"># GitHub注册邮箱</span></span><br></pre></td></tr></table></figure></li>
+<li>在本地终端中设置你的git个人信息<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意双引号是必须的</span></span><br><span class="line">$ git config --global user.name <span class="string">"GitHub用户名"</span></span><br><span class="line">$ git config --global user.email <span class="string">"GitHub注册邮箱"</span></span><br><span class="line"><span class="comment"># 可以通过 git config --get 来验证我们的设置是否正确,注意此处返回值则无双引号</span></span><br><span class="line">$ git config --get user.name <span class="comment"># GitHub用户名</span></span><br><span class="line">$ git config --get user.email <span class="comment"># GitHub注册邮箱</span></span><br></pre></td></tr></table></figure></li>
 <li>由于Hexo存在将源文件额外渲染成HTML网页文件的步骤，而GitHub Pages在使用默认地址的情况下只接受来自部署在master分支上的页面，因此此处有三个解决方案可选：<ul>
 <li>GitHub上的个人主页仓库只保留一个master分支用于存储渲染后的网页文件，Hexo生成的源文件，NexT主题文件，以及博客原稿等另存在本地。此方案优点在于配置简单，分支管理容易，而缺点在于源文件缺乏版本控制系统的管理，而由于修改的又主要都各式源文件，一旦出错，在缺乏版本控制系统帮助的情况下撤销原操作会是一个很麻烦的问题。而且这个方案做不到利用持续集成/持续部署（CI/CD）工具进行自动部署。</li>
 <li>GitHub上创建两个仓库，个人主页仓库用于存储渲染后的网页文件，个人主页源码仓库用于存储各式源文件，两个仓库都只存有master分支。这样本地仓库文件夹分别存网页文件和源文件。此方案优点同样在于配置简单，而且分支管理容易，还可以做到利用CI/CD工具进行自动部署。此方案的缺点在于要多创建一个仓库，两个仓库都要管理，不仅麻烦，还容易混淆。</li>
