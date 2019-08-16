@@ -25,6 +25,9 @@ published: true
 # 注意双引号是必须的
 $ git config --global user.name "GitHub用户名"
 $ git config --global user.email "GitHub注册邮箱"
+# 可以通过 git config --get 来验证我们的个人新设置是否正确,注意此处返回值则无双引号
+$ git config --get user.name # GitHub用户名
+$ git config --get user.email # GitHub注册邮箱
 {% endcodeblock %}
 4. 由于Hexo存在将源文件额外渲染成HTML网页文件的步骤，而GitHub Pages在使用默认地址的情况下只接受来自部署在master分支上的页面，因此此处有三个解决方案可选：
     * GitHub上的个人主页仓库只保留一个master分支用于存储渲染后的网页文件，Hexo生成的源文件，NexT主题文件，以及博客原稿等另存在本地。此方案优点在于配置简单，分支管理容易，而缺点在于源文件缺乏版本控制系统的管理，而由于修改的又主要都各式源文件，一旦出错，在缺乏版本控制系统帮助的情况下撤销原操作会是一个很麻烦的问题。而且这个方案做不到利用持续集成/持续部署（CI/CD）工具进行自动部署。
@@ -117,6 +120,8 @@ $ hexo d
     {% endcodeblock %}
     4.2. 提交代码并上传文件
     {% codeblock lang:sh %}
+    # 确认我们现在在pg-source分支
+    $ git branch # * pg-source
     $ git add .
     $ git commit -m '一些信息'
     $ git push
