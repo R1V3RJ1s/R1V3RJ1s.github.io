@@ -25,7 +25,7 @@ published: true
 # 注意双引号是必须的
 $ git config --global user.name "GitHub用户名"
 $ git config --global user.email "GitHub注册邮箱"
-# 可以通过 git config --get 来验证我们的个人新设置是否正确,注意此处返回值则无双引号
+# 可以通过 git config --get 来验证我们的设置是否正确,注意此处返回值则无双引号
 $ git config --get user.name # GitHub用户名
 $ git config --get user.email # GitHub注册邮箱
 {% endcodeblock %}
