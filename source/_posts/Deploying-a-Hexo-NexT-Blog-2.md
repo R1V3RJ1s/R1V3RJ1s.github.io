@@ -84,7 +84,7 @@ $ rm -rf .git* # 移除Git相关信息
 现在我们基本的前置软件都已经安装好了。下一步便是变更初始配置以使得我们的Hexo博客可以用NexT主题，并将之部署在我们的GitHub Pages上。如同上一篇文章所提到，我们的网站存在两类配置文件，<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>。这两个文件都以`_config.yml`为名。其中，<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>在站点根目录下（`个人主页仓库文件夹/_config.yml`），<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>则在相应主题根目录下(比如NexT的<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>地址应该是`个人主页仓库文件夹/themes/next/_config.yml`)。因此我们需要如下操作：
 1. 更改<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>将默认的主题文件指向NexT。
     1.1. 打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>。
-    1.2. 找到`Extensions`类里的`Themes`子类，将底下的`theme: 默认主题` 改为`theme: next`，保存并退出。
+    1.2. 找到`Extensions`类里的`Themes`子类，将底下的`theme: 默认主题（一般为landscape）` 改为`theme: next`，保存并退出。
     1.3. 如果成功的话，此时在终端输入`hexo server --debug`进入调试模式并打开`http://localhost:4000`应该已经能显示NexT主题的博客页面了。
 2. 在<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>内添加部署信息，让hexo能部署在我们的GitHub Pages上
     2.1. 打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>。
