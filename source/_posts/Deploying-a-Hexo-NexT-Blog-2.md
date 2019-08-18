@@ -1,5 +1,5 @@
 ---
-title: "用Hexo在GitHub Pages上搭建个人Blog（二）: 前置要求和初始化配置"
+title: "利用GitHub Pages搭建个人Blog（二）: 先决要求和初始化配置"
 copyright: true
 date: 2019-08-15 12:17:21
 tags: 

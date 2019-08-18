@@ -1,6 +1,5 @@
 ---
-layout: post
-title: "用Hexo在GitHub Pages上搭建个人Blog（一）: 目标和策略"
+title: "利用GitHub Pages搭建个人Blog（一）: 目标和策略"
 category:
   - Blog
 date: 2019-08-13 20:49:44
