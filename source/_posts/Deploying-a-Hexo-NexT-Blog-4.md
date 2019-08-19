@@ -19,6 +19,34 @@ published: true
 
 #### 自动部署的基本过程
 
+{% codeblock lang:sh %}
+language: node_js
+node_js: stable
+
+
+install:
+  - npm install babel-runtime@6
+  - npm install -g hexo-cli
+  - npm install hexo --save
+  - npm install hexo-deployer-git --save
+  - npm install hexo-leancloud-counter-security --save
+  - npm install
+
+
+before_script:
+  - hexo clean 
+
+
+script:
+  - hexo g 
+  - hexo d
+
+
+branches:
+  only:
+    - pg-source
+{% endcodeblock %}
+
 #### 加密部署方案
 
 #### commit历史恢复问题解决方案
