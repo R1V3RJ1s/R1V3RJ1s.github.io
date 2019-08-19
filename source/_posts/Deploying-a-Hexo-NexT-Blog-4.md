@@ -53,7 +53,28 @@ script:
 
 #### 加密部署方案
 
-现在代码主体部分已经写好了，不过接下来的问题就是在无法输入密码的情况下如何通过GitHub的安全审查，以及
+现在代码主体部分已经写好了，不过接下来的问题就是如何在无法输入密码的情况下如何通过GitHub的安全审查。第一时间想到的是GitHub提供的Personal Access Token，但是把Token以明文形式直接写在`.travis.yml`里面实在是过于危险，因为这个Token的权限很高。经过查询，发现而Travis CI是支持对Token进行哈希加密的，而且步骤也很简单。先获取GitHub Personal Access Token；然后本地安装Travis命令行工具进行加密并将加密后的Token保存至`.travis.yml`文件中；最后配置文件在相应位置替换这个Token即可。具体操作如下：
+1. 前往Github右上角`+`号选项卡进入`Settings`页面，在左侧选择`Developer settings`后再在左侧点选`Personal Access Token`，然后在右侧面板点击`Generate new token`来新建一个Token。`Note`可以随便起。你可以简单描述一下这个Token干的事，比如`Travis CI deployment`之类。`Select scopes`中勾选`repo`和`admin:repo_hook`两类功能即可。需要注意的是，创建完的Token只有第一次可见，之后再访问就无法看见（只能看见他的名称），因此要在一个安全的地方保存好这个值。
+2. 在GitHub上创建完并获得Token之后，接着需要在本地安装Travis命令行工具来对你的Token进行加密。这个工具需要`Ruby`环境，`macOS`用户如果没有的话上可以使用`Homebrew`来安装，这里我不做更多展开。具体命令如下：
+{% codeblock lang:sh %}
+# 假设你已经安装好了ruby和gem包管理工具
+# 安装 Travis CI 命令行工具
+$ gem install travis
+
+# 登录Travis CI
+$ travis login #你需要输入你登录Travis CI的账号密码，如果你使用GitHub登录的那么这个登录信息就是你的GitHub的登录信息
+
+# 加密 Personal Access Token
+$ travis encrypt -r R1V3RJ1s/r1v3rj1s.github.io GITHUB_TOKEN=XXX # -r后的参数是你的GitHub个人主页仓库的名字（用户名/仓库名）
+{% endcodeblock %}
+接着你会获得一串很长的以`secure="...="`为格式的密文，将这行完整地复制到你的`.travis.yml`文件中，Travis CI启动部署的时候会使用它自己与之相匹配的私钥来读取这个密文并将你加密的`GITHUB_TOKEN`部分作为环境变量，你可以看成一个加密的`export GITHUB_TOKEN=XXX`命令。`.travis.yml`中的具体脚本如下：
+{% codeblock lang:sh %}
+env:
+  global:
+    - GITHUB_REPO: github.com/R1V3RJ1s/r1v3rj1s.github.io
+    - secure: "...="
+{% endcodeblock %}
+3. 最后一步是告诉Travis CI如何使用GITHUB_REPO和GITHUB_TOKEN这两个环境变量。在本系列文章的[第二篇](https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/)中
 
 #### commit历史恢复问题解决方案
 
@@ -66,7 +87,7 @@ before_install:
 
 #### 博文更新时间恢复问题解决方案
 
-除了上面的问题之外，Travis CI的自动部署还会导致另一个问题：所有博文的更新时间总是最后一次部署的时间。这个原因是Hexo内的更改时间显示的是markdown文件在系统中的最后修改时间， 而Travis CI 在构建的时候，总是会重新clone repo，这就造成了所有文件的最后修改时间都是最新的clone时间。解决方案是我们可以采用git的最后commit时间来替代，这样子就能恢复文件的修改时间了。但这个问题网上的解决方案一般是只适用于ASCII字符的文件名，而对于非英文用户稍微有点麻烦，是因为有时候我们会用non-ASCII字符（比如中文）来起文件名。但[这篇博文](https://wafer.li/Hexo/%E8%A7%A3%E5%86%B3%20Travis%20CI%20%E6%80%BB%E6%98%AF%E6%9B%B4%E6%96%B0%E6%97%A7%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%97%AE%E9%A2%98/)给出了当文件名含non-ASCII字符时的解决方案。`.travis.yml`中的具体脚本如下，注意双引号是必须的：
+除了上面的问题之外，Travis CI的自动部署还会导致另一个问题：所有博文的更新时间总是最后一次部署的时间。这个原因是Hexo内的更改时间显示的是markdown文件在系统中的最后修改时间， 而Travis CI 在构建的时候，总是会重新clone repo，这就造成了所有文件的最后修改时间都是最新的clone时间。解决方案是我们可以采用git的最后commit时间来替代，这样子就能恢复文件的修改时间了。但这个问题网上的解决方案一般是只适用于ASCII字符的文件名，而对于非英文用户稍微有点麻烦，是因为有时候我们会用non-ASCII字符（比如中文）来起文件名。但[这篇博文](https://wafer.li/Hexo/%E8%A7%A3%E5%86%B3%20Travis%20CI%20%E6%80%BB%E6%98%AF%E6%9B%B4%E6%96%B0%E6%97%A7%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%97%AE%E9%A2%98/)给出了当文件名含non-ASCII字符时的解决方案。`.travis.yml`中的具体脚本如下，注意**双引号是必须的**：
 
 {% codeblock lang:sh %}
 before_install:
@@ -101,13 +122,13 @@ before_install:
   - sed -i "s#${LEANCLOUD_COUNTERSECURE_TMP_TOKEN}#${LEANCLOUD_COUNTERSECURE_TOKEN}#g" _config.yml
   - git config --global user.name "r1v3rj1s"
   - git config --global user.email "djieastgo@yahoo.com"
-  - sed -i "s#${GITHUB_REF}#${GITHUB_TOKEN}@${GITHUB_REF}#g" _config.yml
+  - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml
 
   # Restore last modified time
   - "git ls-files -z | while read -d '' path; do touch -d \"$(git log -1 --format=\"@%ct\" \"$path\")\" \"$path\"; done"
 
   # Deploy history
-  - git clone --branch=master --single-branch https://${GITHUB_REF}.git .deploy_git
+  - git clone --branch=master --single-branch https://${GITHUB_REPO}.git .deploy_git
 
 
 install:
