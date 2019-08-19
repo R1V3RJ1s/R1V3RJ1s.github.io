@@ -21,9 +21,20 @@ published: true
 
 #### 加密部署方案
 
-#### commit历史和博文更新时间恢复问题解决方案
+#### commit历史恢复问题解决方案
 
-#### .Travis.yml脚本参考
+到现在为止，我们的Travis CI应该已经能够正常执行`.travis.yml`脚本，将我们的源代码渲染为网页文件并将之部署到master分支和GitHub Pages上了。但如果你查看master的commit历史你可能能会发现一个问题：无论我们更新多少次，代码commit历史永远只有两条。这就很麻烦了。一方面来说这个commit的历史也是博客构建的历史，如果永远只显示最新的一次，总归是显得有些失落，因为过去的积累都显示不出来；另一方面而言commit历史丢失也可能造成潜在的问题，比如分支混淆造成源码丢失时，这个问题会导致整个代码提交改动历史也都随之丢失，甚至整个博客也会毁于一旦。因此解决这个问题就显得颇为重要了。经过查询，这个问题的原因在于`hexo-deploy-git`插件在master分支没有之前deploy生成的`.deploy_git`目录情况下动生成了一个`.deploy_git`文件夹，并将 public 复制到这个目录下再进行push，所以每次master分支都会获得一个新的`.deploy_git`目录，而commit历史又是靠`.deploy_git`来记录的，所以会丢失。这个问题相对比较好解决，只需要在每次构建的时候都`clone`一下`.deploy_git`目录即可。`.travis.yml`中的具体脚本如下：
+
+{% codeblock lang:sh %}
+before_install:
+    - git clone --branch=master {your_blog_repo_git_url} .deploy_git
+{% endcodeblock %}
+
+#### 博文更新时间恢复问题解决方案
+
+另一个问题是
+
+#### .travis.yml脚本参考
 
 这里给出我最终测试成功的 Travis CI 脚本给大家参考：
 
