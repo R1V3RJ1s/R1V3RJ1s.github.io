@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第三篇，主要内容是介绍本博客NexT主题下一些个性化和功能插件的配置。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-19T23:45:05.000Z">
+<meta property="og:updated_time" content="2019-08-19T23:46:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用GitHub Pages搭建个人Blog（三）: 个性化和功能插件配置">
 <meta name="twitter:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第三篇，主要内容是介绍本博客NexT主题下一些个性化和功能插件的配置。">
@@ -275,7 +275,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-19 23:45:05" itemprop="dateModified" datetime="2019-08-19T23:45:05+00:00">2019-08-19</time>
+                <time title="修改时间：2019-08-19 23:46:52" itemprop="dateModified" datetime="2019-08-19T23:46:52+00:00">2019-08-19</time>
               </span>
             
           
@@ -390,7 +390,7 @@
 <li>无法安装<code>hexo-leancloud-counter-security</code>插件可能有两个原因，一是<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>没有配置应用信息，也有可能是因为没有安装<code>babel-runtime</code>包，如果是后者的话需要在安装命令前先安装<code>babel-runtime</code>:<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确认自己的终端在博客源代码仓库根目录下</span></span><br><span class="line">$ npm install babel-runtime@6</span><br><span class="line">$ npm install hexo-leancloud-counter-security --save</span><br></pre></td></tr></table></figure></li>
 <li>如果计数插件在LeanCloud服务器中报<code>“{“code”:403,”message”:”Access denied by api domain white list.The request origin header is ‘null’.”}</code>或<code>Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置.</code>的错，你需要检查LeanCloud控制台<code>设置</code>面板的<code>安全域名</code>选项处的<code>Web 安全域名</code>栏目下自己的填写的个人主页地址协议和域名是否与自己的个人主页地址完全一致。比如把<code>https</code>打成了<code>http</code>。</li>
 <li>已经开启了Google Analytics插件，并打开个人博客页面，但是Google Analytics实时用户没有显示。可能是浏览器开启了防跟踪插件，比如DuckDuckGo。也可能是默认网址填写错误。比如网站后多加了<code>/</code>或者是<code>http</code>选项没有改成<code>https</code>。Chrome用户可以安装Google Tag Assistant插件进行Debug。</li>
-<li>对于<code>.yml</code>文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用<strong>双空格</strong>作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。</li>
+<li>对于<code>.yml</code>文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用<strong>双空格</strong>作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。</li>
 </ul>
 <h4 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h4><ul>
 <li><a href="https://theme-next.iissnan.com/" target="_blank" rel="noopener">NexT主题中文官方网站，已停止更新</a></li>
