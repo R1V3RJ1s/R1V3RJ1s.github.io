@@ -96,11 +96,32 @@ creative_commons:
 
 #### LeanCloud阅读计数插件
 
-接着我们想要做的是开启
+接着我们可能会希望看到有多少人阅读过我们的文章，这样我们就需要一个阅读计数插件。但是在实际安装的过程中这个插件是最麻烦的，因为它有一个安全漏洞，需要安装一个辅助插件以及在服务器中进行权限管理才能生效。不过好在有很多博文都对安装这个插件有了很详尽的描述，图文并茂。所以在这里我就简单描述一下过程，也不配图了。如果有细节不清楚的地方可以参考这两个人的博文：
+
+* [Hexo NexT 主题 LeanCloud 插件安装教程 by Sweet、汤圆儿](https://yunhao.space/2018/06/27/hexo-leancloud-plugin-installation-tutor/)
+* [Leancloud访客统计插件重大安全漏洞修复指南 by LEAFERx](https://leaferx.online/2018/02/11/lc-security/) 
+
+简单来说，我们需要：
+1. 在LeanCloud上注册一个账号。国际版或国内版都可以，我注册的国际版，因为国内版注册流程稍微麻烦一点。注册完并登录后进入控制台然后在LeanCloud主面板中再创建一个`开发版`的应用。应用名字可以随便起。
+2. 创建后进入应用管理界面后点击`存储`面板的`创建Class`选项，然后再弹出的对话框中的`Class 名称`填`Counter`（此处需严格一致），然后`ACL权限`选择`无限制`。最后点击创建Class按钮。
+3. 接下来在`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下填写自己的个人主页地址。协议和域名需要完全一致。注意不要把`https`打成`http`。
+4. 然后进入`云引擎`面板，左侧点击`部署`选项，再点击页面的`在线编辑`按钮，打开后在`在线编辑`栏点击`创建函数`。
+5. 在弹出窗口中选择`Hook`类型，然后在`AV.Cloud.`后的选项栏中选择`beforeUpdate`，`('`后选择刚才创建的Counter类。最后在空白代码栏处复制以下代码后点击保存：
+{% codeblock lang:js %}
+var query = new AV.Query("Counter");
+if (request.object.updatedKeys.indexOf('time') !== -1) {
+    return query.get(request.object.id).then(function (obj) {
+        if (obj.get("time") + 1 !== request.object.get("time")) {
+            throw new AV.Cloud.Error('Invalid update!');
+        }
+    })
+}
+{% endcodeblock %}
+6. 保存成功后，在`在线编辑栏`中点击`部署`选项进行部署，待部署日志出现成功部署信息后即可关闭。
 
 #### Valine评论插件
 
-和LeanCloud阅读计数插件类似，你需要在LeanCloud主面板中再创建一个`开发版`的应用，然后在`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下填写自己的个人主页地址。协议和域名需要完全一致。注意不要把`https`打成`http`。保存后点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`valine`类的`enable`字段填为`true`，`appid`和`appkey`字段填你刚才记录下的`App ID`和`App Key`。然后`visitor`字段填`false`，不然在有阅读计数插件的环境下可能会导致bug。然后就可以重新部署源代码测试是否成功开启。
+和LeanCloud阅读计数插件类似，你需要在LeanCloud主面板中再创建一个`开发版`的应用，应用名字可以随便起。然后在`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下填写自己的个人主页地址。协议和域名需要完全一致。注意不要把`https`打成`http`。保存后点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`valine`类的`enable`字段填为`true`，`appid`和`appkey`字段填你刚才记录下的`App ID`和`App Key`。然后`visitor`字段填`false`，不然在有阅读计数插件的环境下可能会导致bug。然后就可以重新部署源代码测试是否成功开启。
 
 #### Google Analytics
 
