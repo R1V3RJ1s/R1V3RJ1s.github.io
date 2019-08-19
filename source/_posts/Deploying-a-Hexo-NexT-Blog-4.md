@@ -19,7 +19,7 @@ published: true
 
 #### 自动部署脚本的基本内容
 
-对于Travis CI而言，它需要你需要进行自动部署的仓库的根目录下有一个`.travis.yml`文件来作为自动部署时运行的脚本文件。这个文件本质上说就是一个结构化的shell脚本。它分为三个阶段，环境配置，安装（install），以及搭建（script）。分别用来配置环境，安装部署所需的工具和软件，以及部署应用。而对于安装和搭建阶段，它们又各自拥有一个安装之前（before install）和搭建之前（before script）的阶段，起到进一步对环境进行配置（如修改文件，清理缓存等）的作用。所以我们的代码基本结构如下：
+对于Travis CI而言，它要求用户在他们需要进行自动部署的仓库的根目录下有一个`.travis.yml`文件来作为自动部署时运行的脚本文件。这个文件本质上说就是一个结构化的shell脚本。它分为三个阶段，环境配置，安装（install），以及搭建（script）。分别用来配置环境，安装部署所需的工具和软件，以及部署应用。而对于安装和搭建阶段，它们又各自拥有一个安装之前（before install）和搭建之前（before script）的阶段，起到进一步对环境进行配置（如修改文件，清理缓存等）的作用。所以我们的代码基本结构如下：
 
 {% codeblock lang:sh %}
 # 指定需要运行的语言和版本
@@ -53,6 +53,8 @@ script:
 
 #### 加密部署方案
 
+##### GitHub Personal Access Token的加密与配置方案
+
 现在代码主体部分已经写好了，不过接下来的问题就是如何在无法输入密码的情况下如何通过GitHub的安全审查。第一时间想到的是GitHub提供的Personal Access Token，但是把Token以明文形式直接写在`.travis.yml`里面实在是过于危险，因为这个Token的权限很高。经过查询，发现而Travis CI是支持对Token进行哈希加密的，而且步骤也很简单。先获取GitHub Personal Access Token；然后本地安装Travis命令行工具进行加密并将加密后的Token保存至`.travis.yml`文件中；最后配置文件在相应位置替换这个Token即可。具体操作如下：
 1. 前往Github右上角`+`号选项卡进入`Settings`页面，在左侧选择`Developer settings`后再在左侧点选`Personal Access Token`，然后在右侧面板点击`Generate new token`来新建一个Token。`Note`可以随便起。你可以简单描述一下这个Token干的事，比如`Travis CI deployment`之类。`Select scopes`中勾选`repo`和`admin:repo_hook`两类功能即可，因为这两类功能就能让我们获得读写我们的GitHub仓库的权限。安全起见，请不要勾选我们不需要的功能。需要注意的是，创建完的Token只有第一次可见，之后再访问就无法看见（只能看见他的名称），因此要在一个安全的地方保存好这个值。
 2. 在GitHub上创建完并获得Token之后，接着需要在本地安装Travis命令行工具来对你的Token进行加密。这个工具需要`Ruby`环境，`macOS`用户如果没有的话上可以使用`Homebrew`来安装，这里我不做更多展开。具体命令如下：
@@ -80,10 +82,38 @@ before_install:
   # Basic config
   - git config --global user.name "r1v3rj1s"
   - git config --global user.email "djieastgo@yahoo.com"
-  - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml
+  - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml # `-i`标记告诉`sed`命令我们需要保存文件，`s`和`g`是开始和结束的标记，`#`号作为字段分隔符避免与地址分隔符`/`相混淆。
 {% endcodeblock %}
-在其中，`-i`标记告诉`sed`命令我们需要保存我们的文件，`s`和`g`是开始和结束的标记，`#`号作为字段分隔符避免与地址分隔符`/`相混淆。
 
+##### LeanCloud相关插件信息的加密与配置方案
+
+到这一步，如果我们的博客没有什么别的需要额外配置的插件，那么我们的自动部署脚本就已经编写完成并且应该能够成功运行了。但是由于我们还启动了LeanCloud的计数和评论插件，以及计数插件的安全补丁，因此为了不在自动部署过程中输入账号密码信息，同时又不在配置文件中明文储存该信息，我们还需要额外配置一下。本质而言并没有什么区别，因为Travis CI支持通过多`secure`字段进行多环境变量加密传递的方式，所以我们把我们需要加密的信息统统`travis encrypt`一遍再复制到`.travis.yml`文件中即可。然后配置过程也类似，在原来的配置文件中给你需要修改的字段分别设置一个唯一标识码（比如你可以用一个特别的字符串，或者一个简单一点的哈希算法），然后在自动部署过程中使用`sed`命令识别，修改并暂存配置文件即可。我以LeanCloud的计数插件的App ID为例来说明一遍具体步骤，其他字段修改的流程完全一样，不再赘述：
+
+{% codeblock lang:sh %}
+# 加密 LeanCloud Counter App ID
+$ travis encrypt -r R1V3RJ1s/r1v3rj1s.github.io LEANCLOUD_VISITORCOUNTER_ID=XXX
+{% endcodeblock %}
+
+然后`.travis_yml`中的脚本如下：
+
+{% codeblock lang:sh %}
+before_install:
+  # Basic config
+  - git config --global user.name "r1v3rj1s"
+  - git config --global user.email "djieastgo@yahoo.com"
+  - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml
+  # 修改站点配置文件LeanCloud Counter Security里的LeanCloud Counter App ID的信息
+  - sed -i "s#${LEANCLOUD_VISITORCOUNTER_TMP_ID}#${LEANCLOUD_VISITORCOUNTER_ID}#g" _config.yml
+  # 修改主题配置配置文件里LeanCloud Counter的App ID的信息
+  - sed -i "s#${LEANCLOUD_VISITORCOUNTER_TMP_ID}#${LEANCLOUD_VISITORCOUNTER_ID}#g" themes/next/_config.yml
+
+env:
+  global:
+    - GITHUB_REPO: github.com/R1V3RJ1s/r1v3rj1s.github.io
+    - LEANCLOUD_VISITORCOUNTER_TMP_ID = XXX
+    - secure: "...=" # GITHUB_TOKEN=XXX
+    - secure: "...=" # LEANCLOUD_VISITORCOUNTER_ID=XXX
+{% endcodeblock %}
 
 #### commit历史恢复问题解决方案
 
