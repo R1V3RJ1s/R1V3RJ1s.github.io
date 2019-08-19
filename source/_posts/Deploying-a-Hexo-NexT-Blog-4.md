@@ -39,6 +39,13 @@ before_install:
     - "git ls-files -z | while read -d '' path; do touch -d \"$(git log -1 --format=\"@%ct\" \"$path\")\" \"$path\"; done"
 {% endcodeblock %}
 
+但有些人可能会发现这个脚本在Travis CI去运行时恢复的修改时间只能到几天前，这是因为Travis CI默认只会克隆最新的50次commit历史记录，而我们的脚本需要完整的git历史记录才能正确的恢复文件的修改时间，所以我们还需要取消Travis CI的默认`depth`参数，从而让它克隆我们完整的git仓库。`.travis.yml`中的代码如下：
+
+{% codeblock lang:sh %}
+git:
+  depth: false
+{% endcodeblock %}
+
 #### .travis.yml脚本参考
 
 这里给出我最终测试成功的 Travis CI 脚本给大家参考：
