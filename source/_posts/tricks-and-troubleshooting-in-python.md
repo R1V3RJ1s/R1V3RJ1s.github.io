@@ -179,7 +179,7 @@ UnboundLocalError: local variable 'a' referenced before assignment
 出现该问题的原因在[Python FAQ](https://docs.python.org/3.7/faq/programming.html#what-are-the-rules-for-local-and-global-variables-in-python)中提到：
 > 在Python中，如果变量仅仅是被引用而没有被赋值过，那么默认被视作全局变量。如果一个变量在函数中被赋值过，那么就被视作局部变量。
 
-显然，这里的**被赋值过**，指的是在函数体内任何地方被赋值过。即使没有被执行或是变量引用之后再赋值，都依旧会被当做“被赋值过”，从而被Python视作局部变量。而之所以a += 1会报错是因为 a += 1会被视作a = a + 1，此处a由于有赋值操作的存在被Python视作局部变量，而算术运算符的优先级又高于赋值运算符，于是Python会先计算a + 1，但这个时候a在局部作用域中并不能被查询到，于是抛出`UnboundLocalError`异常。解决方案也很简单，使用global关键字进行声明即可。如果变量a在工厂函数之内，则应用nonlocal关键字进行声明。
+显然，这里的**被赋值过**，指的是在函数体内任何地方被赋值过。即使没有被执行或是变量引用之后再赋值，都依旧会被当做“被赋值过”，从而被Python视作局部变量。而之所以a += 1会报错是因为 a += 1会被视作a = a + 1，此处a由于有赋值操作的存在被Python视作局部变量，而算术运算符的优先级又高于赋值运算符，于是Python会先计算a + 1，但这个时候a在局部作用域中并不能被查询到，于是抛出`UnboundLocalError`异常。解决方案也很简单，使用`global`关键字进行声明即可。如果变量a在工厂函数之内，则应用`nonlocal`关键字进行声明。
 
 {% codeblock lang:python %}
 a = 1
