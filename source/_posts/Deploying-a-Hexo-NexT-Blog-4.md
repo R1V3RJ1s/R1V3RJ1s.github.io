@@ -54,7 +54,7 @@ script:
 #### 加密部署方案
 
 现在代码主体部分已经写好了，不过接下来的问题就是如何在无法输入密码的情况下如何通过GitHub的安全审查。第一时间想到的是GitHub提供的Personal Access Token，但是把Token以明文形式直接写在`.travis.yml`里面实在是过于危险，因为这个Token的权限很高。经过查询，发现而Travis CI是支持对Token进行哈希加密的，而且步骤也很简单。先获取GitHub Personal Access Token；然后本地安装Travis命令行工具进行加密并将加密后的Token保存至`.travis.yml`文件中；最后配置文件在相应位置替换这个Token即可。具体操作如下：
-1. 前往Github右上角`+`号选项卡进入`Settings`页面，在左侧选择`Developer settings`后再在左侧点选`Personal Access Token`，然后在右侧面板点击`Generate new token`来新建一个Token。`Note`可以随便起。你可以简单描述一下这个Token干的事，比如`Travis CI deployment`之类。`Select scopes`中勾选`repo`和`admin:repo_hook`两类功能即可。需要注意的是，创建完的Token只有第一次可见，之后再访问就无法看见（只能看见他的名称），因此要在一个安全的地方保存好这个值。
+1. 前往Github右上角`+`号选项卡进入`Settings`页面，在左侧选择`Developer settings`后再在左侧点选`Personal Access Token`，然后在右侧面板点击`Generate new token`来新建一个Token。`Note`可以随便起。你可以简单描述一下这个Token干的事，比如`Travis CI deployment`之类。`Select scopes`中勾选`repo`和`admin:repo_hook`两类功能即可，因为这两类功能就能让我们获得读写我们的GitHub仓库的权限。安全起见，请不要勾选我们不需要的功能。需要注意的是，创建完的Token只有第一次可见，之后再访问就无法看见（只能看见他的名称），因此要在一个安全的地方保存好这个值。
 2. 在GitHub上创建完并获得Token之后，接着需要在本地安装Travis命令行工具来对你的Token进行加密。这个工具需要`Ruby`环境，`macOS`用户如果没有的话上可以使用`Homebrew`来安装，这里我不做更多展开。具体命令如下：
 {% codeblock lang:sh %}
 # 假设你已经安装好了ruby和gem包管理工具
@@ -74,7 +74,16 @@ env:
     - GITHUB_REPO: github.com/R1V3RJ1s/r1v3rj1s.github.io
     - secure: "...="
 {% endcodeblock %}
-3. 最后一步是告诉Travis CI如何使用GITHUB_REPO和GITHUB_TOKEN这两个环境变量。在本系列文章的[第二篇](https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/)中
+3. 最后一步是告诉Travis CI如何使用`GITHUB_REPO`和`GITHUB_TOKEN`这两个环境变量。在本系列文章的[第二篇](https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/)中我们知道我们是通过<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>底下的`Deployment`类的`deploy`字段来告诉Hexo部署位置的，那么我们只需要把`deploy`字段下的`repo`属性从GitHub的HTTPS地址改为通过API Token访问的地址，我们就可以获得修改的权限了。而我们发现GitHub的HTTPS地址服从`https://${GITHUB_REPO}.git`的格式，而GitHub的Token Access地址服从`https://${GITHUB_TOKEN}@${GITHUB_REPO}.git`的格式。因此，我们只需要通过shell的`sed`命令，利用正则表达式来临时修改并暂存我们的文件，就能达到我们的目的。`.travis.yml`中的具体脚本如下：
+{% codeblock lang:sh %}
+before_install:
+  # Basic config
+  - git config --global user.name "r1v3rj1s"
+  - git config --global user.email "djieastgo@yahoo.com"
+  - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml
+{% endcodeblock %}
+在其中，`-i`标记告诉`sed`命令我们需要保存我们的文件，`s`和`g`是开始和结束的标记，`#`号作为字段分隔符避免与地址分隔符`/`相混淆。
+
 
 #### commit历史恢复问题解决方案
 
