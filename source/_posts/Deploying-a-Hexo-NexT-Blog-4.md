@@ -76,13 +76,13 @@ env:
     - GITHUB_REPO: github.com/R1V3RJ1s/r1v3rj1s.github.io
     - secure: "...="
 {% endcodeblock %}
-3. 最后一步是告诉Travis CI如何使用`GITHUB_REPO`和`GITHUB_TOKEN`这两个环境变量。在本系列文章的[第二篇](https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/)中我们知道我们是通过<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>底下的`Deployment`类的`deploy`字段来告诉Hexo部署位置的，那么我们只需要把`deploy`字段下的`repo`属性从GitHub的HTTPS地址改为通过API Token访问的地址，我们就可以获得修改的权限了。而我们发现GitHub的HTTPS地址服从`https://${GITHUB_REPO}.git`的格式，而GitHub的Token Access地址服从`https://${GITHUB_TOKEN}@${GITHUB_REPO}.git`的格式。因此，我们只需要通过shell的`sed`命令，利用正则表达式来临时修改并暂存我们的文件，就能达到我们的目的。`.travis.yml`中的具体脚本如下：
+3. 最后一步是告诉Travis CI如何使用`GITHUB_REPO`和`GITHUB_TOKEN`这两个环境变量。在本系列文章的[第二篇](https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/)中我们知道我们是通过<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>底下的`Deployment`类的`deploy`子类来告诉Hexo部署位置的，那么我们只需要把`deploy`子类下的`repo`属性从GitHub的HTTPS地址改为通过API Token访问的地址，我们就可以获得修改的权限了。而我们发现GitHub的HTTPS地址服从`https://${GITHUB_REPO}.git`的格式，而GitHub的Token Access地址服从`https://${GITHUB_TOKEN}@${GITHUB_REPO}.git`的格式。因此，我们只需要通过shell的`sed`命令，利用正则表达式来临时修改并暂存我们的文件，就能达到我们的目的。`.travis.yml`中的具体脚本如下：
 {% codeblock lang:sh %}
 before_install:
   # Basic config
   - git config --global user.name "r1v3rj1s"
   - git config --global user.email "djieastgo@yahoo.com"
-  - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml # `-i`标记告诉`sed`命令我们需要保存文件，`s`和`g`是开始和结束的标记，`#`号作为字段分隔符避免与地址分隔符`/`相混淆。
+  - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml # `-i`标记告诉`sed`命令需要将修改结果保存在文件中，`s`和`g`是开始和结束的标记，`#`号作为字符串分隔符从而避免与地址分隔符`/`相混淆。
 {% endcodeblock %}
 
 ##### LeanCloud相关插件信息的加密与配置方案
@@ -114,6 +114,8 @@ env:
     - secure: "...=" # GITHUB_TOKEN=XXX
     - secure: "...=" # LEANCLOUD_VISITORCOUNTER_ID=XXX
 {% endcodeblock %}
+
+最后，Travis CI在网站中也提供了一个设置预输入环境变量的页面，然后在启动自动部署运行脚本时所有在该页面中进行预输入的环境变量都会以非明文的形式显示在部署日志里。所以最后我把凡是可以明文写在`.travis_yml`中的环境变量统统都放到了预输入页面里，然后加密之后的环境变量依旧写在`env`的`global`子类下。所以最后的`.travis.yml`文件会看上去缺了一些环境变量。该设置预输入环境变量的页面在`Dashboard`页面里仓库信息的`Setting`选项中的`Environment Variables`栏里。设置好变量名（`NAME`），值（`VALUE`）以及该变量使用的分支（`BRANCH`）之后，把`DISPLAY VALUE IN BUILD LOG`这个选项关掉即可。该选项应该是默认关闭的。
 
 #### commit历史恢复问题解决方案
 
