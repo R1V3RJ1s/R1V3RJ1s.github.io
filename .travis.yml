@@ -17,7 +17,7 @@ before_install:
   - sed -i "s#${GH_REF}#${GH_TOKEN}@${GH_REF}#g" _config.yml
 
   # Restore last modified time
-  - git ls-files -z | while read -d '' path; do touch -d \"$(git log -1 --format=\"@%ct\" \"$path\")\" \"$path\"; done
+  - "git ls-files -z | while read -d '' path; do touch -d \"$(git log -1 --format=\"@%ct\" \"$path\")\" \"$path\"; done"
 
   # Deploy history
   - git clone --branch=master --single-branch https://${GH_REF}.git .deploy_git
