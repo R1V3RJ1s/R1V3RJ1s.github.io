@@ -48,7 +48,6 @@ before_script:
 script:
   - hexo g 
   - hexo d
-
 {% endcodeblock %}
 
 #### 加密部署方案
