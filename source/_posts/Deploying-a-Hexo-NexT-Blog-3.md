@@ -118,7 +118,7 @@ if (request.object.updatedKeys.indexOf('time') !== -1) {
 }
 {% endcodeblock %}
 6. 保存成功后，在`在线编辑栏`中点击`部署`选项进行部署，待部署日志出现成功部署信息后即可关闭。
-7. 此时回到`设置`面板，点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`leancloud_visitors`类中的`enable`字段填为`true`，`app_id`和`app_key`填你刚才记录下的`App ID`和`App Key`。然后`security`字段填`true`，`betterPerformance`填`true`或者`false`都行，填`true`的话在网站中阅读次数加载会更快一些，不过会不够准确。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>中代码如下：
+7. 此时回到`设置`面板，点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`leancloud_visitors`类中的`enable`字段填为`true`，`app_id`和`app_key`填你刚才记录下的`App ID`和`App Key`。然后`security`字段填`true`，`betterPerformance`填`true`或者`false`都行，填`true`的话在网站中阅读次数加载会更快一些，不过会不够准确（直接显示访客人数为之前显示过的人数+1）。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>中代码如下：
 {% codeblock lang:sh %}
 leancloud_visitors:
   enable: true
@@ -130,7 +130,49 @@ leancloud_visitors:
   security: true
   betterPerformance: false
 {% endcodeblock %}
-8. 
+8. 打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>，在`Extensions`类里的`Plugins`子类加入如下字段，其中`app_id`和`app_key`依旧填写为刚才记录下的`App ID`和`App Key`，`username`和`password`字段留空：
+{% codeblock lang:sh %}
+# Extensions
+## Plugins: https://hexo.io/plugins/
+leancloud_counter_security:
+  enable_sync: true
+  app_id: ${LEANCLOUD_VISITORS_ID}
+  app_key: ${LEANCLOUD_VISITORS_KEY}
+  username: 
+  password: 
+{% endcodeblock %}
+9. 打开终端并切换至根目录地址，输入以下命令以安装`hexo-leancloud-counter-security`插件，并注册一个安全用户的账号：
+{% codeblock lang:sh %}
+# 确认自己的终端在博客源代码仓库根目录下
+$ npm install hexo-leancloud-counter-security --save
+$ hexo lc-counter register USER_ID PASSWORD
+{% endcodeblock %}
+10. 打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>，在刚才的`leancloud_counter_security`子类的`username`和`password`字段下输入你刚才注册`hexo-leancloud-counter-security`插件时的账号和密码。你也可以选择不输入，如果不输入的话每次部署过程中程序都会要求你输入。所以这时候你<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>中的`leancloud_counter_security`子类会有如下格式：
+{% codeblock lang:sh %}
+# Extensions
+## Plugins: https://hexo.io/plugins/
+leancloud_counter_security:
+  enable_sync: true
+  app_id: ${LEANCLOUD_VISITORS_ID}
+  app_key: ${LEANCLOUD_VISITORS_KEY}
+  username: ${USER_ID}
+  password: ${PASSWORD}
+{% endcodeblock %}
+11. 在<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>找到`Deployment`类的`deploy`字段并在底下添加如下信息：
+{% codeblock lang:sh %}
+  - type: leancloud_counter_security_sync
+{% endcodeblock %}
+因为之前我们有`git`的deploy信息，所以整个`deploy`字段会看起来像这样：
+{% codeblock lang:sh %}
+deploy:
+-
+  type: git
+  repo: https://github.com/本人GitHub用户名/GitHub个人博客地址.git
+  branch: master
+  message: "一些信息"
+- 
+  type: leancloud_counter_security_sync
+{% endcodeblock %}
 
 #### Valine评论插件
 
@@ -159,5 +201,11 @@ valine:
 
 * `<!-- more -->`不能起到分割的作用，你需要检查你的分割字段写的是`<!-- more -->`（more左右各有一个空格）还是`<!--more-->`（more左右无空格）。
 * 开启了mathjax插件但是公式不显示，可能是cdn有问题，常见问题是前缀没有加`https://`，或者是网址过期。只需要把cdn里的地址复制到浏览器中打开看是否有显示就可以判断是否是cdn地址出错。
+* 无法安装`hexo-leancloud-counter-security`插件可能有两个原因，一是<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>没有配置应用信息，也有可能是因为没有安装`babel-runtime`包，如果是后者的话需要在安装命令前先安装`babel-runtime`:
+{% codeblock lang:sh %}
+# 确认自己的终端在博客源代码仓库根目录下
+$ npm install babel-runtime@6
+$ npm install hexo-leancloud-counter-security --save
+{% endcodeblock %}
 * 已经开启了Google Analytics插件，并打开个人博客页面，但是Google Analytics实时用户没有显示。可能是浏览器开启了防跟踪插件，比如DuckDuckGo。也可能是默认网址填写错误。比如网站后多加了`/`或者是`http`选项没有改成`https`。Chrome用户可以安装Google Tag Assistant插件进行Debug。
-* 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用双空格作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。
+* 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用**双空格**作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。

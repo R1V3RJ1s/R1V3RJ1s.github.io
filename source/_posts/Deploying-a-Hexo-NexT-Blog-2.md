@@ -85,7 +85,7 @@ $ rm -rf .git* # 移除Git相关信息
 1. 更改<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>将默认的主题文件指向NexT：
     打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>，找到`Extensions`类里的`Themes`子类，将底下的`theme: 默认主题（一般为landscape）` 改为`theme: next`，保存并退出。如果成功的话，此时在终端输入`hexo server --debug`进入调试模式并打开`http://localhost:4000`应该已经能显示NexT主题的博客页面了。
 2. 在<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>内添加部署信息，让hexo能部署在我们的GitHub Pages上：
-    打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>，找到`Deployment`类的，在`deploy:`底下添加如下信息：
+    打开<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>，找到`Deployment`类的`deploy`字段并在底下添加如下信息：
     {% codeblock lang:sh %}
     deploy:
     -
