@@ -15,15 +15,23 @@ published: true
 
 <!-- more -->
 
-到现在为止我们对博客源码（比如站点设置，主题设置，博文等）的每次更改都需要我们手动部署到GitHub Pages上。重复的次数多了就显得很麻烦，出错的几率也会变大。一旦分支混淆，还会造成远程源码丢失的问题。不过好在现在支持持续集成/持续部署（CI/CD）的工具很多，它们能够让我们把这个过程自动化。我选择的是[Travis CI](https://travis-ci.org/)，因为它简单好用，而且免费。注册Travis CI和让Travis CI为特定的GitHub仓库开启自动Build的过程非常容易，在此不再赘述。本过程的主要难点在于需要自己编写部署文档。
+到现在为止我们对博客源码（比如站点设置，主题设置，博文等）的每次更改都需要我们手动部署到GitHub Pages上。重复的次数多了就显得很麻烦，出错的几率也会变大。一旦分支混淆，还会造成远程源码丢失的问题。于是我们希望有一个自动化部署的工具能够代替我们来完成这件事情。简单而言，我们理想中的基本流程如下：每当我们提交变动到我们的个人主页仓库的源代码分支时，这个自动化部署工具都能监控到这个变动，并运行部署脚本对我们的源代码进行渲染，然后把渲染后的网页文件部署到个人主页仓库的master分支上。而这个流程的本质其实就是一个持续集成/持续部署（CI/CD）的流程，所以我考虑到了[Travis CI](https://travis-ci.org/)，因为它简单好用，而且免费。注册Travis CI和让Travis CI为特定的GitHub仓库开启自动Build的过程非常容易，在此不再赘述。本过程的主要难点在于需要自己编写部署脚本。
 
-#### 自动部署的基本过程
+#### 自动部署脚本的基本内容
+
+对于Travis CI而言，它需要你需要进行自动部署的仓库的根目录下有一个`.travis.yml`文件来作为自动部署时运行的脚本文件。这个文件本质上说就是一个结构化的shell脚本。它分为三个阶段，环境配置，安装（install），以及搭建（script），分别用来配置环境，安装部署所需的工具和软件，以及部署应用。而对于安装和搭建阶段，它们又各自拥有一个安装之前（before install）和搭建之前（before script）的阶段，起到进一步对环境进行配置（如修改文件，清理缓存等）的作用。所以我们的代码基本结构如下：
 
 {% codeblock lang:sh %}
+# 指定需要运行的语言和版本
 language: node_js
 node_js: stable
 
+# 指定需要监控代码改动的分支
+branches:
+  only:
+    - pg-source
 
+# 安装部署所需工具
 install:
   - npm install babel-runtime@6
   - npm install -g hexo-cli
@@ -32,22 +40,20 @@ install:
   - npm install hexo-leancloud-counter-security --save
   - npm install
 
-
+# 清理缓存
 before_script:
   - hexo clean 
 
-
+# 搭建和部署
 script:
   - hexo g 
   - hexo d
 
-
-branches:
-  only:
-    - pg-source
 {% endcodeblock %}
 
 #### 加密部署方案
+
+
 
 #### commit历史恢复问题解决方案
 
