@@ -106,7 +106,7 @@ creative_commons:
 2. 创建后进入应用管理界面后点击`存储`面板的`创建Class`选项，然后再弹出的对话框中的`Class 名称`填`Counter`（此处需严格一致），然后`ACL权限`选择`无限制`。最后点击创建Class按钮。
 3. 接下来在`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下填写自己的个人主页地址。协议和域名需要完全一致。注意不要把`https`打成`http`。
 4. 然后进入`云引擎`面板，左侧点击`部署`选项，再点击页面的`在线编辑`按钮，打开后在`在线编辑`栏点击`创建函数`。
-5. 在弹出窗口中选择`Hook`类型，然后在`AV.Cloud.`后的选项栏中选择`beforeUpdate`，`('`后选择刚才创建的Counter类。最后在空白代码栏处复制以下代码后点击保存：
+5. 在弹出窗口中选择`Hook`类型，然后在`AV.Cloud.`后的选项栏中选择`beforeUpdate`，`('`后选择刚才创建的`Counter`类。最后在空白代码栏处复制以下代码后点击保存：
 {% codeblock lang:js %}
 var query = new AV.Query("Counter");
 if (request.object.updatedKeys.indexOf('time') !== -1) {
@@ -173,6 +173,11 @@ deploy:
 - 
   type: leancloud_counter_security_sync
 {% endcodeblock %}
+12. 重新登录LeanCloud控制台，进入应用管理界面后点击`存储`面板的`_User`选项，确认是否添加了我们刚才的用户（`username`字段是否一致）。如果有，点击`Counter`选项，点击`其他`选项卡中的`权限设置`选项。在弹出对话框中点击`add_fields`类，点击指定用户选项，输入我们刚才创建的用户名，点击添加。成功添加后我们会看到`add_fileds`底下会多一行`0 Roles, 1 Users`。
+13. 然后在这个对话框中点击`create`类并指定添加同样的用户。成功添加后我们会看到`create`底下同样会多一行`0 Roles, 1 Users`。
+14. 最后我们在这个对话框中点击`delete`类，同样点击指定用户选项，但这次不添加任何用户名，直接保存关闭即可。
+
+至此权限已设置完成，LeanCloud阅读计数插件设置完成，重新部署博客即可开启显示浏览量的功能。
 
 #### Valine评论插件
 
@@ -207,5 +212,8 @@ valine:
 $ npm install babel-runtime@6
 $ npm install hexo-leancloud-counter-security --save
 {% endcodeblock %}
+* 如果计数插件在LeanCloud服务器中报`“{“code”:403,”message”:”Access denied by api domain white list.The request origin header is ‘null’.”}`或`Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置.`的错，你需要检查LeanCloud控制台`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下自己的填写的个人主页地址协议和域名是否与自己的个人主页地址完全一致。比如把`https`打成了`http`。
 * 已经开启了Google Analytics插件，并打开个人博客页面，但是Google Analytics实时用户没有显示。可能是浏览器开启了防跟踪插件，比如DuckDuckGo。也可能是默认网址填写错误。比如网站后多加了`/`或者是`http`选项没有改成`https`。Chrome用户可以安装Google Tag Assistant插件进行Debug。
 * 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用**双空格**作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。
+
+####
