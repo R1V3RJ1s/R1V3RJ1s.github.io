@@ -55,7 +55,7 @@ class KeyDefaultdict(collections.defaultdict):
 
 #### 通过迭代默认参数来创建函数时的问题
 
-我是在创建默认值为与键相关的函数的`defaultdict`时遇到这个问题的。我希望通过读取文件内不同的参数来创建值生成函数不同的字典，但我发现迭代文件内容后生成的字典值生成函数全部都一样且只和文件中最后的参数有关。而如果在创建某字典后立即调用该字典创建测试键值对进行检测时会发现此时返回的键值对结果是正常的，不过生成完再用其他值创建测试键值对进行检测时会发现此时字典值生成函数又变回一样了。经过搜索之后，我发现这个问题在一个叫[wtfpython](https://github.com/satwikkansal/wtfpython)的GitHub repository里讲的比较好，而且举的例子比较简单和清晰，所以我会用该repository里的例子来讲解。另外提一句，这个repository专门讲Python编程中可能会踩到的坑还有各种小彩蛋，发布至今已经获得15k的star了，读完会对Python有更深的了解。
+我是在创建默认值为与键相关的函数的`defaultdict`时遇到这个问题的。我希望通过读取文件内不同的参数来创建值生成函数不同的字典，但我发现迭代文件内容后生成的字典值生成函数全部都一样且只和文件中最后的参数有关。而如果在创建某字典后立即调用该字典创建测试键值对进行检测时会发现此时返回的键值对结果是正常的，不过生成完再用其他值创建测试键值对进行检测时会发现此时字典值生成函数又变回一样了。经过搜索之后，我发现这个问题在一个叫[wtfpython](https://github.com/satwikkansal/wtfpython#-the-sticky-output-function)的GitHub repository里讲的比较好，而且举的例子比较简单和清晰，所以我会用该repository里的例子来讲解。另外提一句，这个repository专门讲Python编程中可能会踩到的坑还有各种小彩蛋，发布至今已经获得15k的star了，读完会对Python有更深的了解。
 
 {% codeblock lang:python %}
 funcs = []
@@ -93,7 +93,7 @@ for x in range(7):
 [0, 1, 2, 3, 4, 5, 6]
 {% endcodeblock %}
 
-2. 我们可以通过创建一个工厂函数（函数嵌套）来来获得预期的结果。这么做可行的原因是每次运行这个工厂函数我们都能给要创建的函数创建一个独立的执行环境来给它绑定。这是因为根据Python的作用域查询规则（LEGB rule, Local scope -> Enclosed scope -> Global scope -> Built-in scope），当我们要以非赋值的方式去引用一个变量时，如果此时局部作用域(Local scope)的任何位置无对某变量的赋值操作（无论此赋值操作是在引用变量之前还是在之后），那么Python会默认此变量为非局部变量，从而会去上一级作用域查询，直至查询到该变量或者抛出`NameError`异常。此例中`some_func`函数在工厂函数`some_factory_func`的作用域中即能查询到变量x，所以不再需要向上查询，因此此函数闭包所绑定的变量为此封闭作用域（Enclosed scope）内的变量而非全局变量。
+2. 我们可以通过创建一个工厂函数（函数嵌套）来来获得预期的结果。这么做可行的原因是每次运行这个工厂函数我们都能给要创建的函数创建一个独立的执行环境来给它绑定。这是因为根据Python的作用域查询规则（LEGB rule, Local scope -> Enclosed scope -> Global scope -> Built-in scope），当我们要以非赋值的方式去引用一个变量时，如果此时局部作用域(Local scope)的任何位置无对某变量的赋值操作（无论此赋值操作是在引用变量之前还是在之后），那么Python会默认此变量为全局变量，从而会去上一级作用域查询，直至查询到该变量或者抛出`NameError`异常。此例中`some_func`函数在工厂函数`some_factory_func`的作用域中即能查询到变量x，所以不再需要向上查询，因此此函数闭包所绑定的变量为此封闭作用域（Enclosed scope）内的变量而非全局变量。
 {% codeblock lang:python %}
 funcs = []
 for x in range(7):
@@ -109,7 +109,7 @@ for x in range(7):
 >>> funcs_results
 [0, 1, 2, 3, 4, 5, 6]
 {% endcodeblock %}
-为了检验我们的函数所绑定的变量是哪个变量，我们通过global关键词来让Python直接引用作为全局变量的x，假设之前的理论成立，那么此时的输出列表应该全是最后一次迭代的x值：
+为了检验我们的函数所绑定的变量是哪个变量，我们通过`global`关键词来让Python直接引用作为全局变量的x，假设之前的理论成立，那么此时的输出列表应该全是最后一次迭代的x值：
 {% codeblock lang:python %}
 funcs = []
 for x in range(7):
@@ -126,4 +126,84 @@ for x in range(7):
 >>> funcs_results
 [6, 6, 6, 6, 6, 6] # 假设成立
 {% endcodeblock %}
-可见之前我们通过工厂函数传递给生成函数的变量x的确是相互独立的。
+可见之前我们通过工厂函数传递给生成函数的变量x的确绑定的是封闭作用域内的x，且彼此相互独立。
+
+本条其他参考链接：
+[A Beginner's Guide to Python's Namespaces, Scope Resolution, and the LEGB Rule](https://sebastianraschka.com/Articles/2014_python_scope_and_namespaces.html)
+[Gotcha: Python, scoping, and closures](https://eev.ee/blog/2011/04/24/gotcha-python-scoping-closures/)
+
+#### UnboundLocalError
+
+这条其实在wtfpython里也有，叫做[The out of scope variable](https://github.com/satwikkansal/wtfpython#-the-out-of-scope-variable)。简单描述即是当你定义一个全局的变量，且在函数里对该变量有修改操作，那么如果这个修改操作没有执行（比如在判断语句之内）或者是在对该变量的引用在修改操作之前，那么Python就会抛出`UnboundLocalError`异常。这个问题的隐蔽版本是当你使用形如a += 1的赋值运算符时，如果全局环境中有对a的定义且函数中无对a的定义，那么Python也会抛出`UnboundLocalError`异常。
+
+{% codeblock lang:python %}
+a = 1
+def first_func():
+    return a
+
+def second_func():
+    a += 1
+    return a
+
+def third_func():
+    if False:
+        a = 2
+    return a
+
+def fourth_func():
+    print(a)
+    a = 2
+
+def fifth_func():
+    a = 3
+    def sixth_func():
+        a += 1
+        return a
+    return sixth_func()
+{% endcodeblock %}
+
+输出：
+{% codeblock lang:python %}
+>>> first_func()
+1
+>>> second_func()
+UnboundLocalError: local variable 'a' referenced before assignment
+>>> third_func()
+UnboundLocalError: local variable 'a' referenced before assignment
+>>> fourth_func()
+UnboundLocalError: local variable 'a' referenced before assignment
+>>> fifth_func()
+UnboundLocalError: local variable 'a' referenced before assignment
+{% endcodeblock %}
+
+出现该问题的原因在[Python FAQ](https://docs.python.org/3.7/faq/programming.html#what-are-the-rules-for-local-and-global-variables-in-python)中提到：
+> 在Python中，如果变量仅仅是被引用而没有被赋值过，那么默认被视作全局变量。如果一个变量在函数中被赋值过，那么就被视作局部变量。
+显然，这里的被赋值过，指的是在函数体内任何地方被赋值过。即使没有被执行或是变量引用之后再赋值，都依旧会被当做“被赋值过”，从而被Python视作局部变量。而之所以a += 1会报错是因为 a += 1会被视作a = a + 1，此处a由于有赋值操作的存在被Python视作局部变量，而算术运算符的优先级又高于赋值运算符，于是Python会先计算a + 1，但这个时候a在局部作用域中并不能被查询到，于是抛出`UnboundLocalError`异常。解决方案也很简单，使用global关键字进行声明即可。如果变量a在工厂函数之内，则应用nonlocal关键字进行声明。
+
+{% codeblock lang:python %}
+a = 1
+def second_func():
+    global a
+    a += 1
+    return a
+
+def fifth_func():
+    a = 3
+    def sixth_func():
+        nonlocal a
+        a += 1
+        return a
+    return sixth_func()
+{% endcodeblock %}
+
+输出：
+{% codeblock lang:python %}
+>>> second_func()
+2
+>>> fith_func()
+4
+{% endcodeblock %}
+
+本条其他参考链接：
+[理解Python的UnboundLocalError（Python的作用域）](https://www.kawabangga.com/posts/2245)
+[全局变量报错：UnboundLocalError: local variable 'l' referenced before assignment](https://blog.csdn.net/my2010Sam/article/details/17735159)
