@@ -214,7 +214,7 @@ $ npm install hexo-leancloud-counter-security --save
 {% endcodeblock %}
 * 如果计数插件在LeanCloud服务器中报`“{“code”:403,”message”:”Access denied by api domain white list.The request origin header is ‘null’.”}`或`Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置.`的错，你需要检查LeanCloud控制台`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下自己的填写的个人主页地址协议和域名是否与自己的个人主页地址完全一致。比如把`https`打成了`http`。
 * 已经开启了Google Analytics插件，并打开个人博客页面，但是Google Analytics实时用户没有显示。可能是浏览器开启了防跟踪插件，比如DuckDuckGo。也可能是默认网址填写错误。比如网站后多加了`/`或者是`http`选项没有改成`https`。Chrome用户可以安装Google Tag Assistant插件进行Debug。
-* 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用**双空格**作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。
+* 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用**双空格**作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。
 
 #### 相关链接
 * [NexT主题中文官方网站，已停止更新](https://theme-next.iissnan.com/)
