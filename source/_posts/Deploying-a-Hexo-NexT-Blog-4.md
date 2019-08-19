@@ -84,6 +84,8 @@ before_install:
   - sed -i "s#${GITHUB_REPO}#${GITHUB_TOKEN}@${GITHUB_REPO}#g" _config.yml # `-i`标记告诉`sed`命令需要将修改结果保存在文件中，`s`和`g`是开始和结束的标记，`#`号作为字符串分隔符从而避免与地址分隔符`/`相混淆。
 {% endcodeblock %}
 
+另外，Travis CI也支持通过SSH方式来向GitHub部署代码，具体可以参考[这篇博文](https://www.zhuwenlong.com/blog/article/5c24b6f2895e3a0fb4072a5c)。
+
 ##### LeanCloud相关插件信息的加密与配置方案
 
 到这一步，如果我们的博客没有什么别的需要额外配置的插件，那么我们的自动部署脚本就已经编写完成并且应该能够成功运行了。但是由于我们还启动了LeanCloud的计数和评论插件，以及计数插件的安全补丁，因此为了不在自动部署过程中输入账号密码信息，同时又不在配置文件中明文储存该信息，我们还需要额外配置一下。本质而言并没有什么区别，因为Travis CI支持通过多`secure`字段进行多环境变量加密传递的方式，所以我们把我们需要加密的信息统统`travis encrypt`一遍再复制到`.travis.yml`文件中即可。然后配置过程也类似，在原来的配置文件中给你需要修改的字段分别设置一个唯一标识码（比如你可以用一个特别的字符串，或者一个简单一点的哈希算法），然后在自动部署过程中使用`sed`命令识别，修改并暂存配置文件即可。我以LeanCloud的计数插件的App ID为例来说明一遍具体步骤，其他字段修改的流程完全一样，不再赘述：
@@ -202,7 +204,8 @@ env:
 
 #### 参考链接
 
-1. [使用 Travis CI 自动更新 GitHub Pages](https://notes.iissnan.com/2016/publishing-github-pages-with-travis-ci/)
-2. [解决 Travis CI 总是更新旧博客的问题](https://wafer.li/Hexo/%E8%A7%A3%E5%86%B3%20Travis%20CI%20%E6%80%BB%E6%98%AF%E6%9B%B4%E6%96%B0%E6%97%A7%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%97%AE%E9%A2%98/)
+* [使用 Travis CI 自动更新 GitHub Pages](https://notes.iissnan.com/2016/publishing-github-pages-with-travis-ci/)
+* [解决 Travis CI 总是更新旧博客的问题](https://wafer.li/Hexo/%E8%A7%A3%E5%86%B3%20Travis%20CI%20%E6%80%BB%E6%98%AF%E6%9B%B4%E6%96%B0%E6%97%A7%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%97%AE%E9%A2%98/)
+* [使用Travis-ci自动SSH部署代码](https://www.zhuwenlong.com/blog/article/5c24b6f2895e3a0fb4072a5c)
 
 

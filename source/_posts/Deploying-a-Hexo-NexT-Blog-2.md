@@ -127,3 +127,7 @@ $ hexo d
 #### 可能遇到的问题
 * 如果在任何含`npm install`的步骤出现问题，尤其报错`Permission Denied`时可以尝试改成在管理员模式(sudo)下运行该命令。
 * 如果部署之后GitHub个人博客也一直报404错误，可以看看是否将`https`打成了`http`，又或者是否没有将仓库设置成公开。
+
+#### 相关链接
+
+* [hexo搭建博客：常见错误](https://www.jianshu.com/p/d82cbf9d072f)
