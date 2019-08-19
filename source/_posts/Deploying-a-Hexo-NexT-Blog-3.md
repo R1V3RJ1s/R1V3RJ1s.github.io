@@ -118,10 +118,38 @@ if (request.object.updatedKeys.indexOf('time') !== -1) {
 }
 {% endcodeblock %}
 6. 保存成功后，在`在线编辑栏`中点击`部署`选项进行部署，待部署日志出现成功部署信息后即可关闭。
+7. 此时回到`设置`面板，点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`leancloud_visitors`类中的`enable`字段填为`true`，`app_id`和`app_key`填你刚才记录下的`App ID`和`App Key`。然后`security`字段填`true`，`betterPerformance`填`true`或者`false`都行，填`true`的话在网站中阅读次数加载会更快一些，不过会不够准确。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>中代码如下：
+{% codeblock lang:sh %}
+leancloud_visitors:
+  enable: true
+  app_id: ${LEANCLOUD_VISITORS_ID}
+  app_key: ${LEANCLOUD_VISITORS_KEY}
+  # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
+  # If you don't care about security in leancloud counter and just want to use it directly
+  # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
+  security: true
+  betterPerformance: false
+{% endcodeblock %}
+8. 
 
 #### Valine评论插件
 
-和LeanCloud阅读计数插件类似，你需要在LeanCloud主面板中再创建一个`开发版`的应用，应用名字可以随便起。然后在`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下填写自己的个人主页地址。协议和域名需要完全一致。注意不要把`https`打成`http`。保存后点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`valine`类的`enable`字段填为`true`，`appid`和`appkey`字段填你刚才记录下的`App ID`和`App Key`。然后`visitor`字段填`false`，不然在有阅读计数插件的环境下可能会导致bug。然后就可以重新部署源代码测试是否成功开启。
+和LeanCloud阅读计数插件类似，你需要在LeanCloud主面板中再创建一个`开发版`的应用，应用名字可以随便起。然后在`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下填写自己的个人主页地址。协议和域名需要完全一致。注意不要把`https`打成`http`。保存后点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`valine`类的`enable`字段填为`true`，`appid`和`appkey`字段填你刚才记录下的`App ID`和`App Key`。然后`visitor`字段填`false`，不然在有阅读计数插件的环境下可能会导致bug。然后就可以重新部署源代码测试是否成功开启。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>中代码如下：
+{% codeblock lang:sh %}
+valine:
+  enable: true # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version
+  appid: ${LEANCLOUD_CRITIQUE_ID}
+  appkey: ${LEANCLOUD_CRITIQUE_KEY}
+  notify: false # Mail notifier. See: https://github.com/xCss/Valine/wiki
+  verify: false # Verification code
+  placeholder: Make your comments here. # Comment box placeholder
+  avatar: mm # Gravatar style
+  guest_info: nick,mail,link # Custom comment header
+  pageSize: 10 # Pagination size
+  language: # Language, available values: en, zh-cn
+  visitor: false # leancloud-counter-security is not supported for now. When visitor is set to be true, appid and appkey are recommended to be the same as leancloud_visitors' for counter compatibility. Article reading statistic https://valine.js.org/visitor.html
+  comment_count: true # If false, comment count will only be displayed in post page, not in home page
+{% endcodeblock %}
 
 #### Google Analytics
 
