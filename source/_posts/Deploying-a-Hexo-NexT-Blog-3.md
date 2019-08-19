@@ -15,10 +15,39 @@ published: true
 
 <!-- more -->
 
-#### 基本主题和站点配置
+在这里我只会写我自己调整过的设置，更多主题方面的设置可以参考[NexT主题曾经的官方网站](https://theme-next.iissnan.com/)和[NexT现在的官方网站](https://theme-next.org/)。
 
+#### 主题风格配置
+
+NexT提供四个不同的风格可选，在<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>的`Schemes`类下将你想开启的风格前的#号删除然后把原来的风格前的#号加上即可。比如开启`Mist`风格：
+
+{% codeblock lang:sh %}
+# Schemes
+#scheme: Muse
+scheme: Mist
+#scheme: Pisces
+#scheme: Gemini
+{% endcodeblock %}
+
+注意删除#号时不可将空格一起删除，不然会出现错误。
+
+#### 基本个人信息和站点信息配置
 由于在本系列文章的[第二篇](https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/)中我们已经设置站点主题为`NexT`，所以对于<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>而言，现在只需要填写`title`（标题），`description`（简介或座右铭），`author`（作者），`language`（语言），`url`（网站链接）字段。前三个字段可以随心所欲，`language`的话英文用户填`en`，简体中文用户填写`zh-CN`，繁体中文用户填写`zh-TW`或`zh-hk`。`url`字段则直接复制个人主页网址地址即可，比如本博客链接的`url`就是`https://r1v3rj1s.github.io`。
-然后我们就可以进入到<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>的配置。打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，
+然后我们配置头像和媒体信息。找到一张你想用的头像图片（不要太大，像素500x500以下，.gif最好，其他常见图片格式也可）并存于个人博客源代码根目录/source/image文件夹下（若source文件夹下不存在image文件夹那么手动创建一个即可）。然后打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>并找到`avatar`类，然后在`url`字段中复制刚刚下载的头像图片地址即可（比如`r1v3rj1s.github.io/source/image/avatar.gif`）。接着找到`social`类，然后在你想添加的媒体信息前删除#号并将后面的链接修改为你自己的媒体账号地址即可。
+
+####版权信息
+
+找到`creative_commons`类，做如下设置即可开启版权尾注：
+
+{% codeblock lang:sh %}
+creative_commons:
+  license: by-nc-sa
+  sidebar: false
+  post: true
+  language: zh-CN
+{% endcodeblock %}
+
+之后写博文的时候如果需要添加版权尾注在YAML头添加`copyright: true`字段即可。[这篇文章](https://segmentfault.com/a/1190000009544924)提供了更多自定义版权的方式。
 
 #### MathJax
 
@@ -36,7 +65,7 @@ published: true
 
 #### 可能遇到的问题
 
-* `<!-- more -->`不能起到分割的作用，你需要检查你的分割字段写的是`<!-- more -->`（more左右各有一个空格）还是`<!--more-->`（more左右无空格）
+* `<!-- more -->`不能起到分割的作用，你需要检查你的分割字段写的是`<!-- more -->`（more左右各有一个空格）还是`<!--more-->`（more左右无空格）。
 * 开启了mathjax插件但是公式不显示，可能是cdn有问题，常见问题是前缀没有加`https://`，或者是网址过期。只需要把cdn里的地址复制到浏览器中打开看是否有显示就可以判断是否是cdn地址出错。
 * 已经开启了Google Analytics插件，并打开个人博客页面，但是Google Analytics实时用户没有显示。可能是浏览器开启了防跟踪插件，比如DuckDuckGo。也可能是默认网址填写错误。比如网站后多加了`/`或者是`http`选项没有改成`https`。Chrome用户可以安装Google Tag Assistant插件进行Debug。
 * 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用双空格作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。
