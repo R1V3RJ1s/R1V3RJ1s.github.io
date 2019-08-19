@@ -217,6 +217,7 @@ $ npm install hexo-leancloud-counter-security --save
 * 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#4fa7f0"><font color="white">&nbsp;站点配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用**双空格**作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。
 
 #### 相关链接
+
 * [NexT主题中文官方网站，已停止更新](https://theme-next.iissnan.com/)
 * [NexT现在的官方网站，持续更新](https://theme-next.org/)
 * [hexo的next主题个性化配置教程](https://segmentfault.com/a/1190000009544924)
