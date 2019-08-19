@@ -55,19 +55,19 @@
   };
 </script>
 
-  <meta name="description" content="本博文专门用来记录在学习和使用R编程时遇到的一些与问题，解决方案和总结的技巧。">
-<meta name="keywords" content="R">
+  <meta name="description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第四篇，主要内容是介绍本博客如何利用Travis CI进行自动部署。">
+<meta name="keywords" content="Git,Hexo,NexT">
 <meta property="og:type" content="article">
-<meta property="og:title" content="R编程中的小技巧以及各种踩过的坑">
-<meta property="og:url" content="https://r1v3rj1s.github.io/2019/08/17/tricks-and-troubleshooting-in-r/index.html">
+<meta property="og:title" content="利用GitHub Pages搭建个人Blog（四）: 利用Travis CI进行自动部署">
+<meta property="og:url" content="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/index.html">
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
-<meta property="og:description" content="本博文专门用来记录在学习和使用R编程时遇到的一些与问题，解决方案和总结的技巧。">
+<meta property="og:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第四篇，主要内容是介绍本博客如何利用Travis CI进行自动部署。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-18T06:15:54.000Z">
+<meta property="og:updated_time" content="2019-08-19T05:18:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R编程中的小技巧以及各种踩过的坑">
-<meta name="twitter:description" content="本博文专门用来记录在学习和使用R编程时遇到的一些与问题，解决方案和总结的技巧。">
-  <link rel="canonical" href="https://r1v3rj1s.github.io/2019/08/17/tricks-and-troubleshooting-in-r/">
+<meta name="twitter:title" content="利用GitHub Pages搭建个人Blog（四）: 利用Travis CI进行自动部署">
+<meta name="twitter:description" content="本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第四篇，主要内容是介绍本博客如何利用Travis CI进行自动部署。">
+  <link rel="canonical" href="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>R编程中的小技巧以及各种踩过的坑 | R1V3RJ's Blog</title>
+  <title>利用GitHub Pages搭建个人Blog（四）: 利用Travis CI进行自动部署 | R1V3RJ's Blog</title>
   
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145419250-2"></script>
   <script>
@@ -228,7 +228,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://r1v3rj1s.github.io/2019/08/17/tricks-and-troubleshooting-in-r/">
+    <link itemprop="mainEntityOfPage" href="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Runyang Jiang">
@@ -242,7 +242,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">R编程中的小技巧以及各种踩过的坑
+          <h1 class="post-title" itemprop="name headline">利用GitHub Pages搭建个人Blog（四）: 利用Travis CI进行自动部署
 
               
             
@@ -262,7 +262,7 @@
                 
               
 
-              <time title="创建时间：2019-08-17 22:11:43" itemprop="dateCreated datePublished" datetime="2019-08-17T22:11:43+00:00">2019-08-17</time>
+              <time title="创建时间：2019-08-15 23:30:39" itemprop="dateCreated datePublished" datetime="2019-08-15T23:30:39+00:00">2019-08-15</time>
             </span>
           
             
@@ -275,7 +275,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-18 06:15:54" itemprop="dateModified" datetime="2019-08-18T06:15:54+00:00">2019-08-18</time>
+                <time title="修改时间：2019-08-19 05:18:30" itemprop="dateModified" datetime="2019-08-19T05:18:30+00:00">2019-08-19</time>
               </span>
             
           
@@ -287,7 +287,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Blog/" itemprop="url" rel="index"><span itemprop="name">Blog</span></a></span>
 
                 
                 
@@ -296,7 +296,7 @@
           
 
           
-            <span id="/2019/08/17/tricks-and-troubleshooting-in-r/" class="post-meta-item leancloud_visitors" data-flag-title="R编程中的小技巧以及各种踩过的坑">
+            <span id="/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/" class="post-meta-item leancloud_visitors" data-flag-title="利用GitHub Pages搭建个人Blog（四）: 利用Travis CI进行自动部署">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -317,8 +317,8 @@
       <span class="post-meta-item-text">评论数：</span>
     
   
-    <a href="/2019/08/17/tricks-and-troubleshooting-in-r/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/tricks-and-troubleshooting-in-r/" itemprop="commentCount"></span>
+    <a href="/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -334,8 +334,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本博文专门用来记录在学习和使用R编程时遇到的一些与问题，解决方案和总结的技巧。</p>
+        <p>本系列文章的主要目的是介绍本博客（Hexo静态博客框架+NexT主题）是怎么配置，搭建与部署在GitHub Pages上的，以及介绍相关的过程中有哪些可能出现的问题以及其解决方案，希望后来人能够少踩坑。本文是本系列的第四篇，主要内容是介绍本博客如何利用Travis CI进行自动部署。</p>
 <a id="more"></a>
+
+<p>到现在为止我们对博客源码（比如站点设置，主题设置，博文等）的每次更改都需要我们手动部署到GitHub Pages上。重复的次数多了就显得很麻烦，出错的几率也会变大。一旦分支混淆，还会造成远程源码丢失的问题。不过好在现在支持持续集成/持续部署（CI/CD）的工具很多，它们能够让我们把这个过程自动化。我选择的是<a href="https://travis-ci.org/" target="_blank" rel="noopener">Travis CI</a>，因为它简单好用，而且免费。注册Travis CI和让Travis CI为特定的GitHub仓库开启自动Build的过程非常容易，在此不再赘述。本过程的主要难点在于需要自己编写部署文档。</p>
+<h4 id="自动部署的基本过程"><a href="#自动部署的基本过程" class="headerlink" title="自动部署的基本过程"></a>自动部署的基本过程</h4><h4 id="加密部署方案"><a href="#加密部署方案" class="headerlink" title="加密部署方案"></a>加密部署方案</h4><h4 id="commit历史和博文更新时间恢复问题解决方案"><a href="#commit历史和博文更新时间恢复问题解决方案" class="headerlink" title="commit历史和博文更新时间恢复问题解决方案"></a>commit历史和博文更新时间恢复问题解决方案</h4><h4 id="Travis-yml脚本参考"><a href="#Travis-yml脚本参考" class="headerlink" title=".Travis.yml脚本参考"></a>.Travis.yml脚本参考</h4><p>这里给出我最终测试成功的 Travis CI 脚本给大家参考：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">language: node_js</span><br><span class="line">node_js: stable</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">before_install:</span><br><span class="line">  <span class="comment"># Basic config</span></span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_CRITIQUE_TMP_ID&#125;</span>#<span class="variable">$&#123;LEANCLOUD_CRITIQUE_ID&#125;</span>#g"</span> themes/next/_config.yml</span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_CRITIQUE_TMP_KEY&#125;</span>#<span class="variable">$&#123;LEANCLOUD_CRITIQUE_KEY&#125;</span>#g"</span> themes/next/_config.yml</span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_TMP_ID&#125;</span>#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_ID&#125;</span>#g"</span> themes/next/_config.yml</span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_TMP_KEY&#125;</span>#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_KEY&#125;</span>#g"</span> themes/next/_config.yml</span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_TMP_ID&#125;</span>#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_ID&#125;</span>#g"</span> _config.yml</span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_TMP_KEY&#125;</span>#<span class="variable">$&#123;LEANCLOUD_VISITORCOUNTER_KEY&#125;</span>#g"</span> _config.yml</span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_COUNTERSECURE_USER_TMP_ID&#125;</span>#<span class="variable">$&#123;LEANCLOUD_COUNTERSECURE_USER_ID&#125;</span>#g"</span> _config.yml</span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;LEANCLOUD_COUNTERSECURE_TMP_TOKEN&#125;</span>#<span class="variable">$&#123;LEANCLOUD_COUNTERSECURE_TOKEN&#125;</span>#g"</span> _config.yml</span><br><span class="line">  - git config --global user.name <span class="string">"r1v3rj1s"</span></span><br><span class="line">  - git config --global user.email <span class="string">"djieastgo@yahoo.com"</span></span><br><span class="line">  - sed -i <span class="string">"s#<span class="variable">$&#123;GITHUB_REF&#125;</span>#<span class="variable">$&#123;GITHUB_TOKEN&#125;</span>@<span class="variable">$&#123;GITHUB_REF&#125;</span>#g"</span> _config.yml</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Restore last modified time</span></span><br><span class="line">  - <span class="string">"git ls-files -z | while read -d '' path; do touch -d \"<span class="variable">$(git log -1 --format=\"@%ct\" \"$path\")</span>\" \"<span class="variable">$path</span>\"; done"</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Deploy history</span></span><br><span class="line">  - git <span class="built_in">clone</span> --branch=master --single-branch https://<span class="variable">$&#123;GITHUB_REF&#125;</span>.git .deploy_git</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">install:</span><br><span class="line">  - npm install babel-runtime@6</span><br><span class="line">  - npm install -g hexo-cli</span><br><span class="line">  - npm install hexo --save</span><br><span class="line">  - npm install hexo-deployer-git --save</span><br><span class="line">  - npm install hexo-leancloud-counter-security --save</span><br><span class="line">  - npm install</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">before_script:</span><br><span class="line">  - hexo clean </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">script:</span><br><span class="line">  - hexo g </span><br><span class="line">  - hexo d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git:</span><br><span class="line">  depth: <span class="literal">false</span></span><br><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">    - pg-source</span><br><span class="line">env:</span><br><span class="line">  global:</span><br><span class="line">    - secure: <span class="string">"...="</span></span><br><span class="line">    - secure: <span class="string">"...="</span></span><br></pre></td></tr></table></figure>
+
+
+
+
 
     </div>
 
@@ -350,7 +358,7 @@
     <strong>本文作者： </strong>Runyang Jiang</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://r1v3rj1s.github.io/2019/08/17/tricks-and-troubleshooting-in-r/" title="R编程中的小技巧以及各种踩过的坑">https://r1v3rj1s.github.io/2019/08/17/tricks-and-troubleshooting-in-r/</a>
+    <a href="https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/" title="利用GitHub Pages搭建个人Blog（四）: 利用Travis CI进行自动部署">https://r1v3rj1s.github.io/2019/08/15/Deploying-a-Hexo-NexT-Blog-4/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -362,13 +370,17 @@
           
         
         <div class="post-tags">
-            <a href="/tags/R/" rel="tag"># R</a>
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/tags/NexT/" rel="tag"># NexT</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/17/tricks-and-troubleshooting-in-python/" rel="next" title="Python编程中的小技巧以及踩过的坑">
-                <i class="fa fa-chevron-left"></i> Python编程中的小技巧以及踩过的坑
+              <a href="/2019/08/15/Deploying-a-Hexo-NexT-Blog-2/" rel="next" title="利用GitHub Pages搭建个人Blog（二）: 先决要求和初始化配置">
+                <i class="fa fa-chevron-left"></i> 利用GitHub Pages搭建个人Blog（二）: 先决要求和初始化配置
               </a>
             
           </div>
@@ -376,6 +388,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/08/17/tricks-and-troubleshooting-in-python/" rel="prev" title="Python编程中的小技巧以及踩过的坑">
+                Python编程中的小技巧以及踩过的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -408,8 +424,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -478,7 +503,7 @@
         
           
         
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
@@ -513,6 +538,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#自动部署的基本过程"><span class="nav-number">1.</span> <span class="nav-text">自动部署的基本过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密部署方案"><span class="nav-number">2.</span> <span class="nav-text">加密部署方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commit历史和博文更新时间恢复问题解决方案"><span class="nav-number">3.</span> <span class="nav-text">commit历史和博文更新时间恢复问题解决方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Travis-yml脚本参考"><span class="nav-number">4.</span> <span class="nav-text">.Travis.yml脚本参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
