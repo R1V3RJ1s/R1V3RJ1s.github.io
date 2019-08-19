@@ -17,13 +17,17 @@ published: true
 
 #### 基本主题，站点配置
 
+
+
 #### MathJax
 
-打开自己的<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>并将`math`类的`enable`和`per_page`字段都填为`true`。`engine`填为`mathjax`，然后`cdn`处填为`https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML`即可。
+打开自己的<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>并将`math`类的`enable`和`per_page`字段都填为`true`。`engine`填为`mathjax`，然后`cdn`处填为`https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML`即可。`per_page`字段为`true`的话若要开启MathJax模式则所有博文YAML头必须有`mathjax: true`字段。
 
 #### LeanCloud阅读计数插件
 
 #### Valine评论插件
+
+和LeanCloud阅读计数插件类似，你需要在LeanCloud主面板中再创建一个`开发版`的应用，然后在`设置`面板的`安全域名`选项处的`Web 安全域名`栏目下填写自己的个人主页地址。协议和域名需要完全一致。注意不要把`https`打成`http`。保存后点击`应用 Key`选项，记录下你的`App ID`和`App Key`，打开<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>，在`valine`类的`enable`字段填为`true`，`appid`和`appkey`字段填你刚才记录下的`App ID`和`App Key`。然后`visitor`字段填`false`，不然在有阅读计数插件的环境下可能会导致bug。然后就可以重新部署源代码测试是否成功开启。
 
 #### Google Analytics
 
@@ -31,6 +35,7 @@ published: true
 
 #### 可能遇到的问题
 
+* <!-- more -->不能起到分割的作用，你需要检查你的分割字段写的是<!-- more -->（more左右各有一个空格）还是<!--more-->（more左右无空格）
 * 开启了mathjax插件但是公式不显示，可能是cdn有问题，常见问题是前缀没有加`https://`，或者是网址过期。只需要把cdn里的地址复制到浏览器中打开看是否有显示就可以判断是否是cdn地址出错。
 * 已经开启了Google Analytics插件，并打开个人博客页面，但是Google Analytics实时用户没有显示。可能是浏览器开启了防跟踪插件，比如DuckDuckGo。也可能是默认网址填写错误。比如网站后多加了`/`或者是`http`选项没有改成`https`。Chrome用户可以安装Google Tag Assistant插件进行Debug。
-
+* 对于`.yml`文件而言，处于同级的字段缩进量需要完全一致。<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>和<span style="background-color:#c082ed"><font color="white">&nbsp;主题配置文件&nbsp;</font></span>都用双空格作为缩进，所以当有无法理解的问题发生时检查一下缩进量也许会有意想不到的事情发生。
