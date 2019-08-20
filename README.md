@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/R1V3RJ1s/r1v3rj1s.github.io.svg?branch=second-institute)](https://travis-ci.org/R1V3RJ1s/r1v3rj1s.github.io)
 
-Errors should never pass silently.
+Errors should never pass silently, yet make a fortune should.
 
 ## 1.0.0 
 **08/09/2019 12:45**
