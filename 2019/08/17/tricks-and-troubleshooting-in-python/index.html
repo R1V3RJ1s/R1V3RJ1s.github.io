@@ -63,7 +63,7 @@
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="本博文专门用来记录在学习和使用Python编程时遇到的一些与问题，解决方案和总结的技巧。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-27T23:33:43.000Z">
+<meta property="og:updated_time" content="2019-08-27T23:42:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python编程中的小技巧以及踩过的坑">
 <meta name="twitter:description" content="本博文专门用来记录在学习和使用Python编程时遇到的一些与问题，解决方案和总结的技巧。">
@@ -275,7 +275,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-27 23:33:43" itemprop="dateModified" datetime="2019-08-27T23:33:43+00:00">2019-08-27</time>
+                <time title="修改时间：2019-08-27 23:42:31" itemprop="dateModified" datetime="2019-08-27T23:42:31+00:00">2019-08-27</time>
               </span>
             
           
@@ -386,7 +386,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>second_func()</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fith_func()</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
 
 <p>本条其他参考链接：<br><a href="https://www.kawabangga.com/posts/2245" target="_blank" rel="noopener">理解Python的UnboundLocalError（Python的作用域）</a><br><a href="https://blog.csdn.net/my2010Sam/article/details/17735159" target="_blank" rel="noopener">全局变量报错：UnboundLocalError: local variable ‘l’ referenced before assignment</a></p>
-<h4 id="利用conda包更新历史进行版本恢复"><a href="#利用conda包更新历史进行版本恢复" class="headerlink" title="利用conda包更新历史进行版本恢复"></a>利用conda包更新历史进行版本恢复</h4><p>有的时候你在利用conda更新完一个python包或者批量更新之后会因为各种原因想要回撤更新操作，比如由于包兼容问题conda把你另一个你需要用的包给升级或者降级了，移除了你需要的功能，又或者是由于你设置错了conda频道的优先级导致你升级的包都升级到了别的版本等等，这时候你就需要在命令行运行<code>conda list --revisions</code>来显示包更新历史，找到最近一次的更新历史和<code>revi_id</code>（在每次更新历史的第一行的更新时间之后，比如<code>2019-08-27 22:50:17  (rev 59)</code>的<code>59</code>就是<code>rev_id</code>）后运行<code>conda install --revision 58(rev_id减1)</code>就可以回到更新之前的conda环境了。此恢复默认在conda输入命令时所在的python环境进行恢复，也可以通过<code>-n</code>参数进行指定。</p>
+<h4 id="利用conda包更新历史进行版本恢复"><a href="#利用conda包更新历史进行版本恢复" class="headerlink" title="利用conda包更新历史进行版本恢复"></a>利用conda包更新历史进行版本恢复</h4><p>有的时候你在利用conda更新完一个python包或者批量更新之后会因为各种原因想要回撤更新操作，比如由于包兼容问题conda把你另一个你需要用的包给升级或者降级了，移除了你需要的功能，又或者是由于你设置错了conda频道的优先级导致你升级的包都升级到了别的版本等等，这时候你就需要在命令行运行<code>conda list --revisions</code>来显示包更新历史，找到最近一次的更新历史和<code>rev_id</code>（在每次更新历史的第一行的更新时间之后，比如<code>2019-08-27 22:50:17  (rev 59)</code>的<code>59</code>就是<code>rev_id</code>）后运行<code>conda install --revision 58(rev_id减1)</code>就可以回到更新之前的conda环境了。此恢复默认在conda输入命令时所在的python环境进行恢复，也可以通过<code>-n</code>参数进行指定。</p>
 <p>另外此命令的进阶用法就是通过指定<code>revision_id</code>恢复到任意指定版本，比如<code>conda install --revision 0</code>就可以让你恢复到原始环境（只保留当初创建环境时带的包）。</p>
 <p>本条命令整合如下：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda list --revisions <span class="comment"># 假设我们现在所在的版本rev_id是59</span></span><br><span class="line">conda install --revision 58</span><br></pre></td></tr></table></figure>
