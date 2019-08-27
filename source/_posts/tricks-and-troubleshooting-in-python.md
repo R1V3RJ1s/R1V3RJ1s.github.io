@@ -208,3 +208,19 @@ def fifth_func():
 本条其他参考链接：
 [理解Python的UnboundLocalError（Python的作用域）](https://www.kawabangga.com/posts/2245)
 [全局变量报错：UnboundLocalError: local variable 'l' referenced before assignment](https://blog.csdn.net/my2010Sam/article/details/17735159)
+
+#### 利用conda包更新历史进行版本恢复
+
+有的时候你在利用conda更新完一个python包或者批量更新之后会因为各种原因想要回撤更新操作，比如由于包兼容问题conda把你另一个你需要用的包给升级或者降级了，移除了你需要的功能，又或者是由于你设置错了conda频道的优先级导致你升级的包都升级到了别的版本等等，这时候你就需要在命令行运行`conda list --revisions`来显示包更新历史，找到最近一次的更新历史和`revi_id`（在每次更新历史的第一行的更新时间之后，比如`2019-08-27 22:50:17  (rev 59)`的`59`就是`rev_id`）后运行`conda install --revision 58(rev_id减1)`就可以回到更新之前的conda环境了。此恢复默认在conda输入命令时所在的python环境进行恢复，也可以通过`-n`参数进行指定。
+
+另外此命令的进阶用法就是通过指定`revision_id`恢复到任意指定版本，比如`conda install --revision 0`就可以让你恢复到原始环境（只保留当初创建环境时带的包）。
+
+本条命令整合如下：
+{% codeblock lang:sh %}
+conda list --revisions # 假设我们现在所在的版本rev_id是59
+conda install --revision 58
+{% endcodeblock %}
+
+本条其他参考链接：
+[Conda revisions: letting you ‘rollback’ to a previous version of your environment](http://blog.rtwilson.com/conda-revisions-letting-you-rollback-to-a-previous-version-of-your-environment/)
+[stackoverflow: conda: remove all installed packages from base/root environment](https://stackoverflow.com/questions/52830307/conda-remove-all-installed-packages-from-base-root-environment)
