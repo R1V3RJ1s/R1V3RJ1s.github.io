@@ -224,3 +224,23 @@ conda install --revision 58
 本条其他参考链接：
 [Conda revisions: letting you ‘rollback’ to a previous version of your environment](http://blog.rtwilson.com/conda-revisions-letting-you-rollback-to-a-previous-version-of-your-environment/)
 [stackoverflow: conda: remove all installed packages from base/root environment](https://stackoverflow.com/questions/52830307/conda-remove-all-installed-packages-from-base-root-environment)
+
+#### 使用pandas将数据框中的两列转换为字典结构
+
+在数据处理过程中有时候需要使用pandas将数据框中的两列转换为字典结构，其中第一列的所有相同值合并作为键，第二列中的对应值合并转换为列表结构储存。
+
+{% codeblock lang:python %}
+import pandas as pd
+
+
+# Your data
+data = pd.DataFrame({'column1':['key1','key1','key2','key2'],
+       'column2':['value1','value2','value3','value3']})
+
+# Grouped dict
+data_dict = data.groupby('column1').column2.apply(list).to_dict()  
+{% endcodeblock %}
+
+本条其他参考链接：
+[如何将两个pandas列转换为字典，但将相同第一列（键）的所有值合并为一个键？](https://cloud.tencent.com/developer/ask/147684)
+
