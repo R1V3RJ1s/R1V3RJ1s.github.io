@@ -233,11 +233,24 @@ conda install --revision 58
 import pandas as pd
 
 # Your data
-data = pd.DataFrame({'column1':['key1','key1','key2','key2'],
-       'column2':['value1','value2','value3','value3']})
+data = pd.DataFrame({'column1':['key1', 'key1',' key2'],
+       'column2':['value1', 'value2', 'value3']})
+
+'''
+data
+  column1 column2
+0    key1  value1
+1    key1  value2
+2    key2  value3
+'''
 
 # Grouped dict
-data_dict = data.groupby('column1').column2.apply(list).to_dict()  
+data_dict = data.groupby('column1').column2.apply(list).to_dict()
+
+'''
+data_dict
+{'key1': ['value1', 'value2'], 'key2': ['value3']}
+'''
 {% endcodeblock %}
 
 本条其他参考链接：
