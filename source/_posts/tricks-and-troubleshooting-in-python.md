@@ -257,7 +257,7 @@ data = pd.DataFrame([['cuisine_1','id_1',['ingredient_1', 'ingredient_2', 'ingre
 
 '''
 data
-     cuisine    id                                  ingredient
+     cuisine    id                                 ingredients
 0  cuisine_1  id_1  [ingredient_1, ingredient_2, ingredient_3]
 1  cuisine_2  id_2                [ingredient_4, ingredient_5]
 '''
