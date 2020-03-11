@@ -243,3 +243,48 @@ data_dict = data.groupby('column1').column2.apply(list).to_dict()
 本条其他参考链接：
 [如何将两个pandas列转换为字典，但将相同第一列（键）的所有值合并为一个键？](https://cloud.tencent.com/developer/ask/147684)
 
+#### 使用pandas将数据框中的一列列表转成每行单元素输出
+
+有时建立的数据框会存在列中的元素是列表结构的情况。为了让该数据框更加像数据库中的数据，需要将该列表列转成每行单元素，并且保留其他列信息，应该怎么办呢？命令如下：
+
+{% codeblock lang:python %}
+import pandas as pd
+
+# Your data
+data = pd.DataFrame([['cuisine_1','id_1',['ingredient_1', 'ingredient_2', 'ingredient_3']], 
+        ['cuisine_2','id_2',['ingredient_4', 'ingredient_5']]], 
+        columns=['cuisine','id','ingredients'])
+
+'''
+data
+     cuisine    id                                  ingredient
+0  cuisine_1  id_1  [ingredient_1, ingredient_2, ingredient_3]
+1  cuisine_2  id_2                [ingredient_4, ingredient_5]
+'''
+
+# Split a list inside a Dataframe cell into rows
+data = data.ingredients.apply(pd.Series) \
+        .merge(data, right_index = True, left_index = True) \
+        .drop(["ingredients"], axis = 1) \
+        .melt(id_vars = ['cuisine', 'id'], value_name = 'ingredient') \
+        .drop("variable", axis = 1) \
+        .dropna() \
+        .sort_values(by=['id']) \
+        .reset_index(drop=True)
+
+'''
+data
+     cuisine    id    ingredient
+0  cuisine_1  id_1  ingredient_1
+1  cuisine_1  id_1  ingredient_2
+2  cuisine_1  id_1  ingredient_3
+3  cuisine_2  id_2  ingredient_4
+4  cuisine_2  id_2  ingredient_5
+'''
+{% endcodeblock %}
+
+此处核心命令有两个，list_column.apply(pd.Series)对列表列进行展开，然后使用melt函数对数据框进行反透视操作。
+
+本条其他参考链接：
+[How to split a list inside a Dataframe cell into rows in Pandas](https://www.mikulskibartosz.name/how-to-split-a-list-inside-a-dataframe-cell-into-rows-in-pandas/)
+
