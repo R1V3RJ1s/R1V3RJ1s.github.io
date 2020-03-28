@@ -1,32 +1,23 @@
 {%- if theme.pdf.enable %}
+{%- set pdf_uri = next_vendors('pdf/web/viewer.html') %}
 <script{{ pjax }}>
-function embedPDF() {
-  $('body').find('div.pdf').each(function(i, o) {
-    PDFObject.embed($(o).attr('target'), $(o), {
-      pdfOpenParams: {
-        navpanes: 0,
-        toolbar: 0,
-        statusbar: 0,
-        pagemode: 'thumbs',
-        view: 'FitH'
-      },
-      PDFJS_URL: '/lib/pdf/web/viewer.html',
-      height: $(o).attr('height') || '{{ theme.pdf.height }}'
-    });
-  });
-}
-if ($('body').find('div.pdf').length) {
-  if (PDFObject) {
-    embedPDF();
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `{{ pdf_uri }}?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
   } else {
-    $.ajax({
-      type: 'GET',
-      url: '{{ theme.pdf.pdfobject.cdn }}',
-      dataType: 'script',
-      cache: true,
-      success: embedPDF
-    });
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
   }
-}
+});
 </script>
 {%- endif %}
