@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/R1V3RJ1s/r1v3rj1s.github.io.svg?branch=second-institute)](https://travis-ci.org/R1V3RJ1s/r1v3rj1s.github.io)
 
-Errors should never pass silently, yet make a fortune should.
+Errors should never pass silently, yet a fortune should.
 
 ## 1.0.0 
 **08/09/2019 12:45**
@@ -17,3 +17,7 @@ Errors should never pass silently, yet make a fortune should.
 1. Enabled Copyright footer.
 2. Enabled deploy history on GitHub.
 3. Fixed the update date display problem for the posts.
+
+## 1.0.3 
+**03/28/2020 15:47**
+1. Uploaded to Next 7.7
