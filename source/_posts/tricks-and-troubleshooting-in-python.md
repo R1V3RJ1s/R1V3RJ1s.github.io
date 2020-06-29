@@ -301,3 +301,16 @@ data
 本条其他参考链接：
 [How to split a list inside a Dataframe cell into rows in Pandas](https://www.mikulskibartosz.name/how-to-split-a-list-inside-a-dataframe-cell-into-rows-in-pandas/)
 
+#### 创建生成器使之每次迭代生成指定数目的元素
+
+一般而言一个生成器一次只能生成容器中的一个元素，但如果想要进行指定生成数目的元素迭代的话可以使用以下指令。其中n指的是你希望生成器每次迭代生成元素的数目。注意这条指令如果容器中元素的总数无法被n整除的话最后一组整组都会消失。
+
+{% codeblock lang:python %}
+# n is the number of elements you want to iterate at a time, notice that last m elements aren't iterated, where m equals to the length of the contatiner mod n
+
+zip(*[iter(iterable)] * n) # The rest elements will be iterable[-(len(iterable) % n):]
+
+{% endcodeblock %}
+
+本条其他参考链接：
+[Iterating over every two elements in a list](https://stackoverflow.com/questions/5389507/iterating-over-every-two-elements-in-a-list)
