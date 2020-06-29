@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="本博文专门用来记录在学习和使用Python编程时遇到的一些与问题，解决方案和总结的技巧。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-29T05:39:58.000Z">
+<meta property="og:updated_time" content="2020-06-29T06:01:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python编程中的小技巧以及踩过的坑">
 <meta name="twitter:description" content="本博文专门用来记录在学习和使用Python编程时遇到的一些与问题，解决方案和总结的技巧。">
@@ -201,7 +201,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-29 05:39:58" itemprop="dateModified" datetime="2020-06-29T05:39:58+00:00">2020-06-29</time>
+                <time title="修改时间：2020-06-29 06:01:21" itemprop="dateModified" datetime="2020-06-29T06:01:21+00:00">2020-06-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -313,7 +313,7 @@
 <p>此处核心命令有两个，list_column.apply(pd.Series)对列表列进行展开，然后使用melt函数对数据框进行反透视操作。</p>
 <p>本条其他参考链接：<br><a href="https://www.mikulskibartosz.name/how-to-split-a-list-inside-a-dataframe-cell-into-rows-in-pandas/" target="_blank" rel="noopener">How to split a list inside a Dataframe cell into rows in Pandas</a></p>
 <h4 id="创建生成器使之每次迭代生成指定数目的元素"><a href="#创建生成器使之每次迭代生成指定数目的元素" class="headerlink" title="创建生成器使之每次迭代生成指定数目的元素"></a>创建生成器使之每次迭代生成指定数目的元素</h4><p>一般而言一个生成器一次只能生成容器中的一个元素，但如果想要进行指定生成数目的元素迭代的话可以使用以下指令。其中n指的是你希望生成器每次迭代生成元素的数目。注意这条指令如果容器中元素的总数无法被n整除的话最后一组整组都会消失。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># n is the number of elements you want to iterate at a time, notice that last m elements aren't iterated, where m equals to the length of the contatiner mod n</span></span><br><span class="line"></span><br><span class="line">zip(*[iter(iterable)] * n) <span class="comment"># The rest elements will be iterable[-(len(iterable) % n):]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">n is the number of elements you want to iterate at a time. </span></span><br><span class="line"><span class="string">Notice that last m elements aren't iterated, where m equals to the length of the contatiner mod n.</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">zip(*[iter(iterable)] * n) <span class="comment"># The rest elements will be iterable[-(len(iterable) % n):]</span></span><br></pre></td></tr></table></figure>
 
 <p>本条其他参考链接：<br><a href="https://stackoverflow.com/questions/5389507/iterating-over-every-two-elements-in-a-list" target="_blank" rel="noopener">Iterating over every two elements in a list</a></p>
 
