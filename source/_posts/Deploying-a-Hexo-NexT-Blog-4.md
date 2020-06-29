@@ -149,7 +149,7 @@ git:
 
 {% codeblock lang:sh %}
 language: node_js
-node_js: stable
+node_js: 13
 
 
 before_install:
