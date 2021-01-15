@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"r1v3rj1s.github.io","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
-<meta name="keywords" content="CentOS,Bash">
+  <meta name="description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Installing gcc without root privilege in CentOS">
-<meta property="og:url" content="https://r1v3rj1s.github.io/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/index.html">
+<meta property="og:title" content="利用Matplotlib制作柱中内嵌标签的柱状图">
+<meta property="og:url" content="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/index.html">
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
-<meta property="og:description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
+<meta property="og:description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-14T21:46:47.000Z">
+<meta property="og:image" content="https://r1v3rj1s.github.io/images/barlot.jpg">
+<meta property="og:updated_time" content="2021-01-14T23:07:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Installing gcc without root privilege in CentOS">
-<meta name="twitter:description" content="Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.">
+<meta name="twitter:title" content="利用Matplotlib制作柱中内嵌标签的柱状图">
+<meta name="twitter:description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
+<meta name="twitter:image" content="https://r1v3rj1s.github.io/images/barlot.jpg">
 
-<link rel="canonical" href="https://r1v3rj1s.github.io/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/">
+<link rel="canonical" href="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/">
 
 
 <script id="page-configurations">
@@ -46,7 +48,7 @@
   };
 </script>
 
-  <title>Installing gcc without root privilege in CentOS | R1V3RJ's Blog</title>
+  <title>利用Matplotlib制作柱中内嵌标签的柱状图 | R1V3RJ's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145419250-2"></script>
     <script>
@@ -171,7 +173,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://r1v3rj1s.github.io/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/">
+    <link itemprop="mainEntityOfPage" href="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/belt.gif">
@@ -184,7 +186,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Installing gcc without root privilege in CentOS
+          利用Matplotlib制作柱中内嵌标签的柱状图
         </h1>
 
         <div class="post-meta">
@@ -194,14 +196,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-08-03 15:19:53" itemprop="dateCreated datePublished" datetime="2019-08-03T15:19:53+00:00">2019-08-03</time>
+              <time title="创建时间：2019-08-17 22:11:37" itemprop="dateCreated datePublished" datetime="2019-08-17T22:11:37+00:00">2019-08-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-14 21:46:47" itemprop="dateModified" datetime="2019-08-14T21:46:47+00:00">2019-08-14</time>
+                <time title="修改时间：2021-01-14 23:07:01" itemprop="dateModified" datetime="2021-01-14T23:07:01+00:00">2021-01-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,12 +211,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Server/" itemprop="url" rel="index"><span itemprop="name">Server</span></a>
+                  <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
                 </span>
             </span>
 
           
-            <span id="/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/" class="post-meta-item leancloud_visitors" data-flag-title="Installing gcc without root privilege in CentOS" title="阅读次数">
+            <span id="/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/" class="post-meta-item leancloud_visitors" data-flag-title="利用Matplotlib制作柱中内嵌标签的柱状图" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -229,8 +231,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/" itemprop="commentCount"></span>
+    <a title="valine" href="/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -245,45 +247,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Sometimes one may find the version of the default gcc on CentOS might be out of date. However, without root privelige, the installation of the gcc will be painful.</p>
+        <p>现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。</p>
 <a id="more"></a>
-<h3 id="Main-Steps"><a href="#Main-Steps" class="headerlink" title="Main Steps"></a>Main Steps</h3><p>First, you need to download the source from a gcc mirror. For instance, you can go <a href="http://www.netgull.com/gcc/releases/" target="_blank" rel="noopener">here</a> and choose a gcc version whatever you like. I would recommend <a href="http://www.netgull.com/gcc/releases/gcc-7.4.0/" target="_blank" rel="noopener">gcc-7.4.0</a> (released 2018-12-06) since it supoorts most common C++ standards. After donwloading the source, unpack it, and cd into the directory where your version of gcc was unpacked. Then, enter the following commands. You might have to replace all instances of gcc-7.4.0 with your gcc version. Also, this script will install gcc in your <code>~/software</code> directory. If you want it installed somewhere else, change the prefix option accordingly. The whole step may take around 4 hours but you can allow multiprocessing in the building steps to shorten the duration.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span> <span class="comment"># pwd: ~</span></span><br><span class="line"><span class="comment"># You can create a directory for managing installed softwares</span></span><br><span class="line">$ mkdir software</span><br><span class="line"><span class="comment"># Replace all instances of gcc-7.4.0 with your own gcc version</span></span><br><span class="line">$ wget http://www.netgull.com/gcc/releases/gcc-7.4.0/gcc-7.4.0.tar.gz</span><br><span class="line">$ tar -xzf gcc-7.4.0.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> gcc-7.4.0 <span class="comment"># pwd: ~/gcc-7.4.0</span></span><br></pre></td></tr></table></figure>
+<h4 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入xlsx文件时如果报错可能需要安装openpyxl包</span></span><br><span class="line">input_data_1 = pd.read_excel(<span class="string">'foo.xlsx'</span>, sheet_name=<span class="number">0</span>, engine=<span class="string">'openpyxl'</span>)</span><br><span class="line">input_data_2 = pd.read_excel(<span class="string">'foo.xlsx'</span>, sheet_name=<span class="number">1</span>, engine=<span class="string">'openpyxl'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>If you do not have all the prerequisites packages and libraries on your system or you are not sure about it, GCC can help you download and install them through <code>download_prerequisites</code>.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./contrib/download_prerequisites </span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">15</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># 左图沿y轴翻转</span></span><br><span class="line">ax.invert_xaxis()</span><br><span class="line"></span><br><span class="line">ax = sns.barplot(x=<span class="string">'标签下所含数据'</span>, y=<span class="string">'标签'</span>, data=input_data_1,</span><br><span class="line">                    palette=sns.dark_palette(<span class="string">'#fbb9b5'</span>, n_colors=math.ceil(len(input_file_dn) * <span class="number">2</span>))[-len(input_data_1):][::<span class="number">-1</span>])</span><br><span class="line"><span class="comment"># ax.patches包含图中每一个柱子的位置信息， 其中柱子的坐标(x, y)指示每个柱子左下的顶点坐标（垂直柱状图）或者是左上的顶点坐标（水平柱状图）</span></span><br><span class="line"><span class="keyword">for</span> name, p <span class="keyword">in</span> zip(input_data_1[<span class="string">'标签'</span>], ax.patches):</span><br><span class="line">    ax.text(x=<span class="number">0</span>, y=p.xy[<span class="number">1</span>] + (p.get_height() / <span class="number">2</span>), s=name,</span><br><span class="line">            horizontalalignment=<span class="string">'right'</span>, verticalalignment=<span class="string">'center'</span>,</span><br><span class="line">            fontsize=<span class="number">20</span>, fontfamily=<span class="string">'Arial'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>After download all the prerequisites we can head to the configuration step.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ../software <span class="comment"># pwd: ~/software</span></span><br><span class="line"><span class="comment"># Create the install directory</span></span><br><span class="line">$ mkdir gcc7</span><br><span class="line">$ <span class="built_in">cd</span> ../gcc7 <span class="comment"># pwd: ~/software/gcc7</span></span><br><span class="line"><span class="comment"># Create a directory to store temporary files created in configuration</span></span><br><span class="line">$ mkdir gcctemp</span><br><span class="line">$ <span class="built_in">cd</span> gcctemp <span class="comment"># pwd: ~/software/gcc7/gcctemp</span></span><br><span class="line"><span class="comment"># Have to unset library path temporarily to install new gcc</span></span><br><span class="line">$ <span class="built_in">unset</span> LIBRARY_PATH LD_LIBRARY_PATH</span><br><span class="line"><span class="comment"># Configuration</span></span><br><span class="line">$ ../configure --prefix=<span class="variable">$HOME</span>/software/gcc-7.4.0 --<span class="built_in">enable</span>-languages=c,c++,fortran,go --<span class="built_in">disable</span>-multilib</span><br></pre></td></tr></table></figure>
+<h4 id="隐藏坐标轴，多余标签及框线，保存"><a href="#隐藏坐标轴，多余标签及框线，保存" class="headerlink" title="隐藏坐标轴，多余标签及框线，保存"></a>隐藏坐标轴，多余标签及框线，保存</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 隐藏x,y轴及其标签。如果只希望隐藏x,y轴，不隐藏其标签可采用注释内的命令</span></span><br><span class="line">ax.get_xaxis().set_visible(<span class="literal">False</span>) <span class="comment"># ax.set_yticks([])</span></span><br><span class="line">ax.get_yaxis().set_visible(<span class="literal">False</span>) <span class="comment"># ax.set_xticks([])</span></span><br><span class="line"><span class="comment"># 隐藏框线</span></span><br><span class="line">plt.box(<span class="literal">False</span>)</span><br><span class="line"><span class="comment"># 保存为透明背景的矢量图</span></span><br><span class="line">plt.savefig(<span class="string">f'1.svg'</span>, transparent=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<p>The <code>--prefix</code> parameters specifies the installation path. The <code>--disable-multilib</code> parameter will disable building 32-bit support on 64-bit systems. The <code>--enable-languages</code> parameter identifies which languages to build. You can modify this command to remove undesired language. Potential languages you can choose to build or to remove are <code>c</code>, <code>c++</code>, <code>fortran</code>, <code>go</code>, <code>objc</code>(Objective-C) and <code>obj-c++</code>(Objective-C++). Usually we only need <code>c,c++,fortran,go</code> these four.</p>
-<p>Once the configuration is complete we can go to the building and installing step. The <code>make</code> command could take around 3 hours, but you can use the parameter <code>-j[n]</code> to allow multiprocessing. With <code>-j60</code> it will take less than half hour. </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use the parameter -j[n] to allow multiprocessing</span></span><br><span class="line">$ make -j60</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
+<h4 id="同理制作右边的图"><a href="#同理制作右边的图" class="headerlink" title="同理制作右边的图"></a>同理制作右边的图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">15</span>, <span class="number">10</span>))</span><br><span class="line">ax = sns.barplot(x=<span class="string">'Combined Score'</span>, y=<span class="string">'Term'</span>, data=input_data_2,</span><br><span class="line">                    palette=sns.dark_palette(<span class="string">'#91fbfe'</span>, n_colors=math.ceil(len(input_data_2) * <span class="number">2</span>))[-len(input_data_2):][::<span class="number">-1</span>])</span><br><span class="line"><span class="keyword">for</span> name, p <span class="keyword">in</span> zip(input_data_2.Term, ax.patches):</span><br><span class="line">    ax.text(<span class="number">0</span>, p.xy[<span class="number">1</span>] + (p.get_height() / <span class="number">2</span>), name, verticalalignment=<span class="string">'center'</span>, fontsize=<span class="number">20</span>, fontfamily=<span class="string">'Arial'</span>)</span><br><span class="line">ax.get_xaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">ax.get_yaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">ax.set_yticks([])</span><br><span class="line">ax.set_xticks([])</span><br><span class="line">plt.box(<span class="literal">False</span>)</span><br><span class="line">plt.savefig(<span class="string">f'2.svg'</span>, transparent=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<p>Optionally you can create a direcrtory to store the resource file.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span> <span class="comment"># pwd: ~</span></span><br><span class="line">$ mkdir resource</span><br><span class="line">$ mv gcc-7.4.0 ~/resource/</span><br></pre></td></tr></table></figure>
-
-<p>After make and make install you need to set the enviornment in your <code>.bashrc</code> file. </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi ~/.bashrc</span><br></pre></td></tr></table></figure>
-
-<p>Add following lines into your <code>.bashrc</code> file with the insert mode of your vim editor:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> PATH=<span class="variable">$HOME</span>/software/gcc-7.4.0/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="comment"># If your server has a 32-bit system or </span></span><br><span class="line"><span class="comment"># you do not add the --disable-multilib parameter in the previous step </span></span><br><span class="line"><span class="comment"># you might need to adjust the $LD_LIBRARY_PATH to $GCC_PATH/lib instead of $GCC_PATH/lib64</span></span><br><span class="line">$ <span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$HOME</span>/software/gcc-7.4.0/lib64:<span class="variable">$LD_LIBRARY_PATH</span></span><br></pre></td></tr></table></figure>
-
-<p>Save and exit your <code>.bashrc</code> file. Do following commands to check if your gcc is successfully installed.  </p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> ~/.bashrc</span><br><span class="line">$ g++ --version</span><br></pre></td></tr></table></figure>
-
-<p>If it is successfully installed it should print following message:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">g++ (GCC) 7.4.0</span><br><span class="line">Copyright (C) 2017 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the <span class="built_in">source</span> <span class="keyword">for</span> copying conditions. There is NO warranty; not even <span class="keyword">for</span> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br></pre></td></tr></table></figure>
-
-<p>Now gcc and g++ are successfully installed on your own server.</p>
-<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><ol>
-<li>Sometimes if you do <code>make</code> or <code>make install</code> in gcc download directory directly may cause error, so a better way is to create a new folder called <code>gcctemp</code>, and do the congfiguration, building and installation step in this temporary folder.</li>
-<li>Remember to unset <code>LIBRARY_PATH</code> and <code>LD_LIBRARY_PATH</code> before configuration, or it will raise <code>LIBRARY_PATH shouldn&#39;t contain the current directory when building gcc</code> ERROR.</li>
-<li>In the configuration step, if you want to refer your <code>root</code> path in <code>--prefix</code> parameter you should use <code>$HOME</code> instead of <code>~</code>, or it will cause error.</li>
-<li>If you are installing gcc on a 64-bit system remember to add –disable-multilib flag, or it will cause error.</li>
-<li>You need to add <code>fortran</code> in your  <code>--enable-languages</code> parameter if you want to install R in the future, or it will cause error.</li>
-<li>For the <code>-j[n]</code> parameter in the <code>make</code> step, do not let <code>n</code> greater than the processor number you have in your system, or it may cause erorr. You can use <code>lscpu</code> command to check how many processors you have in your system. </li>
-</ol>
+<h4 id="使用Adobe-Illustrator进行拼接与微调"><a href="#使用Adobe-Illustrator进行拼接与微调" class="headerlink" title="使用Adobe Illustrator进行拼接与微调"></a>使用Adobe Illustrator进行拼接与微调</h4><p>成品如下：<br><img src="/images/barlot.jpg" alt></p>
 
     </div>
 
@@ -299,7 +273,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://r1v3rj1s.github.io/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/" title="Installing gcc without root privilege in CentOS">https://r1v3rj1s.github.io/2019/08/03/Installing-gcc-without-root-privilege-in-CentOS/</a>
+    <a href="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/" title="利用Matplotlib制作柱中内嵌标签的柱状图">https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -310,8 +284,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/CentOS/" rel="tag"># CentOS</a>
-              <a href="/tags/Bash/" rel="tag"># Bash</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
         
@@ -319,11 +292,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2019/08/13/Deploying-a-Hexo-NexT-Blog-1/" rel="next" title="利用GitHub Pages搭建个人Blog（一）: 目标和策略">
-      利用GitHub Pages搭建个人Blog（一）: 目标和策略 <i class="fa fa-chevron-right"></i>
+    <a href="/2019/08/17/tricks-and-troubleshooting-in-python/" rel="prev" title="Python编程中的小技巧以及踩过的坑">
+      <i class="fa fa-chevron-left"></i> Python编程中的小技巧以及踩过的坑
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -384,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-Steps"><span class="nav-number">1.</span> <span class="nav-text">Main Steps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Troubleshooting"><span class="nav-number">2.</span> <span class="nav-text">Troubleshooting</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#导入数据"><span class="nav-number">1.</span> <span class="nav-text">导入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏坐标轴，多余标签及框线，保存"><span class="nav-number">2.</span> <span class="nav-text">隐藏坐标轴，多余标签及框线，保存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同理制作右边的图"><span class="nav-number">3.</span> <span class="nav-text">同理制作右边的图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Adobe-Illustrator进行拼接与微调"><span class="nav-number">4.</span> <span class="nav-text">使用Adobe Illustrator进行拼接与微调</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -585,6 +558,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
