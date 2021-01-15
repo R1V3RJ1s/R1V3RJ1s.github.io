@@ -4,8 +4,9 @@ copyright: true
 date: 2019-08-17 22:11:37
 tags: 
   - Python
+  - Data visualization
 category:
-  - Coding
+  - Data Science
 published: true
 mathjax : true
 ---
@@ -69,4 +70,4 @@ plt.savefig(f'2.svg', transparent=True)
 
 #### 使用Adobe Illustrator进行拼接与微调
 成品如下：
-![](/images/barlot.jpg)
+![柱状图](/images/barlot.jpg)
