@@ -28,12 +28,12 @@
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
 <meta property="og:description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://r1v3rj1s.github.io/images/barlot.jpg">
-<meta property="og:updated_time" content="2021-01-15T00:56:54.000Z">
+<meta property="og:image" content="https://r1v3rj1s.github.io/images/barplot.jpg">
+<meta property="og:updated_time" content="2021-01-15T01:03:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Matplotlib制作柱中内嵌标签的柱状图">
 <meta name="twitter:description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
-<meta name="twitter:image" content="https://r1v3rj1s.github.io/images/barlot.jpg">
+<meta name="twitter:image" content="https://r1v3rj1s.github.io/images/barplot.jpg">
 
 <link rel="canonical" href="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/">
 
@@ -203,7 +203,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-15 00:56:54" itemprop="dateModified" datetime="2021-01-15T00:56:54+00:00">2021-01-15</time>
+                <time title="修改时间：2021-01-15 01:03:23" itemprop="dateModified" datetime="2021-01-15T01:03:23+00:00">2021-01-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -257,7 +257,7 @@
 
 <h4 id="同理制作右边的图"><a href="#同理制作右边的图" class="headerlink" title="同理制作右边的图"></a>同理制作右边的图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">15</span>, <span class="number">10</span>))</span><br><span class="line">ax = sns.barplot(x=<span class="string">'Combined Score'</span>, y=<span class="string">'Term'</span>, data=input_data_2,</span><br><span class="line">                    palette=sns.dark_palette(<span class="string">'#91fbfe'</span>, n_colors=math.ceil(len(input_data_2) * <span class="number">2</span>))[-len(input_data_2):][::<span class="number">-1</span>])</span><br><span class="line"><span class="keyword">for</span> name, p <span class="keyword">in</span> zip(input_data_2.Term, ax.patches):</span><br><span class="line">    ax.text(<span class="number">0</span>, p.xy[<span class="number">1</span>] + (p.get_height() / <span class="number">2</span>), name, verticalalignment=<span class="string">'center'</span>, fontsize=<span class="number">20</span>, fontfamily=<span class="string">'Arial'</span>)</span><br><span class="line">ax.get_xaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">ax.get_yaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">ax.set_yticks([])</span><br><span class="line">ax.set_xticks([])</span><br><span class="line">plt.box(<span class="literal">False</span>)</span><br><span class="line">plt.savefig(<span class="string">f'2.svg'</span>, transparent=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
-<h4 id="使用Adobe-Illustrator进行拼接与微调"><a href="#使用Adobe-Illustrator进行拼接与微调" class="headerlink" title="使用Adobe Illustrator进行拼接与微调"></a>使用Adobe Illustrator进行拼接与微调</h4><p>成品如下：<br><img src="/images/barlot.jpg" alt="柱状图"></p>
+<h4 id="使用Adobe-Illustrator进行拼接与微调"><a href="#使用Adobe-Illustrator进行拼接与微调" class="headerlink" title="使用Adobe Illustrator进行拼接与微调"></a>使用Adobe Illustrator进行拼接与微调</h4><p>成品如下：<br><img src="/images/barplot.jpg" alt="Axial symmetrical barplot"></p>
 
     </div>
 
