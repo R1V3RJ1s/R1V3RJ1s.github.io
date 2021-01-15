@@ -70,4 +70,4 @@ plt.savefig(f'2.svg', transparent=True)
 
 #### 使用Adobe Illustrator进行拼接与微调
 成品如下：
-![柱状图](/images/barlot.jpg)
+![Axial symmetrical barplot](/images/barplot.jpg)
