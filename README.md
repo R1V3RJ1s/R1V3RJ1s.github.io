@@ -1,6 +1,6 @@
 # R1V3RJ's Blog
 
-[![Build Status](https://travis-ci.com/R1V3RJ1s/r1v3rj1s.github.io.svg?branch=second-institute)](https://travis-ci.com/R1V3RJ1s/r1v3rj1s.github.io)
+[![Build Status](https://travis-ci.com/R1V3RJ1s/r1v3rj1s.github.io.svg?branch=second-institute)](https://travis-ci.com/R1V3RJ1s/r1v3rj1s.github.io) [![Build Status](https://dev.azure.com/s1cheng/r1v3rj1s/_apis/build/status/ApplyforProfessor?branchName=second-institute)](https://dev.azure.com/s1cheng/r1v3rj1s/_build/latest?definitionId=8&branchName=second-institute)
 
 Errors should never pass silently, yet a fortune should.
 
