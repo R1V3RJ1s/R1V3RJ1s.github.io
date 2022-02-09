@@ -20,22 +20,25 @@
     var CONFIG = {"hostname":"r1v3rj1s.github.io","root":"/","scheme":"Mist","version":"7.7.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
+  <meta name="description" content="现在有一组在一段时间内医院某科室中的病人病历数据，现希望对该数据进行可视化，以观察来该科室看病的病人是否更多（或更少）地被确诊出某些特定的疾病。">
 <meta name="keywords" content="Python,Data visualization">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用Matplotlib制作柱中内嵌标签的柱状图">
-<meta property="og:url" content="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/index.html">
+<meta property="og:title" content="利用Matplotlib制作曼哈顿散点图">
+<meta property="og:url" content="https://r1v3rj1s.github.io/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/index.html">
 <meta property="og:site_name" content="R1V3RJ&#39;s Blog">
-<meta property="og:description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
+<meta property="og:description" content="现在有一组在一段时间内医院某科室中的病人病历数据，现希望对该数据进行可视化，以观察来该科室看病的病人是否更多（或更少）地被确诊出某些特定的疾病。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://r1v3rj1s.github.io/images/python-manhattan.webp">
+<meta property="og:image" content="https://r1v3rj1s.github.io/images/manhattan-skyline.png">
+<meta property="og:image" content="https://r1v3rj1s.github.io/images/ggbeeswarm-color.png">
 <meta property="og:image" content="https://r1v3rj1s.github.io/images/barplot.png">
-<meta property="og:updated_time" content="2021-01-15T04:29:46.000Z">
+<meta property="og:updated_time" content="2022-02-09T07:11:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Matplotlib制作柱中内嵌标签的柱状图">
-<meta name="twitter:description" content="现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。">
-<meta name="twitter:image" content="https://r1v3rj1s.github.io/images/barplot.png">
+<meta name="twitter:title" content="利用Matplotlib制作曼哈顿散点图">
+<meta name="twitter:description" content="现在有一组在一段时间内医院某科室中的病人病历数据，现希望对该数据进行可视化，以观察来该科室看病的病人是否更多（或更少）地被确诊出某些特定的疾病。">
+<meta name="twitter:image" content="https://r1v3rj1s.github.io/images/python-manhattan.webp">
 
-<link rel="canonical" href="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/">
+<link rel="canonical" href="https://r1v3rj1s.github.io/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/">
 
 
 <script id="page-configurations">
@@ -48,7 +51,7 @@
   };
 </script>
 
-  <title>利用Matplotlib制作柱中内嵌标签的柱状图 | R1V3RJ's Blog</title>
+  <title>利用Matplotlib制作曼哈顿散点图 | R1V3RJ's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145419250-2"></script>
     <script>
@@ -173,7 +176,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/">
+    <link itemprop="mainEntityOfPage" href="https://r1v3rj1s.github.io/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/belt.gif">
@@ -186,7 +189,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          利用Matplotlib制作柱中内嵌标签的柱状图
+          利用Matplotlib制作曼哈顿散点图
         </h1>
 
         <div class="post-meta">
@@ -196,14 +199,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-08-17 22:11:37" itemprop="dateCreated datePublished" datetime="2019-08-17T22:11:37+00:00">2019-08-17</time>
+              <time title="创建时间：2022-02-04 00:40:37" itemprop="dateCreated datePublished" datetime="2022-02-04T00:40:37+00:00">2022-02-04</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-15 04:29:46" itemprop="dateModified" datetime="2021-01-15T04:29:46+00:00">2021-01-15</time>
+                <time title="修改时间：2022-02-09 07:11:13" itemprop="dateModified" datetime="2022-02-09T07:11:13+00:00">2022-02-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -216,7 +219,7 @@
             </span>
 
           
-            <span id="/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/" class="post-meta-item leancloud_visitors" data-flag-title="利用Matplotlib制作柱中内嵌标签的柱状图" title="阅读次数">
+            <span id="/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/" class="post-meta-item leancloud_visitors" data-flag-title="利用Matplotlib制作曼哈顿散点图" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -231,8 +234,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/" itemprop="commentCount"></span>
+    <a title="valine" href="/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -247,9 +250,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>现在有一组二元的统计数据（如男女闲暇时间喜欢做的事，显著性上下调基因集各自所富集的功能等等），现希望使用轴对称的水平柱状图进行可视化，要求柱子的颜色深浅需与数据相关，柱中内嵌标签沿柱底垂直对齐，水平居中。</p>
+        <p>现在有一组在一段时间内医院某科室中的病人病历数据，现希望对该数据进行可视化，以观察来该科室看病的病人是否更多（或更少）地被确诊出某些特定的疾病。</p>
 <a id="more"></a>
-<h4 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> matplotlib.colors <span class="keyword">import</span> ListedColormap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入xlsx文件时如果报错可能需要安装openpyxl包</span></span><br><span class="line">input_data_1 = pd.read_excel(<span class="string">'foo.xlsx'</span>, sheet_name=<span class="number">0</span>, engine=<span class="string">'openpyxl'</span>)</span><br><span class="line">input_data_2 = pd.read_excel(<span class="string">'foo.xlsx'</span>, sheet_name=<span class="number">1</span>, engine=<span class="string">'openpyxl'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>最直观的思路就是将该病历数据转化为每一种病和其对应被诊断出该病的病人数目的数据然后作散点图，横坐标为特定疾病，纵坐标为的该病的人的数目。但有如下几个问题：</p>
+<ol>
+<li>如果选择可视化的是病和其对应被诊断出该病的病人数目的数据，那么如何科学选定阈值？</li>
+<li>由于这是一个整数型的离散数据，会有大量的数据点重叠（比如会有大量的病只有一两个人得），而为每一种病都单独留出一个横坐标的位置，又不太现实，如何处理？</li>
+</ol>
+<p>在查阅了各种可视化方案中，最后敲定了一种结合蜂群图(beeswarm plot)和曼哈顿散点图(manhattan plot)的方案作为输出结果。</p>
+<p><img src="/images/python-manhattan.webp" alt="Sample manhattan barplot"></p>
+<p>曼哈顿图（如上图）本质上是一个散点图，用于显示大量非零大范围波动数值，最早应用于全基因组关联分析(GWAS)研究展示高度相关位点。它得名源于样式与曼哈顿天际线相似（如下图）。</p>
+<p><img src="/images/manhattan-skyline.png" alt="Manhattan skyline"></p>
+<p>蜂窝图（如下图）本质上也是一种散点图，它的优势在于可以无重叠地呈现所有数据信息。</p>
+<p><img src="/images/ggbeeswarm-color.png" alt="Sample beeswarm barplot"></p>
+<h4 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> adjustText <span class="keyword">import</span> adjust_text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入xlsx文件时如果报错可能需要安装openpyxl包</span></span><br><span class="line">input_data_1 = pd.read_excel(<span class="string">'foo.xlsx'</span>, sheet_name=<span class="number">0</span>, engine=<span class="string">'openpyxl'</span>)</span><br><span class="line">input_data_2 = pd.read_excel(<span class="string">'foo.xlsx'</span>, sheet_name=<span class="number">1</span>, engine=<span class="string">'openpyxl'</span>)</span><br></pre></td></tr></table></figure>
 
 <h4 id="制作沿y轴翻转的水平柱状图"><a href="#制作沿y轴翻转的水平柱状图" class="headerlink" title="制作沿y轴翻转的水平柱状图"></a>制作沿y轴翻转的水平柱状图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">15</span>, <span class="number">10</span>))</span><br><span class="line"><span class="comment"># 沿y轴翻转</span></span><br><span class="line">ax.invert_xaxis()</span><br></pre></td></tr></table></figure>
 
@@ -265,7 +280,7 @@
 <h4 id="同理制作不翻转的水平柱状图"><a href="#同理制作不翻转的水平柱状图" class="headerlink" title="同理制作不翻转的水平柱状图"></a>同理制作不翻转的水平柱状图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fig, ax = plt.subplots(figsize=(<span class="number">15</span>, <span class="number">10</span>))</span><br><span class="line">ax = sns.barplot(x=<span class="string">'Number'</span>, y=<span class="string">'Label'</span>, data=input_data_2,</span><br><span class="line">                    palette=sns.dark_palette(<span class="string">'#91fbfe'</span>, reverse=<span class="literal">True</span>, n_colors=math.ceil(len(input_data_2) * <span class="number">2</span>))[:len(input_data_2)])</span><br><span class="line"><span class="keyword">for</span> name, p <span class="keyword">in</span> zip(input_data_2[<span class="string">'Label'</span>], ax.patches):</span><br><span class="line">    ax.text(<span class="number">0</span>, p.xy[<span class="number">1</span>] + (p.get_height() / <span class="number">2</span>), name, verticalalignment=<span class="string">'center'</span>, fontsize=<span class="number">20</span>, fontfamily=<span class="string">'Arial'</span>)</span><br><span class="line">ax.get_xaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">ax.get_yaxis().set_visible(<span class="literal">False</span>)</span><br><span class="line">plt.box(<span class="literal">False</span>)</span><br><span class="line">plt.savefig(<span class="string">f'2.svg'</span>, transparent=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 
 <h4 id="使用Adobe-Illustrator进行拼接与微调"><a href="#使用Adobe-Illustrator进行拼接与微调" class="headerlink" title="使用Adobe Illustrator进行拼接与微调"></a>使用Adobe Illustrator进行拼接与微调</h4><p>成品如下：<br><img src="/images/barplot.png" alt="Axial symmetrical barplot"></p>
-<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://towardsdatascience.com/bar-chart-race-in-python-with-matplotlib-8e687a5c8a41" target="_blank" rel="noopener">Bar Chart Race in Python with Matplotlib</a></p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a href="https://en.wikipedia.org/wiki/Manhattan_plot" target="_blank" rel="noopener">Manhattan plot - Wikipedia</a></p>
 
     </div>
 
@@ -281,7 +296,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/" title="利用Matplotlib制作柱中内嵌标签的柱状图">https://r1v3rj1s.github.io/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/</a>
+    <a href="https://r1v3rj1s.github.io/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/" title="利用Matplotlib制作曼哈顿散点图">https://r1v3rj1s.github.io/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -302,13 +317,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/08/17/tricks-and-troubleshooting-in-python/" rel="prev" title="Python编程中的小技巧以及踩过的坑">
-      <i class="fa fa-chevron-left"></i> Python编程中的小技巧以及踩过的坑
+    <a href="/2019/08/17/How-to-make-a-fancy-barplot-in-matplotlib/" rel="prev" title="利用Matplotlib制作柱中内嵌标签的柱状图">
+      <i class="fa fa-chevron-left"></i> 利用Matplotlib制作柱中内嵌标签的柱状图
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/02/04/How-to-make-a-fancy-scatterplot-in-matplotlib/" rel="next" title="利用Matplotlib制作曼哈顿散点图">
-      利用Matplotlib制作曼哈顿散点图 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
