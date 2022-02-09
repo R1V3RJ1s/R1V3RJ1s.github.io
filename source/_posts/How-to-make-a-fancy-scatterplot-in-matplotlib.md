@@ -19,10 +19,17 @@ mathjax : true
 1. 如果选择可视化的是病和其对应被诊断出该病的病人数目的数据，那么如何科学选定阈值？
 2. 由于这是一个整数型的离散数据，会有大量的数据点重叠（比如会有大量的病只有一两个人得），而为每一种病都单独留出一个横坐标的位置，又不太现实，如何处理？
 
+在查阅了各种可视化方案中，最后敲定了一种结合蜂群图(beeswarm plot)和曼哈顿散点图(manhattan plot)的方案作为输出结果。
 
+![Sample manhattan barplot](/images/python-manhattan.webp)
 
+曼哈顿图（如上图）本质上是一个散点图，用于显示大量非零大范围波动数值，最早应用于全基因组关联分析(GWAS)研究展示高度相关位点。它得名源于样式与曼哈顿天际线相似（如下图）。
 
+![Manhattan skyline](/images/manhattan-skyline.png)
 
+蜂窝图（如下图）本质上也是一种散点图，它的优势在于可以无重叠地呈现所有数据信息。
+
+![Sample beeswarm barplot](/images/ggbeeswarm-color.png)
 
 #### 导入数据
 {% codeblock lang:python %}
@@ -89,4 +96,4 @@ plt.savefig(f'2.svg', transparent=True)
 ![Axial symmetrical barplot](/images/barplot.png)
 
 #### 参考链接
-[Bar Chart Race in Python with Matplotlib](https://towardsdatascience.com/bar-chart-race-in-python-with-matplotlib-8e687a5c8a41)
+[Manhattan plot - Wikipedia](https://en.wikipedia.org/wiki/Manhattan_plot)
