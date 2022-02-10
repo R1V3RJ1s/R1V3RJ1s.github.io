@@ -54,18 +54,33 @@ Out[1]: Index(['phenotype', 'category_number', 'patient_number'], dtype='object'
 但接下来遇到一个问题，由于重叠的点数量过多，使用`sns.swarmplot`指令无法完整显示所有的数据点，而这个绘图命令无法控制点自动换行，如何处理？
 最后想到的办法是将所有的点进行一次限制上下限的正态变换。根据正态分布的概率密度分布函数可知，这个变换可以保证有较多的数据点落在原值上，且小部分的点会等概率地分布在原值上下不远的位置。同时这个更接近原值的值和远离原值的值的比例可以通过控制标准差的大小来控制。其实最理想的情况是当重叠的数据点少于一定数量的时候可以直接不进行变换，但因为懒就没写。
 
-#### 将对应的病人数目进行正态变换
+### 将对应的病人数目进行正态变换
 {% codeblock lang:python %}
 # np.clip函数可以同时更改输入的最大值和最小值，这里我们选取原值的上下0.4作为上下限，这样画出来的效果比较好
 input_data['scaled_ind'] = input_data['patient_number'].apply(lambda x: np.clip(np.random.normal(x, 0.01, 1), x-0.4, x+0.4)[0])
 input_data = input_data.drop(columns=['patient_number'])
 {% endcodeblock %}
 
-首先先通过`sns.barplot`方法把一般的水平柱状图做出来并且上色。`Seaborn` 提供两种比较容易控制的线性色盘，`sns.light_palette`和`sns.dark_palette`。分别表示色盘内颜色由纯白(light_palette)或纯黑(dark_palette)渐变至用户传递的颜色参数（或者可以通过`reverse=True`参数把色盘反过来），颜色的切片数量则由用户传递的`n_colors`参数决定。该色盘还可以以matplotlib接受的colormap数据结构作为输出。此处我将色盘切片数量定为标签数量的两倍是为了平衡渐变的区分度和文字的能见度。
+### 绘制曼哈顿图的主体并上色
+本来绘图函数是可以自己选择上色的，但为了增加对比效果我这里选择了四种更容易分辨的颜色。因此需要对这10类数据点用这四种颜色进行循环上色。这里需要用到`sns.set_palette`和`sns.color_palette`两个函数。首先先创建一个包含所有想要绘制的颜色（以16进制RGB颜色编码表示）的列表，列表内颜色的顺序是单次循环上色的顺序。然后将其通过复制延长至要上色的数据类别的数量，并通过`sns.color_palette`将其转换成`seaborn`可以识别的色号，最后再通过`sns.set_palette`将接下来要绘图的色盘更改至输入的色号集合即可。
 
 {% codeblock lang:python %}
-ax = sns.barplot(x='Number', y='Label', data=input_data_1,
-                    palette=sns.dark_palette('#fbb9b5', reverse=True, n_colors=math.ceil(len(input_data_1) * 2))[:len(input_data_1)])
+color_item = ['#D55E00','#009E73','#0072B2', '#F0E442']
+df_group_num = len(set(input_data.category_number))
+# 通过将颜色列表内元素多次重复后再截取为要上色的类数的长度
+# 最小的重复次数应为要上色的总类数除以单次上色循环所包含的颜色数所得的商加1
+colors = list(color_item * (df_group_num // len(color_item) + 1))[0: df_group_num]
+sns.set_palette(sns.color_palette(colors))
+
+# 绘图
+fig, ax = plt.subplots(figsize=(20, 14))
+ax = sns.swarmplot(x="category_number", y="scaled_ind", data=df, s=7.5)
+ax.set_xlabel('Phenotype Category ID', fontsize=20)
+ax.set_ylabel('Phenotype occurrence number', fontsize=20)
+ax.set_title('Phenotype occurrence number among all patients', fontsize=28)
+
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
 {% endcodeblock %}
 
 接下来给每个柱子内部添加标签。`ax.patches`包含图中每一个柱子的位置信息， 其中柱子的坐标(x, y)指示每个柱子左下的顶点坐标（垂直柱状图）或者是左上的顶点坐标（水平柱状图）。此处由于垂直翻转的缘故所以此时(x, y)指示的是右上的顶点坐标。`ax.text`方法主要控制标签的坐标和内容。`horizontalalignment(ha)`和`verticalalignment(va)`两个参数负责控制我们的标签的哪个位置要对齐我们传递的坐标。比如此处`ha='right', va='center'`说明标签的右端中点应与我们传递的坐标一致。`x=0`说明标签靠y轴（柱底）对齐，`y=p.xy[1] + (p.get_height() / 2)`说明标签中线在与每个水平柱子的上端`(p.xy[1])`对齐后向下移了半个柱子的宽度`(p.get_height() / 2)`，此时标签中线与柱子中线恰好对齐，即水平居中。注意柱子的粗细可以通过`ax.patches.get_height()`方法得到，柱子的长短则可以通过`ax.patches.get_width()`方法得到（如果是垂直柱状图则反之）。另外，此处之所以是加半个柱子的宽度而不是减是因为对于水平柱状图而言，y轴与直角坐标系的y轴是反过来的。
