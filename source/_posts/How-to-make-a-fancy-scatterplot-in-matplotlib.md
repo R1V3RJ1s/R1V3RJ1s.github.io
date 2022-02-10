@@ -83,40 +83,37 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 {% endcodeblock %}
 
+### 绘制注释
 接下来给每个柱子内部添加标签。`ax.patches`包含图中每一个柱子的位置信息， 其中柱子的坐标(x, y)指示每个柱子左下的顶点坐标（垂直柱状图）或者是左上的顶点坐标（水平柱状图）。此处由于垂直翻转的缘故所以此时(x, y)指示的是右上的顶点坐标。`ax.text`方法主要控制标签的坐标和内容。`horizontalalignment(ha)`和`verticalalignment(va)`两个参数负责控制我们的标签的哪个位置要对齐我们传递的坐标。比如此处`ha='right', va='center'`说明标签的右端中点应与我们传递的坐标一致。`x=0`说明标签靠y轴（柱底）对齐，`y=p.xy[1] + (p.get_height() / 2)`说明标签中线在与每个水平柱子的上端`(p.xy[1])`对齐后向下移了半个柱子的宽度`(p.get_height() / 2)`，此时标签中线与柱子中线恰好对齐，即水平居中。注意柱子的粗细可以通过`ax.patches.get_height()`方法得到，柱子的长短则可以通过`ax.patches.get_width()`方法得到（如果是垂直柱状图则反之）。另外，此处之所以是加半个柱子的宽度而不是减是因为对于水平柱状图而言，y轴与直角坐标系的y轴是反过来的。
 
 {% codeblock lang:python %}
-for name, p in zip(input_data_1['Label'], ax.patches):
-    ax.text(x=0, y=p.xy[1] + (p.get_height() / 2), s=name,
-            ha='right', va='center',
-            fontsize=20, fontfamily='Arial')
+tick_key = df.category_number[~df.category_number.duplicated()].to_list()
+tick_dict = dict(zip(tick_key, range(len(tick_key))))
+
+anno_df = pd.concat((df.sort_values('scaled_ind', ascending=False)[0:len(df[df.scaled_ind > 3.5])],
+                     df[df['phenotype'].str.contains('renal|Renal|Kidney|kidney')]))
+anno_df = anno_df[~anno_df.duplicated()].reset_index(drop=True)
+anno_df['category_pos'] = anno_df['category_number'].apply(lambda x: tick_dict.get(x))
+
+texts = []
+for i in range(len(anno_df)):
+    texts.append(ax.text(anno_df.loc[i]['category_pos'], anno_df.loc[i]['scaled_ind'], anno_df.loc[i]['phenotype'],
+                             color="#4d4d4d", fontsize=18, fontname="Helvetica"))
+
+adjust_text(
+    texts,
+    expand_points=(1, 1),
+    arrowprops=dict(
+        arrowstyle="->",
+        color="#7F7F7F",
+        lw=2
+    ),
+    ax=ax
+)
+
+plt.show()
 {% endcodeblock %}
 
-隐藏坐标轴，多余标签及框线，保存
-{% codeblock lang:python %}
-# 隐藏x,y轴及其标签。如果只希望隐藏x,y轴，不隐藏其标签，可采用注释内的命令
-ax.get_xaxis().set_visible(False) # ax.set_yticks([])
-ax.get_yaxis().set_visible(False) # ax.set_xticks([])
-# 隐藏框线
-plt.box(False)
-# 保存为透明背景的矢量图
-plt.savefig(f'1.svg', transparent=True)
-{% endcodeblock %}
-
-#### 同理制作不翻转的水平柱状图
-{% codeblock lang:python %}
-fig, ax = plt.subplots(figsize=(15, 10))
-ax = sns.barplot(x='Number', y='Label', data=input_data_2,
-                    palette=sns.dark_palette('#91fbfe', reverse=True, n_colors=math.ceil(len(input_data_2) * 2))[:len(input_data_2)])
-for name, p in zip(input_data_2['Label'], ax.patches):
-    ax.text(0, p.xy[1] + (p.get_height() / 2), name, verticalalignment='center', fontsize=20, fontfamily='Arial')
-ax.get_xaxis().set_visible(False)
-ax.get_yaxis().set_visible(False)
-plt.box(False)
-plt.savefig(f'2.svg', transparent=True)
-{% endcodeblock %}
-
-#### 使用Adobe Illustrator进行拼接与微调
 成品如下：
 ![Axial symmetrical barplot](/images/barplot.png)
 
