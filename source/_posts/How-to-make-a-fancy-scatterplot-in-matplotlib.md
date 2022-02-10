@@ -15,6 +15,8 @@ mathjax : true
 
 <!-- more -->
 
+#### 对问题的转化和解决方案的讨论
+
 最直观的思路就是将该病历数据转化为每一种病和其对应被诊断出该病的病人数目的数据然后作散点图，横坐标为特定疾病，纵坐标为的该病的人的数目。但有如下几个问题：
 1. 如果选择可视化的是病和其对应被诊断出该病的病人数目的数据，那么如何科学选定阈值？
 2. 由于这是一个整数型的离散数据，会有大量的数据点重叠（比如会有大量的病只有一两个人得），而为每一种病都单独留出一个横坐标的位置，又不太现实，如何处理？
@@ -23,15 +25,17 @@ mathjax : true
 
 ![Sample manhattan barplot](/images/python-manhattan.webp)
 
-曼哈顿图（如上图）本质上是一个散点图，用于显示大量非零大范围波动数值，最早应用于全基因组关联分析(GWAS)研究展示高度相关位点。它得名源于样式与曼哈顿天际线相似（如下图）。
+曼哈顿图（如上图）本质上是一个散点图，用于显示大量非零大范围波动数值，最早应用于全基因组关联分析(GWAS)研究展示高度相关位点。它得名源于样式与曼哈顿天际线相似（如下图）。一般在GWAS研究中所作的曼哈顿图的X轴为染色体编号，Y轴为相关统计显著性的p值，以10为底进行负对数变换。这样高显著性的基因就会在最上层。
 
 ![Manhattan skyline](/images/manhattan-skyline.png)
 
-蜂窝图（如下图）本质上也是一种散点图，它的优势在于可以无重叠地呈现所有数据信息。
+而蜂窝图（如下图）本质上也是一种散点图，它的优势在于可以无重叠地呈现所有数据信息。
 
 ![Sample beeswarm barplot](/images/ggbeeswarm-color.png)
 
-#### 导入数据
+选择这个方案的理由是现有疾病数据都被Phecode统一编码，且使用的编码系统分级比较合理（相对扁平，且每一类所包含的等级数量都相对一致），编码被分成的大类的类数也比较合适（10类）。这样就可以将Phecode的将疾病分成的大类编号作为X轴。但由于没有可以用来对照的数据（比如在整个医院或者社会中该病的发病情况），无法进行假设检验，所以最后还是敲定使用被诊断出该病的病人的绝对数量作为Y轴，并使用病人总数的65%（向下取整）作为作为标注的阈值。
+
+#### 实现细节
 {% codeblock lang:python %}
 import numpy as np
 import pandas as pd
@@ -39,10 +43,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from adjustText import adjust_text
 
-# 导入xlsx文件时如果报错可能需要安装openpyxl包
-input_data_1 = pd.read_excel('foo.xlsx', sheet_name=0, engine='openpyxl')
-input_data_2 = pd.read_excel('foo.xlsx', sheet_name=1, engine='openpyxl')
+input_data = pd.read_csv('./foo.csv', sep='|', dtype=str)
+
+# In[1]: input_data.columns
+# Out[1]: Index(['phenotype', 'category_number', 'Person_Id'], dtype='object')
 {% endcodeblock %}
+
+
 
 #### 制作沿y轴翻转的水平柱状图
 {% codeblock lang:python %}
