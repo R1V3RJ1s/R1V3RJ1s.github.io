@@ -45,17 +45,20 @@ from adjustText import adjust_text
 
 input_data = pd.read_csv('./foo.csv', sep='|', dtype=str)
 
-# In[1]: input_data.columns
-# Out[1]: Index(['phenotype', 'category_number', 'Person_Id'], dtype='object')
+'''
+In[1]: input_data.columns
+Out[1]: Index(['phenotype', 'category_number', 'patient_number'], dtype='object')
+'''
 {% endcodeblock %}
 
+但接下来遇到一个问题，由于重叠的点数量过多，使用`sns.swarmplot`指令无法完整显示所有的数据点，而这个绘图命令无法控制点自动换行，如何处理？
+最后想到的办法是将所有的点进行一次限制上下限的正态变换。根据正态分布的概率密度分布函数可知，这个变换可以保证有较多的数据点落在原值上，且小部分的点会等概率地分布在原值上下不远的位置。同时这个更接近原值的值和远离原值的值的比例可以通过控制标准差的大小来控制。其实最理想的情况是当重叠的数据点少于一定数量的时候可以直接不进行变换，但因为懒就没写。
 
-
-#### 制作沿y轴翻转的水平柱状图
+#### 将对应的病人数目进行正态变换
 {% codeblock lang:python %}
-fig, ax = plt.subplots(figsize=(15, 10))
-# 沿y轴翻转
-ax.invert_xaxis()
+# np.clip函数可以同时更改输入的最大值和最小值，这里我们选取原值的上下0.4作为上下限，这样画出来的效果比较好
+input_data['scaled_ind'] = input_data['patient_number'].apply(lambda x: np.clip(np.random.normal(x, 0.01, 1), x-0.4, x+0.4)[0])
+input_data = input_data.drop(columns=['patient_number'])
 {% endcodeblock %}
 
 首先先通过`sns.barplot`方法把一般的水平柱状图做出来并且上色。`Seaborn` 提供两种比较容易控制的线性色盘，`sns.light_palette`和`sns.dark_palette`。分别表示色盘内颜色由纯白(light_palette)或纯黑(dark_palette)渐变至用户传递的颜色参数（或者可以通过`reverse=True`参数把色盘反过来），颜色的切片数量则由用户传递的`n_colors`参数决定。该色盘还可以以matplotlib接受的colormap数据结构作为输出。此处我将色盘切片数量定为标签数量的两倍是为了平衡渐变的区分度和文字的能见度。
