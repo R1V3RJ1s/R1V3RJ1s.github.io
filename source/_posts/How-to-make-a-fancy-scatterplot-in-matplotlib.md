@@ -54,14 +54,14 @@ Out[1]: Index(['phenotype', 'category_number', 'patient_number'], dtype='object'
 但接下来遇到一个问题，由于重叠的点数量过多，使用`sns.swarmplot`指令无法完整显示所有的数据点，而这个绘图命令无法控制点自动换行，如何处理？
 最后想到的办法是将所有的点进行一次限制上下限的正态变换。根据正态分布的概率密度分布函数可知，这个变换可以保证有较多的数据点落在原值上，且小部分的点会等概率地分布在原值上下不远的位置。同时这个更接近原值的值和远离原值的值的比例可以通过控制标准差的大小来控制。其实最理想的情况是当重叠的数据点少于一定数量的时候可以直接不进行变换，但因为懒就没写。
 
-### 将对应的病人数目进行正态变换
+### 将对应的病人数目进行正态变换 {2.1}
 {% codeblock lang:python %}
 # np.clip函数可以同时更改输入的最大值和最小值，这里我们选取原值的上下0.4作为上下限，这样画出来的效果比较好
 input_data['scaled_ind'] = input_data['patient_number'].apply(lambda x: np.clip(np.random.normal(x, 0.01, 1), x-0.4, x+0.4)[0])
 input_data = input_data.drop(columns=['patient_number'])
 {% endcodeblock %}
 
-### 绘制曼哈顿图的主体并上色 {2.1}
+### 绘制曼哈顿图的主体并上色 {2.2}
 本来绘图函数是可以自己选择上色的，但为了增加对比效果我这里选择了四种更容易分辨的颜色。因此需要对这10类数据点用这四种颜色进行循环上色。这里需要用到`sns.set_palette`和`sns.color_palette`两个函数。首先先创建一个包含所有想要绘制的颜色（以16进制RGB颜色编码表示）的列表，列表内颜色的顺序是单次循环上色的顺序。然后将其通过复制延长至要上色的数据类别的数量，并通过`sns.color_palette`将其转换成`seaborn`可以识别的色号，最后再通过`sns.set_palette`将接下来要绘图的色盘更改至输入的色号集合即可。
 
 {% codeblock lang:python %}
@@ -83,7 +83,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 {% endcodeblock %}
 
-### 绘制注释 {2.2}
+### 绘制注释 {2.3}
 接下来要给想要重点观察的疾病制作注释
 
 {% codeblock lang:python %}
