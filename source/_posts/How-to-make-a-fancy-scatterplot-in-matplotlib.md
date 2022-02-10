@@ -15,7 +15,7 @@ mathjax : true
 
 <!-- more -->
 
-#### 对问题的转化和解决方案的讨论
+#### 对问题的转化和解决方案的讨论 {1}
 
 最直观的思路就是将该病历数据转化为每一种病和其对应被诊断出该病的病人数目的数据然后作散点图，横坐标为特定疾病，纵坐标为的该病的人的数目。但有如下几个问题：
 1. 如果选择可视化的是病和其对应被诊断出该病的病人数目的数据，那么如何科学选定阈值？
@@ -35,7 +35,7 @@ mathjax : true
 
 选择这个方案的理由是现有疾病数据都被Phecode统一编码，且使用的编码系统分级比较合理（相对扁平，且每一类所包含的等级数量都相对一致），编码被分成的大类的类数也比较合适（10类）。这样就可以将Phecode的将疾病分成的大类编号作为X轴。但由于没有可以用来对照的数据（比如在整个医院或者社会中该病的发病情况），无法进行假设检验，所以最后还是敲定使用被诊断出该病的病人的绝对数量作为Y轴，并使用病人总数的65%（向下取整）作为作为标注的阈值。
 
-#### 实现细节
+#### 实现细节 {2}
 {% codeblock lang:python %}
 import numpy as np
 import pandas as pd
@@ -61,7 +61,7 @@ input_data['scaled_ind'] = input_data['patient_number'].apply(lambda x: np.clip(
 input_data = input_data.drop(columns=['patient_number'])
 {% endcodeblock %}
 
-### 绘制曼哈顿图的主体并上色
+### 绘制曼哈顿图的主体并上色 {2.1}
 本来绘图函数是可以自己选择上色的，但为了增加对比效果我这里选择了四种更容易分辨的颜色。因此需要对这10类数据点用这四种颜色进行循环上色。这里需要用到`sns.set_palette`和`sns.color_palette`两个函数。首先先创建一个包含所有想要绘制的颜色（以16进制RGB颜色编码表示）的列表，列表内颜色的顺序是单次循环上色的顺序。然后将其通过复制延长至要上色的数据类别的数量，并通过`sns.color_palette`将其转换成`seaborn`可以识别的色号，最后再通过`sns.set_palette`将接下来要绘图的色盘更改至输入的色号集合即可。
 
 {% codeblock lang:python %}
@@ -83,7 +83,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 {% endcodeblock %}
 
-### 绘制注释
+### 绘制注释 {2.2}
 接下来给每个柱子内部添加标签。`ax.patches`包含图中每一个柱子的位置信息， 其中柱子的坐标(x, y)指示每个柱子左下的顶点坐标（垂直柱状图）或者是左上的顶点坐标（水平柱状图）。此处由于垂直翻转的缘故所以此时(x, y)指示的是右上的顶点坐标。`ax.text`方法主要控制标签的坐标和内容。`horizontalalignment(ha)`和`verticalalignment(va)`两个参数负责控制我们的标签的哪个位置要对齐我们传递的坐标。比如此处`ha='right', va='center'`说明标签的右端中点应与我们传递的坐标一致。`x=0`说明标签靠y轴（柱底）对齐，`y=p.xy[1] + (p.get_height() / 2)`说明标签中线在与每个水平柱子的上端`(p.xy[1])`对齐后向下移了半个柱子的宽度`(p.get_height() / 2)`，此时标签中线与柱子中线恰好对齐，即水平居中。注意柱子的粗细可以通过`ax.patches.get_height()`方法得到，柱子的长短则可以通过`ax.patches.get_width()`方法得到（如果是垂直柱状图则反之）。另外，此处之所以是加半个柱子的宽度而不是减是因为对于水平柱状图而言，y轴与直角坐标系的y轴是反过来的。
 
 {% codeblock lang:python %}
@@ -117,5 +117,5 @@ plt.show()
 成品如下：
 ![Axial symmetrical barplot](/images/barplot.png)
 
-#### 参考链接
+#### 参考链接 {3}
 [Manhattan plot - Wikipedia](https://en.wikipedia.org/wiki/Manhattan_plot)
