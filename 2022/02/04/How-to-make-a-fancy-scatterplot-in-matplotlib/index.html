@@ -34,8 +34,8 @@
 <meta property="og:image" content="https://r1v3rj1s.github.io/images/error_manhattan_1.png">
 <meta property="og:image" content="https://r1v3rj1s.github.io/images/fixed_manhattan_1.png">
 <meta property="og:image" content="https://r1v3rj1s.github.io/images/sample_manhattan_2.png">
-<meta property="og:image" content="https://r1v3rj1s.github.io/images/barplot.png">
-<meta property="og:updated_time" content="2022-02-11T05:21:52.000Z">
+<meta property="og:image" content="https://r1v3rj1s.github.io/images/sample_manhattan_3.png">
+<meta property="og:updated_time" content="2022-02-11T05:26:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Matplotlib制作曼哈顿散点图">
 <meta name="twitter:description" content="现在有一组在一段时间内医院某科室中的病人病历数据，现希望对该数据进行可视化，以观察来该科室看病的病人是否更多（或更少）地被确诊出某些特定的疾病。">
@@ -209,7 +209,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-11 05:21:52" itemprop="dateModified" datetime="2022-02-11T05:21:52+00:00">2022-02-11</time>
+                <time title="修改时间：2022-02-11 05:26:05" itemprop="dateModified" datetime="2022-02-11T05:26:05+00:00">2022-02-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -284,7 +284,7 @@
 <p><img src="/images/sample_manhattan_2.png" alt="Error manhattan plot 2"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> adjustText <span class="keyword">import</span> adjust_text</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个字典tick_dict让每个编号都对应到它的X轴上的绝对位置</span></span><br><span class="line">tick_key = input_data.category_number[~input_data.category_number.duplicated()].to_list()</span><br><span class="line">tick_dict = dict(zip(tick_key, range(len(tick_key))))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个用来注释的表，3.5是阈值，本质上阈值是3，此处阈值非整数是因为前面病人数经过了转换，3的范围会落在[2.6, 3.4]之间</span></span><br><span class="line">anno_df = pd.concat((input_data.sort_values(<span class="string">'scaled_ind'</span>, ascending=<span class="literal">False</span>)[<span class="number">0</span>:len(input_data[input_data.scaled_ind &gt; <span class="number">3.5</span>])],</span><br><span class="line">                     input_data[input_data[<span class="string">'phenotype'</span>].str.contains(<span class="string">'renal|Renal|Kidney|kidney'</span>)]))</span><br><span class="line">anno_df = anno_df[~anno_df.duplicated()].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用Series.apply(dict.get)方法可以根据所输入字典的键值对应关系填出一列新值</span></span><br><span class="line">anno_df[<span class="string">'category_pos'</span>] = anno_df[<span class="string">'category_number'</span>].apply(tick_dict.get)</span><br><span class="line"></span><br><span class="line">texts = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(anno_df)):</span><br><span class="line">    texts.append(ax.text(anno_df.loc[i][<span class="string">'category_pos'</span>], anno_df.loc[i][<span class="string">'scaled_ind'</span>], anno_df.loc[i][<span class="string">'phenotype'</span>],</span><br><span class="line">                             color=<span class="string">"#4d4d4d"</span>, fontsize=<span class="number">18</span>, fontname=<span class="string">"Helvetica"</span>))</span><br><span class="line"></span><br><span class="line">adjust_text(</span><br><span class="line">    texts,</span><br><span class="line">    expand_points=(<span class="number">1</span>, <span class="number">1</span>),</span><br><span class="line">    arrowprops=dict(</span><br><span class="line">        arrowstyle=<span class="string">"-&gt;"</span>,</span><br><span class="line">        color=<span class="string">"#7F7F7F"</span>,</span><br><span class="line">        lw=<span class="number">2</span></span><br><span class="line">    ),</span><br><span class="line">    ax=ax</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 
-<p>成品如下：<br><img src="/images/barplot.png" alt="Axial symmetrical barplot"></p>
+<p>最后的成品如下：<br><img src="/images/sample_manhattan_3.png" alt="Phenotyping manhattan plot"></p>
 <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>本博文解决了如下问题：</p>
 <ol>
 <li>如何使用一个简单的方式把大量相同的值转换成类似蜂窝图分布（呈现靠近原值多，远离原值少且两端远离程度和数量相似的橄榄型分布）的值？</li>
