@@ -42,7 +42,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from adjustText import adjust_text
+
 
 input_data = pd.read_csv('./foo.csv', sep='|', dtype=str)
 
@@ -77,7 +77,7 @@ sns.set_palette(sns.color_palette(colors))
 
 # 绘图
 fig, ax = plt.subplots(figsize=(20, 14))
-ax = sns.swarmplot(x="category_number", y="scaled_ind", data=df, s=7.5)
+ax = sns.swarmplot(x="category_number", y="scaled_ind", data=input_data, s=7.5)
 ax.set_xlabel('Phenotype Category ID', fontsize=20)
 ax.set_ylabel('Phenotype occurrence number', fontsize=20)
 ax.set_title('Phenotype occurrence number among all patients', fontsize=28)
@@ -88,16 +88,22 @@ plt.yticks(fontsize=16)
 
 ##### 绘制注释
 
-接下来要给想要重点观察的疾病制作注释
+接下来要给想要重点观察的疾病制作注释。基本的函数是`ax.annotate`，需要输入待注释的文字以及注释的位置，对于二维散点图自然就是一个形如`(pos_x, pos_y)`的数组。但是我们发现由于这里横坐标中的类别也是以数字形式表示的，因此传入类别编号无法让作图函数识别成正确的对应位置，因此此处需要传入注释点的绝对位置才行。另外如果待注释的散点较多且分布较密的话也很容易重叠，所以这里使用了一个叫做`adjustText`的包，它可以让注释位置分布更合理。
 
 {% codeblock lang:python %}
-tick_key = df.category_number[~df.category_number.duplicated()].to_list()
+from adjustText import adjust_text
+
+# 创建一个字典tick_dict让每个编号都对应到它的X轴上的绝对位置
+tick_key = input_data.category_number[~input_data.category_number.duplicated()].to_list()
 tick_dict = dict(zip(tick_key, range(len(tick_key))))
 
-anno_df = pd.concat((df.sort_values('scaled_ind', ascending=False)[0:len(df[df.scaled_ind > 3.5])],
-                     df[df['phenotype'].str.contains('renal|Renal|Kidney|kidney')]))
+# 创建一个用来注释的表，3.5是阈值，本质上阈值是3，此处阈值非整数是因为前面病人数经过了转换，3的范围会落在[2.6, 3.4]之间
+anno_df = pd.concat((input_data.sort_values('scaled_ind', ascending=False)[0:len(input_data[input_data.scaled_ind > 3.5])],
+                     input_data[input_data['phenotype'].str.contains('renal|Renal|Kidney|kidney')]))
 anno_df = anno_df[~anno_df.duplicated()].reset_index(drop=True)
-anno_df['category_pos'] = anno_df['category_number'].apply(lambda x: tick_dict.get(x))
+
+# 利用Series.apply(dict.get)方法可以根据所输入字典的键值对应关系填出一列新值
+anno_df['category_pos'] = anno_df['category_number'].apply(tick_dict.get)
 
 texts = []
 for i in range(len(anno_df)):
@@ -122,6 +128,13 @@ plt.show()
 ![Axial symmetrical barplot](/images/barplot.png)
 
 #### 小结
+
+本博文解决了如下问题：
+
+1. Fus roh dah
+2. 一个字典以表中某列的值为键，如何通过所给字典的键值对应关系，为该表填出一列新值？
+3. 如何为散点图按类别循环上色？
+4. 如何为散点图绘制注释
 
 #### 参考链接
 
