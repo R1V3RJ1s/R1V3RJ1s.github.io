@@ -54,9 +54,13 @@ Out[1]: Index(['phenotype', 'category_number', 'patient_number'], dtype='object'
 
 但接下来遇到一个问题，由于重叠的点数量过多，使用`sns.swarmplot`指令无法完整显示所有的数据点（如下图），而这个绘图命令无法控制点自动换行，如何处理？ 
 
-![Error manhattan plot 1](/images/sample_manhattan_1.png)
+![Error manhattan plot 1](/images/error_manhattan_1.png)
 
 最后想到的办法是将所有的点进行一次限制上下限的正态变换。根据正态分布的概率密度分布函数可知，这个变换可以保证有较多的数据点落在原值上，且小部分的点会等概率地分布在原值上下不远的位置。同时这个更接近原值的值和远离原值的值的比例可以通过控制标准差的大小来控制。其实最理想的情况是当重叠的数据点少于一定数量的时候可以直接不进行变换，但因为懒就没写。
+
+这一步的成品如下图，很明显，在同样大小的画布下，出现的数据点更多了。
+
+![Fixed manhattan plot 1](/images/fixed_manhattan_1.png)
 
 ##### 将对应的病人数目进行正态变换
 
