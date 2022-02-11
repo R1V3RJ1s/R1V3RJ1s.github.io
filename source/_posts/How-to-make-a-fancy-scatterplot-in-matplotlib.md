@@ -133,8 +133,8 @@ adjust_text(
 plt.show()
 {% endcodeblock %}
 
-成品如下：
-![Axial symmetrical barplot](/images/barplot.png)
+最后的成品如下：
+![Phenotyping manhattan plot](/images/sample_manhattan_3.png)
 
 #### 小结
 
